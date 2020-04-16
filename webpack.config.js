@@ -5,12 +5,13 @@ module.exports = {
   mode: 'production',
   entry: './src/index.ts',
   target:'node',
+  externals: { knex: 'commonjs knex' },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: [".webpack.js", ".web.js", ".mjs", ".json",'.js', '.ts','.(graphql|gql)'],
+    extensions: [ ".mjs",'.js', '.ts','.(graphql|gql)'],
     modules: [
         'node_modules',
         'src',
@@ -27,11 +28,6 @@ module.exports = {
             test: /\.ts$/,
             exclude: /node_modules/,
             loaders: 'awesome-typescript-loader'
-        },
-        {
-          test: /\.mjs$/,
-          include: /node_modules/,
-          type: "javascript/auto",
         }
       ]
   },

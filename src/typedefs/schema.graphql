@@ -1,0 +1,104 @@
+interface products {
+    id : Int 
+    name : String 
+    precio : Float 
+    image : String  
+}
+
+interface IUser {
+    id: Int
+    name: String
+    email: String
+    password: String
+    phone: String
+}
+type User implements IUser {
+    id : Int
+    name: String
+    email: String
+    password: String
+    phone : String
+}
+
+type client {
+    id : Int 
+    client_name : String
+    cedula : String
+    cliente_phone : String
+}
+enum pay_method {
+    EFECTIVO,
+    DEBITO,
+    TRANSFERENCIA,
+    DOLARES ,
+    PESOS,
+}
+
+type order_products implements products {
+     id : Int 
+    name : String 
+    precio : Float 
+    image : String 
+    quantity : Int
+}
+
+type orders {
+    id : Int
+    pay_method: pay_method
+    delivery_date : String
+    note : String 
+    delivery_status : Boolean
+    production_status : Boolean
+    stage_status : Boolean
+    abono : Float
+    monto : Float
+    total : Float
+    client : client
+    order_products : [order_products]
+}
+
+type materials {
+    id : Int 
+    nombre : String 
+    type_id : Int
+
+}
+
+type providers {
+    id : Int 
+    name : String
+    rif : String 
+    phone : String
+    direction : String
+
+}
+
+type store {
+    id : Int
+    material : materials
+    provider : providers
+    uniteds : Int
+    expiration_date : String
+    brand : String 
+    weight : Float
+}
+
+input UserInput {
+    id:Int
+    name: String
+    email: String
+    password: String
+    phone: String
+}
+
+type Query {
+    users:[User]
+    user(id: Int):User,
+    # loginUser(name:String,password:String):User
+}
+
+type Mutation {
+    createUser(user:UserInput):User
+    editUser(user:UserInput):User
+    deleteUser(id:String):String
+}
