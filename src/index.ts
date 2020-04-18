@@ -5,11 +5,13 @@ import Knex from 'knex';
 import { Model} from 'objection';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import {  development } from './knexfile';
+import config from './knexfile';
 import Schema from './typedefs';
 import './lib/env';
 
+const {development} = config;
 // import {UserInput} from './generated/graphql';
+
 
 
 const app: Application = express();

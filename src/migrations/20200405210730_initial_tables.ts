@@ -18,6 +18,7 @@ export async function up(knex: Knex): Promise<any> {
         table.integer('cedula');
         table.string('client_phone');
         table.timestamps(true,true);
+        //renombrar los campos TIPO DE NACIONALIDAD Y EL USUARIO QUE LO CREO 
 
     })
     .createTable('orders',(table:Knex.CreateTableBuilder)=>{

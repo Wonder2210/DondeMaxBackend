@@ -2,14 +2,29 @@ import {User} from '../../models';
 import {IResolvers} from '../../lib/utils';
  import {User as IUser} from '../../generated/graphql';
  import {UserInputError} from 'apollo-server-express';
+ import VerifyPassword from '../../lib/verify_password';
+import verify_password from '../../lib/verify_password';
+
 
  export const user:IResolvers  = {
      Query:{
          users:async (parent,args,ctx)=>{
-             const users : IUser[] = await User.query().select('id','name','password','phone');
+             const users : IUser[] = await User.query().select('id','name','email','password','phone');
              
              return users;
-         }
+         },loginUser:async (parent,args,ctx)=>{
+            const user : IUser = await User.query().select('id','name','email','password','phone').first().where('email',args.email);
+            const verification = verify_password(args.password,user.password);
+            if(verification){
+                return  user;
+            }
+            throw new UserInputError('Email o clave Invalido', {
+                invalidArgs: Object.keys(args),
+              });
+
+        }
+        
+         
      },
      Mutation:{
          createUser:async (parent,args,ctx)=>{

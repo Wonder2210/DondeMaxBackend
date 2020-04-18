@@ -114,11 +114,18 @@ export type Query = {
    __typename?: 'Query';
   users?: Maybe<Array<Maybe<User>>>;
   user?: Maybe<User>;
+  loginUser?: Maybe<User>;
 };
 
 
 export type QueryUserArgs = {
   id?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryLoginUserArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Mutation = {
@@ -130,7 +137,7 @@ export type Mutation = {
 
 
 export type MutationCreateUserArgs = {
-  user?: Maybe<UserInput>;
+  user: UserInput;
 };
 
 
@@ -140,7 +147,7 @@ export type MutationEditUserArgs = {
 
 
 export type MutationDeleteUserArgs = {
-  id?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
 };
 
 
@@ -345,12 +352,13 @@ export type StoreResolvers<ContextType = any, ParentType extends ResolversParent
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, never>>,
+  loginUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryLoginUserArgs, 'email' | 'password'>>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, never>>,
+  createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>,
   editUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationEditUserArgs, never>>,
-  deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, never>>,
+  deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
 };
 
 export type Resolvers<ContextType = any> = {
