@@ -1,12 +1,28 @@
-import {Model,mixin} from 'objection';
+import {Model} from 'objection';
 import Order from './orders';
 import bcrypt from 'bcrypt';
 import {Maybe} from '../generated/graphql';
 
+type Constructor<T extends Model = Model> = new (
+    ...args: any[]
+  ) => T;
+
+  function mixin<T extends Constructor>(ModelClass: T) {
+    return class extends ModelClass {
+        password?:Maybe<string>;
+        public async verifyPassword(plain_password:string){
+            const hash : string = this.password;
+                const verification = await bcrypt.compare(plain_password,hash);
+                
+                return verification;
+            }
+        }
+    };
+  
 
 
 
-class User extends Model {
+class User extends mixin(Model) {
     static tableName = "users";
     id?:Maybe<number> ;
     email?:Maybe<string> ;
