@@ -10,7 +10,12 @@ import {IResolvers} from '../../lib/utils';
              const users : IUser[] = await User.query().select('id','name','email','password','phone');
              
              return users;
-         },loginUser:async (parent,args,ctx)=>{
+         },
+         user:async (parent,args,ctx)=>{
+             const user : IUser = await User.query().findById(args.id).select('id','name','email','password','phone');
+             return user;
+         },
+         loginUser:async (parent,args,ctx)=>{
             const user : User = await User.query().select('id','name','email','password','phone').first().where('email',args.email);
             const verification = await user.verifyPassword(args.password);
             const validate : IUser = user;

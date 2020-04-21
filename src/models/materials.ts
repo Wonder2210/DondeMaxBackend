@@ -1,10 +1,14 @@
 import { Model } from 'objection';
 import Store from './stores';
 import ProductMaterial from './products_materials';
+import {Maybe} from './../generated/graphql';
 
 
 class Materials extends Model {
     static tableName="materials";
+    id?:Maybe<number>;
+    nombre?:Maybe<string>;
+    type_id?:Maybe<number>;
 
     static getRelationsMapping(){
         return {

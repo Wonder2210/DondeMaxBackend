@@ -12,20 +12,22 @@ export async function up(knex: Knex): Promise<any> {
         table.timestamps(true,true);
 
     })
-    .createTable('client',(table:Knex.CreateTableBuilder)=>{
+    .createTable('clients',(table:Knex.CreateTableBuilder)=>{
         table.increments('id');
-        table.string('client_name');
+        table.string('name');
         table.integer('cedula');
-        table.string('client_phone');
+        table.string("nationality");
+        table.integer("user_creator").unsigned();
+        table.foreign("user_creator").references("users.id");
+        table.string('phone');
         table.timestamps(true,true);
-        //renombrar los campos TIPO DE NACIONALIDAD Y EL USUARIO QUE LO CREO 
 
     })
     .createTable('orders',(table:Knex.CreateTableBuilder)=>{
         table.increments('id');
         table.integer('user_id').unsigned().references('users.id');
        table.integer('client_id').unsigned();
-       table.foreign('client_id').references('client.id');
+       table.foreign('client_id').references('clients.id');
         table.string('pay_method').nullable();
         table.date('delivery_date');
         table.text('note');

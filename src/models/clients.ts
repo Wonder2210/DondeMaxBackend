@@ -3,11 +3,13 @@ import Order from './orders';
 import {Maybe} from '../generated/graphql';
 
 class Client extends Model {
-    static tableName="clients";
-    static client_name? : Maybe<string>;
-    static cedula?: Maybe<number>;
-    static client_phone?: Maybe<string>;
-
+    static tableName="client";
+    id? : Maybe<number>;
+    name? : Maybe<string>;
+    cedula?: Maybe<string>;
+    nationality? : Maybe<string>;
+    user_creator?: Maybe<number>;
+    phone?: Maybe<string>;
     
     static getRelationsMapping () {
         return {

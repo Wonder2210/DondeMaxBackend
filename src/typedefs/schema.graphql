@@ -22,9 +22,11 @@ type User implements IUser {
 
 type client {
     id: Int
-    client_name: String
+    name: String
     cedula: String
-    cliente_phone: String
+    nationality: String
+    user_creator:Int
+    phone:String
 }
 enum pay_method {
     EFECTIVO,
@@ -39,6 +41,7 @@ type order_products implements products {
     name: String
     precio: Float
     image: String
+    materials_required: [MaterialsProduct]
     quantity: Int
 }
 
@@ -56,12 +59,23 @@ type orders {
     client: client
     order_products: [order_products]
 }
-
-type materials {
+type MaterialsProduct {
     id: Int
     nombre: String
-    type_id: Int
+    type: String
+    require:Int
+}
 
+type Material {
+    id: Int
+    nombre: String
+    type_id:Int
+    type:MaterialType
+
+}
+type MaterialType{
+    id: Int
+    type:String
 }
 
 type providers {
@@ -70,12 +84,19 @@ type providers {
     rif: String
     phone: String
     direction: String
+}
 
+type Products implements products{
+     id: Int
+    name: String
+    precio: Float
+    image: String
+    materials:[Material]
 }
 
 type store {
     id: Int
-    material: materials
+    material: Material
     provider: providers
     uniteds: Int
     expiration_date: String
@@ -91,14 +112,41 @@ input UserInput {
     phone: String
 }
 
+input clientInput {
+     id: Int
+    name: String!
+    cedula: String!
+    nationality: String!
+    user_creator:Int!
+    phone:String
+}
+
+input materialInput {
+     id: Int
+    nombre: String
+    type_id: Int
+}
+
+
+
 type Query {
     users: [User]
-    user(id: Int): User,
+    user(id: Int!): User,
     loginUser(email: String!, password: String!): User
+    client(id: Int!):client
+    clients:[client]
+    materialTypes:[MaterialType]
+    materials:[Material]
 }
 
 type Mutation {
     createUser(user: UserInput!): User
-    editUser(user: UserInput): User
+    editUser(user: UserInput!): User
     deleteUser(id: Int!): String
+    createClient(client: clientInput): client
+    editClient(client:clientInput ): client
+    deleteClient(id:Int!): String
+    createMaterial(material:materialInput):Material
+    createMaterialType(type:String!):MaterialType
+    
 }

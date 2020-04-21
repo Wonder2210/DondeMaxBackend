@@ -11,7 +11,7 @@ type Constructor<T extends Model = Model> = new (
     return class extends ModelClass {
         password?:Maybe<string>;
         public async verifyPassword(plain_password:string){
-            const hash : string = this.password;
+            const hash : string | null | undefined = this.password;
                 const verification = await bcrypt.compare(plain_password,hash);
                 
                 return verification;
