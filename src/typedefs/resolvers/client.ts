@@ -30,7 +30,7 @@ import {IResolvers} from '../../lib/utils';
              }
          },
          editClient:async (parent,args,ctx)=>{
-             const {id,...data}= args.client;
+             const {id,...data}= args?.client;
              const client : IClient = await Client.query().patchAndFetchById(id,data);
 
              return client;

@@ -5,12 +5,11 @@ import Knex from 'knex';
 import { Model} from 'objection';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import {material_types} from './lib/loaders';
+import {material_types,material,providers,product_materials,materialByProduct} from './lib/loaders';
 import config from './knexfile';
 import DataLoader from 'dataloader';
 import Schema from './typedefs';
 import './lib/env';
-import { randomBytes } from 'crypto';
 
 const {development} = config;
 // import {UserInput} from './generated/graphql';
@@ -37,11 +36,16 @@ const server = new ApolloServer({
   playground: true,
   context:{
     loaders:{
-      material_types: new DataLoader(id=>material_types(id)),
+      material_types: new DataLoader(material_types),
+      material: new DataLoader(material),
+      provider:new DataLoader(providers),
+      materialByProduct:new DataLoader(materialByProduct),
+      productMaterial: new DataLoader(product_materials)
     }
-    
+
   }
 });
+//naming convention 
 
 server.applyMiddleware({
   app,

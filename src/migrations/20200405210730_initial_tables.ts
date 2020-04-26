@@ -62,7 +62,6 @@ export async function up(knex: Knex): Promise<any> {
     
     .createTable('materials_type',(table:Knex.CreateTableBuilder)=>{
         table.increments('id');
-        
         table.string('type');
         table.timestamps(true,true);
 
@@ -82,6 +81,7 @@ export async function up(knex: Knex): Promise<any> {
         table.foreign('product_id').references('products.id');
         table.integer('material_id').unsigned();
         table.foreign('material_id').references('materials.id');
+        table.float('quantity');
         table.timestamps(true,true);
      
     })

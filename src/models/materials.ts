@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import Store from './stores';
+import MaterialType from './materials_types';
 import ProductMaterial from './products_materials';
 import {Maybe} from './../generated/graphql';
 
@@ -27,6 +28,12 @@ class Materials extends Model {
                     from:'materials.id',
                     to:'products_materials.material_id'
                 }
+            },
+            type:{
+                relation:Model.HasOneRelation,
+                modelClass:MaterialType,
+                from :'materials_type.id',
+                to:'materials.type_id'
             }
         }
     }

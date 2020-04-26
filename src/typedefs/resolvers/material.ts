@@ -17,7 +17,7 @@ import Materials from '../../models/materials';
             return types;
          },
          materials:async (_,args,ctx)=>{
-            const material : IMaterial[] = await Materials.query().select('id','nombre','type_id');
+            const material : IMaterial[] = await Materials.query().select('id','nombre');
             return material;
 //resolver eso de no mandar el ID del tipo 2 veces
             
@@ -27,7 +27,10 @@ import Materials from '../../models/materials';
      Material:{
         
         type:async (parent,args,ctx)=>{
-                return  await ctx.loaders.material_types.load(parent.type_id);
+               
+            const data = await ctx.loaders.material_types.load(parent.id);
+       
+            return data[0];
         
         },
 

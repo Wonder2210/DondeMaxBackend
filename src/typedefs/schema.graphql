@@ -1,4 +1,4 @@
-interface products {
+interface product {
     id: Int
     name: String
     precio: Float
@@ -36,7 +36,7 @@ enum pay_method {
     PESOS,
 }
 
-type order_products implements products {
+type order_products implements product {
     id: Int
     name: String
     precio: Float
@@ -61,15 +61,13 @@ type orders {
 }
 type MaterialsProduct {
     id: Int
-    nombre: String
-    type: String
-    require:Int
+    quantity:Float
+    material:Material
 }
 
 type Material {
     id: Int
     nombre: String
-    type_id:Int
     type:MaterialType
 
 }
@@ -81,18 +79,19 @@ type MaterialType{
 type providers {
     id: Int
     name: String
-    rif: String
+    RIF: String
     phone: String
     direction: String
 }
 
-type Products implements products{
+type Products implements product{
      id: Int
     name: String
     precio: Float
     image: String
-    materials:[Material]
+    materials:[MaterialsProduct]
 }
+
 
 type store {
     id: Int
@@ -127,7 +126,35 @@ input materialInput {
     type_id: Int
 }
 
+input providerInput{
+     id: Int
+    name: String
+    RIF: String
+    phone: String
+    direction: String
+}
 
+input storeInput {
+    id: Int
+    materials_id: Int
+    provider_id: Int
+    uniteds: Int
+    expiration_date: String
+    brand: String
+    weight: Float
+}
+
+input materialProductInput{
+     id:Int!
+    quantity:Float!
+}
+
+input productsInput {
+    name: String
+    precio: Float
+    image: String
+    materials:[materialProductInput]
+}
 
 type Query {
     users: [User]
@@ -137,6 +164,12 @@ type Query {
     clients:[client]
     materialTypes:[MaterialType]
     materials:[Material]
+    provider(id:Int!):providers
+    providers:[providers]
+    store(id:Int!):store
+    storage:[store]
+    products:[Products]
+    product(id:Int!):Products
 }
 
 type Mutation {
@@ -148,5 +181,15 @@ type Mutation {
     deleteClient(id:Int!): String
     createMaterial(material:materialInput):Material
     createMaterialType(type:String!):MaterialType
+    
+    createProvider(provider:providerInput):providers
+    updateProvider(provider:providerInput):providers
+    addToStore(store:storeInput):store
+    updateStore(store:storeInput):store
+    deleteStored(id:Int!):String
+    createProduct(product:productsInput!):Products
+    updateProduct(product:productsInput!):Products
+
+
     
 }
