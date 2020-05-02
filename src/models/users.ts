@@ -11,10 +11,12 @@ type Constructor<T extends Model = Model> = new (
     return class extends ModelClass {
         password?:Maybe<string>;
         public async verifyPassword(plain_password:string){
-            const hash : string | null | undefined = this.password;
+            if(this.password){
+                const hash : string  = this.password;
                 const verification = await bcrypt.compare(plain_password,hash);
-                
+
                 return verification;
+            }
             }
         }
     };

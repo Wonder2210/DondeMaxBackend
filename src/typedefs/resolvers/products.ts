@@ -15,13 +15,15 @@ export const product : Resolvers ={
         },
         product:async (parent,{id},ctx)=>{
             const product : IProducts = await Product.query().findById(id).select('id','name','precio','image');
-            console.log(product);
+         
             return product;
         }
     },
     Products:{
         materials:async (parent,args,ctx)=>{
-            const materialsProducts = await ctx.loaders.productMaterial.load(parent.id);
+            const materialsProducts = await ctx.loaders
+                                            .productMaterial
+                                            .load(parent.id);
             return materialsProducts;
         }
     },
@@ -34,12 +36,12 @@ export const product : Resolvers ={
     Mutation:{
         createProduct:async (parent,{product:{materials,...data}},ctx)=>{
             const product:IProducts= await Product.query().insert(data);
-            const ArrayMaterials = materials.map(item=>({material_id:item?.id,product_id:product?.id,quantity:item?.quantity}));
-            const product_material = await ProductMaterial.query().insertGraph(ArrayMaterials);
-          
-           
-           
-            return product;
+            const ArrayMaterials = (materials?? []).map(item=>({material_id:item.id,product_id:product.id,quantity:item.quantity}));
+            const product_material = await ProductMaterial
+                                            .query()
+                                            .allowGraph(['material_id','product_id','quantity'])
+                                            .insertGraph(ArrayMaterials);
+             return product;
 
         },
         // deleteProduct,

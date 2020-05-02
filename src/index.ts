@@ -5,7 +5,9 @@ import Knex from 'knex';
 import { Model} from 'objection';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import {material_types,material,providers,product_materials,materialByProduct} from './lib/loaders';
+import {material_types,
+      material_store,materials,providers,product_materials,
+      materialByProduct,user,order_products,client_order} from './lib/loaders';
 import config from './knexfile';
 import DataLoader from 'dataloader';
 import Schema from './typedefs';
@@ -37,10 +39,14 @@ const server = new ApolloServer({
   context:{
     loaders:{
       material_types: new DataLoader(material_types),
-      material: new DataLoader(material),
+      material_store: new DataLoader(material_store),
       provider:new DataLoader(providers),
       materialByProduct:new DataLoader(materialByProduct),
-      productMaterial: new DataLoader(product_materials)
+      productMaterial: new DataLoader(product_materials),
+      user: new DataLoader(user),
+      orderProducts:new DataLoader(order_products),
+      clientOrder:new DataLoader(client_order),
+      materials: new DataLoader(materials)
     }
 
   }

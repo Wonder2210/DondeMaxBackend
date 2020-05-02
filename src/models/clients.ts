@@ -3,7 +3,7 @@ import Order from './orders';
 import {Maybe} from '../generated/graphql';
 
 class Client extends Model {
-    static tableName="client";
+    static tableName="clients";
     id? : Maybe<number>;
     name? : Maybe<string>;
     cedula?: Maybe<string>;

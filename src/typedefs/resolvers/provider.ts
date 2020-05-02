@@ -23,8 +23,11 @@ export const provider : IResolvers ={
                                                 .insert({...args.provider});
             return provider;
         },
-        updateProvider:async (parent,{provider:{id,...data}},ctx)=>{
-            const provider : IProviders = await Provider.query().patchAndFetchById(id,{...data});
+        updateProvider:async (parent,args,ctx)=>{
+            const {id, ...data} = args.provider!;
+            const Id : number = id ?? 0;
+            const provider : IProviders = await Provider.query()
+                                                .patchAndFetchById(Id,{...data});
             return provider;
         },
     }

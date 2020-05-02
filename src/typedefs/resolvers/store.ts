@@ -25,7 +25,7 @@ export const store : Resolvers={
     },
     store:{
         material:async (parent,args,ctx)=>{
-            const data= await ctx.loaders.material.load(parent.id);
+            const data= await ctx.loaders.material_store.load(parent.id);
     
             return data;
         },
@@ -39,8 +39,12 @@ export const store : Resolvers={
             const stored : IStore = await Store.query().insert({...args.store});
             return stored;
         },
-        updateStore:async (parent,{store:{id,...data}},ctx)=>{
-            const stored : IStore = await Store.query().patchAndFetchById(id,data);
+
+        updateStore:async (parent,args,ctx)=>{
+            const {id,...data} = args.store!;
+            const Id : number = id ?? 0;
+            
+            const stored : IStore = await Store.query().patchAndFetchById(Id,data);
             return stored;}
         // },
         // deleteStore:async (parent,{id},ctx)=>{

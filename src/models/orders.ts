@@ -1,10 +1,24 @@
 import { Model , RelationMapping} from 'objection';
+import {Maybe,Pay_Method} from '../generated/graphql';
 import Client from './clients';
 import Product from './products';
 import User from './users';
 
+
 class Order extends Model {
     static tableName="orders";
+    id?:Maybe<number>;
+    user_id?:Maybe<number>;
+    pay_method?:Maybe<Pay_Method>;
+    delivery_date?:Maybe<string>;
+    note?:Maybe<string>;
+    delivery_status?:Maybe<boolean>;
+    production_status?:Maybe<boolean>;
+    stage_status?:Maybe<boolean>;
+    abono?:Maybe<number>;
+    monto?:Maybe<number>;
+    total?:Maybe<number>;
+
 
       static getRelationsMapping(){
         return {

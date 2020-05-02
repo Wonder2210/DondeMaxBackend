@@ -43,9 +43,11 @@ import {IResolvers} from '../../lib/utils';
              return user;
          },
          editUser: async (parent,args,ctx)=>{
-             const {id,...data} =args.user;
+             const {id,...data} = args.user;
+             const Id : number = id ?? 0;
+             
              const user : IUser = await User.query()
-                             .patchAndFetchById(id,data);
+                             .patchAndFetchById(Id,data);
              return user;
          },
          deleteUser:async (parent,args,ctx)=>{

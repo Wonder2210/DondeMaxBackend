@@ -27,7 +27,7 @@ import Materials from '../../models/materials';
      Material:{
         
         type:async (parent,args,ctx)=>{
-               
+            
             const data = await ctx.loaders.material_types.load(parent.id);
        
             return data[0];

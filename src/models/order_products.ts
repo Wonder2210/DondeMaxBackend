@@ -1,9 +1,16 @@
 import { Model } from 'objection';
+import {Maybe} from '../generated/graphql';
+
 import Order from './orders';
 import Product from './products';
 
 class OrderProducts extends Model {
-    static tableName="orders_product";
+    static tableName="orders_products";
+    id?:Maybe<number>;
+    order_id?:Maybe<number>;
+    product_id?:Maybe<number>;
+    quantity?:Maybe<number>;
+    
     static getRelationsMapping(){
         return{
             order:{

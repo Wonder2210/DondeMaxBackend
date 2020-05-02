@@ -25,8 +25,8 @@ type client {
     name: String
     cedula: String
     nationality: String
-    user_creator:Int
     phone:String
+    creator:User
 }
 enum pay_method {
     EFECTIVO,
@@ -116,8 +116,8 @@ input clientInput {
     name: String!
     cedula: String!
     nationality: String!
-    user_creator:Int!
     phone:String
+    creator:Int!
 }
 
 input materialInput {
@@ -153,7 +153,40 @@ input productsInput {
     name: String
     precio: Float
     image: String
-    materials:[materialProductInput]
+    materials:[materialProductInput!]
+}
+input productOrderInput{
+    id:Int!
+    quantity:Int!
+}
+
+input orderInput{
+     id: Int
+    pay_method: pay_method
+    delivery_date: String
+    note: String
+    delivery_status: Boolean
+    production_status: Boolean
+    stage_status: Boolean
+    abono: Float
+    monto: Float
+    total: Float
+    client:Int!
+    order_products: [productOrderInput]
+}
+input takeOrderInput{
+  
+    pay_method: pay_method!
+    delivery_date: String!
+    note: String
+    delivery_status: Boolean!
+    production_status: Boolean!
+    stage_status: Boolean!
+    abono: Float!
+    monto: Float!
+    total: Float!
+    client:Int!
+    order_products: [productOrderInput!]!
 }
 
 type Query {
@@ -170,25 +203,28 @@ type Query {
     storage:[store]
     products:[Products]
     product(id:Int!):Products
+    order(id:Int!):orders
+    orders:[orders]
 }
 
 type Mutation {
     createUser(user: UserInput!): User
     editUser(user: UserInput!): User
     deleteUser(id: Int!): String
-    createClient(client: clientInput): client
-    editClient(client:clientInput ): client
+    createClient(client: clientInput!): client
+    editClient(client:clientInput !): client
     deleteClient(id:Int!): String
-    createMaterial(material:materialInput):Material
+    createMaterial(material:materialInput!):Material
     createMaterialType(type:String!):MaterialType
     
-    createProvider(provider:providerInput):providers
-    updateProvider(provider:providerInput):providers
-    addToStore(store:storeInput):store
-    updateStore(store:storeInput):store
+    createProvider(provider:providerInput!):providers
+    updateProvider(provider:providerInput!):providers
+    addToStore(store:storeInput!):store
+    updateStore(store:storeInput!):store
     deleteStored(id:Int!):String
     createProduct(product:productsInput!):Products
     updateProduct(product:productsInput!):Products
+    takeOrder(order:takeOrderInput!):orders
 
 
     

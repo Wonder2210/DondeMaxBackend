@@ -40,8 +40,8 @@ export type Client = {
   name?: Maybe<Scalars['String']>;
   cedula?: Maybe<Scalars['String']>;
   nationality?: Maybe<Scalars['String']>;
-  user_creator?: Maybe<Scalars['Int']>;
   phone?: Maybe<Scalars['String']>;
+  creator?: Maybe<User>;
 };
 
 export enum Pay_Method {
@@ -140,8 +140,8 @@ export type ClientInput = {
   name: Scalars['String'];
   cedula: Scalars['String'];
   nationality: Scalars['String'];
-  user_creator: Scalars['Int'];
   phone?: Maybe<Scalars['String']>;
+  creator: Scalars['Int'];
 };
 
 export type MaterialInput = {
@@ -177,7 +177,41 @@ export type ProductsInput = {
   name?: Maybe<Scalars['String']>;
   precio?: Maybe<Scalars['Float']>;
   image?: Maybe<Scalars['String']>;
-  materials?: Maybe<Array<Maybe<MaterialProductInput>>>;
+  materials?: Maybe<Array<MaterialProductInput>>;
+};
+
+export type ProductOrderInput = {
+  id: Scalars['Int'];
+  quantity: Scalars['Int'];
+};
+
+export type OrderInput = {
+  id?: Maybe<Scalars['Int']>;
+  pay_method?: Maybe<Pay_Method>;
+  delivery_date?: Maybe<Scalars['String']>;
+  note?: Maybe<Scalars['String']>;
+  delivery_status?: Maybe<Scalars['Boolean']>;
+  production_status?: Maybe<Scalars['Boolean']>;
+  stage_status?: Maybe<Scalars['Boolean']>;
+  abono?: Maybe<Scalars['Float']>;
+  monto?: Maybe<Scalars['Float']>;
+  total?: Maybe<Scalars['Float']>;
+  client: Scalars['Int'];
+  order_products?: Maybe<Array<Maybe<ProductOrderInput>>>;
+};
+
+export type TakeOrderInput = {
+  pay_method: Pay_Method;
+  delivery_date: Scalars['String'];
+  note?: Maybe<Scalars['String']>;
+  delivery_status: Scalars['Boolean'];
+  production_status: Scalars['Boolean'];
+  stage_status: Scalars['Boolean'];
+  abono: Scalars['Float'];
+  monto: Scalars['Float'];
+  total: Scalars['Float'];
+  client: Scalars['Int'];
+  order_products: Array<ProductOrderInput>;
 };
 
 export type Query = {
@@ -195,6 +229,8 @@ export type Query = {
   storage?: Maybe<Array<Maybe<Store>>>;
   products?: Maybe<Array<Maybe<Products>>>;
   product?: Maybe<Products>;
+  order?: Maybe<Orders>;
+  orders?: Maybe<Array<Maybe<Orders>>>;
 };
 
 
@@ -228,6 +264,11 @@ export type QueryProductArgs = {
   id: Scalars['Int'];
 };
 
+
+export type QueryOrderArgs = {
+  id: Scalars['Int'];
+};
+
 export type Mutation = {
    __typename?: 'Mutation';
   createUser?: Maybe<User>;
@@ -245,6 +286,7 @@ export type Mutation = {
   deleteStored?: Maybe<Scalars['String']>;
   createProduct?: Maybe<Products>;
   updateProduct?: Maybe<Products>;
+  takeOrder?: Maybe<Orders>;
 };
 
 
@@ -264,12 +306,12 @@ export type MutationDeleteUserArgs = {
 
 
 export type MutationCreateClientArgs = {
-  client?: Maybe<ClientInput>;
+  client: ClientInput;
 };
 
 
 export type MutationEditClientArgs = {
-  client?: Maybe<ClientInput>;
+  client: ClientInput;
 };
 
 
@@ -279,7 +321,7 @@ export type MutationDeleteClientArgs = {
 
 
 export type MutationCreateMaterialArgs = {
-  material?: Maybe<MaterialInput>;
+  material: MaterialInput;
 };
 
 
@@ -289,22 +331,22 @@ export type MutationCreateMaterialTypeArgs = {
 
 
 export type MutationCreateProviderArgs = {
-  provider?: Maybe<ProviderInput>;
+  provider: ProviderInput;
 };
 
 
 export type MutationUpdateProviderArgs = {
-  provider?: Maybe<ProviderInput>;
+  provider: ProviderInput;
 };
 
 
 export type MutationAddToStoreArgs = {
-  store?: Maybe<StoreInput>;
+  store: StoreInput;
 };
 
 
 export type MutationUpdateStoreArgs = {
-  store?: Maybe<StoreInput>;
+  store: StoreInput;
 };
 
 
@@ -320,6 +362,11 @@ export type MutationCreateProductArgs = {
 
 export type MutationUpdateProductArgs = {
   product: ProductsInput;
+};
+
+
+export type MutationTakeOrderArgs = {
+  order: TakeOrderInput;
 };
 
 
@@ -419,6 +466,9 @@ export type ResolversTypes = {
   storeInput: StoreInput,
   materialProductInput: MaterialProductInput,
   productsInput: ProductsInput,
+  productOrderInput: ProductOrderInput,
+  orderInput: OrderInput,
+  takeOrderInput: TakeOrderInput,
   Query: ResolverTypeWrapper<{}>,
   Mutation: ResolverTypeWrapper<{}>,
 };
@@ -449,6 +499,9 @@ export type ResolversParentTypes = {
   storeInput: StoreInput,
   materialProductInput: MaterialProductInput,
   productsInput: ProductsInput,
+  productOrderInput: ProductOrderInput,
+  orderInput: OrderInput,
+  takeOrderInput: TakeOrderInput,
   Query: {},
   Mutation: {},
 };
@@ -484,8 +537,8 @@ export type ClientResolvers<ContextType = any, ParentType extends ResolversParen
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   cedula?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   nationality?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  user_creator?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  creator?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -578,24 +631,27 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   storage?: Resolver<Maybe<Array<Maybe<ResolversTypes['store']>>>, ParentType, ContextType>,
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Products']>>>, ParentType, ContextType>,
   product?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>,
+  order?: Resolver<Maybe<ResolversTypes['orders']>, ParentType, ContextType, RequireFields<QueryOrderArgs, 'id'>>,
+  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['orders']>>>, ParentType, ContextType>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>,
   editUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationEditUserArgs, 'user'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
-  createClient?: Resolver<Maybe<ResolversTypes['client']>, ParentType, ContextType, RequireFields<MutationCreateClientArgs, never>>,
-  editClient?: Resolver<Maybe<ResolversTypes['client']>, ParentType, ContextType, RequireFields<MutationEditClientArgs, never>>,
+  createClient?: Resolver<Maybe<ResolversTypes['client']>, ParentType, ContextType, RequireFields<MutationCreateClientArgs, 'client'>>,
+  editClient?: Resolver<Maybe<ResolversTypes['client']>, ParentType, ContextType, RequireFields<MutationEditClientArgs, 'client'>>,
   deleteClient?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteClientArgs, 'id'>>,
-  createMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationCreateMaterialArgs, never>>,
+  createMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationCreateMaterialArgs, 'material'>>,
   createMaterialType?: Resolver<Maybe<ResolversTypes['MaterialType']>, ParentType, ContextType, RequireFields<MutationCreateMaterialTypeArgs, 'type'>>,
-  createProvider?: Resolver<Maybe<ResolversTypes['providers']>, ParentType, ContextType, RequireFields<MutationCreateProviderArgs, never>>,
-  updateProvider?: Resolver<Maybe<ResolversTypes['providers']>, ParentType, ContextType, RequireFields<MutationUpdateProviderArgs, never>>,
-  addToStore?: Resolver<Maybe<ResolversTypes['store']>, ParentType, ContextType, RequireFields<MutationAddToStoreArgs, never>>,
-  updateStore?: Resolver<Maybe<ResolversTypes['store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, never>>,
+  createProvider?: Resolver<Maybe<ResolversTypes['providers']>, ParentType, ContextType, RequireFields<MutationCreateProviderArgs, 'provider'>>,
+  updateProvider?: Resolver<Maybe<ResolversTypes['providers']>, ParentType, ContextType, RequireFields<MutationUpdateProviderArgs, 'provider'>>,
+  addToStore?: Resolver<Maybe<ResolversTypes['store']>, ParentType, ContextType, RequireFields<MutationAddToStoreArgs, 'store'>>,
+  updateStore?: Resolver<Maybe<ResolversTypes['store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, 'store'>>,
   deleteStored?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteStoredArgs, 'id'>>,
   createProduct?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>,
   updateProduct?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'product'>>,
+  takeOrder?: Resolver<Maybe<ResolversTypes['orders']>, ParentType, ContextType, RequireFields<MutationTakeOrderArgs, 'order'>>,
 };
 
 export type Resolvers<ContextType = any> = {
