@@ -1,7 +1,7 @@
 import {Model} from 'objection';
 import Order from './orders';
 import bcrypt from 'bcrypt';
-import {Maybe} from '../generated/graphql';
+import {Maybe} from '../../generated/graphql';
 
 type Constructor<T extends Model = Model> = new (
     ...args: any[]

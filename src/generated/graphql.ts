@@ -128,7 +128,14 @@ export type Store = {
 };
 
 export type UserInput = {
-  id?: Maybe<Scalars['Int']>;
+  name: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+  phone: Scalars['String'];
+};
+
+export type UpdateUserInput = {
+  id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
@@ -136,22 +143,35 @@ export type UserInput = {
 };
 
 export type ClientInput = {
-  id?: Maybe<Scalars['Int']>;
   name: Scalars['String'];
   cedula: Scalars['String'];
   nationality: Scalars['String'];
-  phone?: Maybe<Scalars['String']>;
+  phone: Scalars['String'];
   creator: Scalars['Int'];
 };
 
+export type UpdateClientInput = {
+  id: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  cedula?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+};
+
 export type MaterialInput = {
-  id?: Maybe<Scalars['Int']>;
-  nombre?: Maybe<Scalars['String']>;
-  type_id?: Maybe<Scalars['Int']>;
+  nombre: Scalars['String'];
+  type_id: Scalars['Int'];
 };
 
 export type ProviderInput = {
-  id?: Maybe<Scalars['Int']>;
+  name: Scalars['String'];
+  RIF: Scalars['String'];
+  phone: Scalars['String'];
+  direction: Scalars['String'];
+};
+
+export type UpdateProviderInput = {
+  id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   RIF?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
@@ -159,7 +179,16 @@ export type ProviderInput = {
 };
 
 export type StoreInput = {
-  id?: Maybe<Scalars['Int']>;
+  materials_id: Scalars['Int'];
+  provider_id: Scalars['Int'];
+  uniteds: Scalars['Int'];
+  expiration_date: Scalars['String'];
+  brand: Scalars['String'];
+  weight: Scalars['Float'];
+};
+
+export type UpdateStoreInput = {
+  id: Scalars['Int'];
   materials_id?: Maybe<Scalars['Int']>;
   provider_id?: Maybe<Scalars['Int']>;
   uniteds?: Maybe<Scalars['Int']>;
@@ -174,6 +203,14 @@ export type MaterialProductInput = {
 };
 
 export type ProductsInput = {
+  name: Scalars['String'];
+  precio: Scalars['Float'];
+  image: Scalars['String'];
+  materials: Array<MaterialProductInput>;
+};
+
+export type UpdateProductsInput = {
+  id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   precio?: Maybe<Scalars['Float']>;
   image?: Maybe<Scalars['String']>;
@@ -296,7 +333,7 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationEditUserArgs = {
-  user: UserInput;
+  user: UpdateUserInput;
 };
 
 
@@ -311,7 +348,7 @@ export type MutationCreateClientArgs = {
 
 
 export type MutationEditClientArgs = {
-  client: ClientInput;
+  client: UpdateClientInput;
 };
 
 
@@ -336,7 +373,7 @@ export type MutationCreateProviderArgs = {
 
 
 export type MutationUpdateProviderArgs = {
-  provider: ProviderInput;
+  provider: UpdateProviderInput;
 };
 
 
@@ -346,7 +383,7 @@ export type MutationAddToStoreArgs = {
 
 
 export type MutationUpdateStoreArgs = {
-  store: StoreInput;
+  store: UpdateStoreInput;
 };
 
 
@@ -361,7 +398,7 @@ export type MutationCreateProductArgs = {
 
 
 export type MutationUpdateProductArgs = {
-  product: ProductsInput;
+  product: UpdateProductsInput;
 };
 
 
@@ -460,12 +497,17 @@ export type ResolversTypes = {
   Products: ResolverTypeWrapper<Products>,
   store: ResolverTypeWrapper<Store>,
   UserInput: UserInput,
+  UpdateUserInput: UpdateUserInput,
   clientInput: ClientInput,
+  updateClientInput: UpdateClientInput,
   materialInput: MaterialInput,
   providerInput: ProviderInput,
+  updateProviderInput: UpdateProviderInput,
   storeInput: StoreInput,
+  updateStoreInput: UpdateStoreInput,
   materialProductInput: MaterialProductInput,
   productsInput: ProductsInput,
+  updateProductsInput: UpdateProductsInput,
   productOrderInput: ProductOrderInput,
   orderInput: OrderInput,
   takeOrderInput: TakeOrderInput,
@@ -493,12 +535,17 @@ export type ResolversParentTypes = {
   Products: Products,
   store: Store,
   UserInput: UserInput,
+  UpdateUserInput: UpdateUserInput,
   clientInput: ClientInput,
+  updateClientInput: UpdateClientInput,
   materialInput: MaterialInput,
   providerInput: ProviderInput,
+  updateProviderInput: UpdateProviderInput,
   storeInput: StoreInput,
+  updateStoreInput: UpdateStoreInput,
   materialProductInput: MaterialProductInput,
   productsInput: ProductsInput,
+  updateProductsInput: UpdateProductsInput,
   productOrderInput: ProductOrderInput,
   orderInput: OrderInput,
   takeOrderInput: TakeOrderInput,

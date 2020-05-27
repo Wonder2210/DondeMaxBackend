@@ -1,5 +1,5 @@
 import { Model , RelationMapping} from 'objection';
-import {Maybe,Pay_Method} from '../generated/graphql';
+import {Maybe,Pay_Method} from '../../generated/graphql';
 import Client from './clients';
 import Product from './products';
 import User from './users';

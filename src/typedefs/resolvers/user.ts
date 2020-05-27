@@ -36,6 +36,7 @@ import {IResolvers} from '../../lib/utils';
              try {
                  user = await User.query().insert({...args.user});
              } catch (error) {
+                 console.log(error);
                 throw new UserInputError('Email Invalido', {
                     invalidArgs: Object.keys(args),
                   });

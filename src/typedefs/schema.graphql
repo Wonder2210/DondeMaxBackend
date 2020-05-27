@@ -104,7 +104,14 @@ type store {
 }
 
 input UserInput {
-    id: Int
+ 
+    name: String!
+    email: String!
+    password: String!
+    phone: String!
+}
+input UpdateUserInput {
+    id: Int!
     name: String
     email: String
     password: String
@@ -112,22 +119,33 @@ input UserInput {
 }
 
 input clientInput {
-     id: Int
     name: String!
     cedula: String!
     nationality: String!
-    phone:String
+    phone:String!
     creator:Int!
+}
+input updateClientInput {
+     id: Int!
+    name: String
+    cedula: String
+    nationality: String
+    phone:String
 }
 
 input materialInput {
-     id: Int
-    nombre: String
-    type_id: Int
+    nombre: String!
+    type_id: Int!
 }
 
 input providerInput{
-     id: Int
+    name: String!
+    RIF: String!
+    phone: String!
+    direction: String!
+}
+input updateProviderInput{
+     id: Int!
     name: String
     RIF: String
     phone: String
@@ -135,7 +153,15 @@ input providerInput{
 }
 
 input storeInput {
-    id: Int
+    materials_id: Int!
+    provider_id: Int!
+    uniteds: Int!
+    expiration_date: String!
+    brand: String!
+    weight: Float!
+}
+input updateStoreInput {
+    id: Int!
     materials_id: Int
     provider_id: Int
     uniteds: Int
@@ -150,6 +176,13 @@ input materialProductInput{
 }
 
 input productsInput {
+    name: String!
+    precio: Float!
+    image: String!
+    materials:[materialProductInput!]!
+}
+input updateProductsInput {
+    id: Int!
     name: String
     precio: Float
     image: String
@@ -209,21 +242,21 @@ type Query {
 
 type Mutation {
     createUser(user: UserInput!): User
-    editUser(user: UserInput!): User
+    editUser(user: UpdateUserInput!): User
     deleteUser(id: Int!): String
     createClient(client: clientInput!): client
-    editClient(client:clientInput !): client
+    editClient(client:updateClientInput !): client
     deleteClient(id:Int!): String
     createMaterial(material:materialInput!):Material
     createMaterialType(type:String!):MaterialType
     
     createProvider(provider:providerInput!):providers
-    updateProvider(provider:providerInput!):providers
+    updateProvider(provider:updateProviderInput!):providers
     addToStore(store:storeInput!):store
-    updateStore(store:storeInput!):store
+    updateStore(store:updateStoreInput!):store
     deleteStored(id:Int!):String
     createProduct(product:productsInput!):Products
-    updateProduct(product:productsInput!):Products
+    updateProduct(product:updateProductsInput!):Products
     takeOrder(order:takeOrderInput!):orders
 
 

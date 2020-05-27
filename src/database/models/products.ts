@@ -1,5 +1,5 @@
 import { Model } from 'objection';
-import {Maybe} from '../generated/graphql';
+import {Maybe} from '../../generated/graphql';
 import Material from './materials';
 
 class Product extends Model {

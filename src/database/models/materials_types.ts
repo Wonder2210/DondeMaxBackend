@@ -1,6 +1,6 @@
 import { Model } from 'objection';
 import Materials from './materials'; 
-import {Maybe} from '../generated/graphql';
+import {Maybe} from '../../generated/graphql';
 
 
 class MaterialsType extends Model {
