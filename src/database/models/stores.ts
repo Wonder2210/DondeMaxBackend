@@ -1,7 +1,7 @@
 import { Model } from 'objection';
-import {Maybe} from '../../generated/graphql';
-import Material from './materials';
-import Provider from './providers';
+import {Maybe} from '../../__generated';
+import Material from './material';
+import Provider from './provider';
 
 
 class Store extends Model {

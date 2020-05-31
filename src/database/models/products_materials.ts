@@ -1,7 +1,7 @@
 import { Model } from 'objection';
-import {Maybe} from '../../generated/graphql';
+import {Maybe} from '../../__generated';
 import Product from './products';
-import Material from './materials';
+import Material from './material';
 
 class ProductMaterial extends Model {
     static tableName = "products_materials";

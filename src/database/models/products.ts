@@ -1,9 +1,10 @@
 import { Model } from 'objection';
-import {Maybe} from '../../generated/graphql';
-import Material from './materials';
+import {Maybe} from '../../__generated';
+import Material from './material';
 
 class Product extends Model {
     static tableName = "products";
+    id!:number;
     name?:Maybe<string>;
     precio?:Maybe<number>;
     image?:Maybe<string>;

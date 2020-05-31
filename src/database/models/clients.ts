@@ -1,6 +1,6 @@
 import {Model} from 'objection';
 import Order from './orders';
-import {Maybe} from '../../generated/graphql';
+import {Maybe} from '../../__generated';
 
 class Client extends Model {
     static tableName="clients";

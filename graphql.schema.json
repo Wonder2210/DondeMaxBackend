@@ -89,7 +89,7 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
-            "name": "order_products",
+            "name": "OrderProducts",
             "ofType": null
           },
           {
@@ -275,7 +275,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "client",
+        "name": "Client",
         "description": null,
         "fields": [
           {
@@ -399,7 +399,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "order_products",
+        "name": "OrderProducts",
         "description": null,
         "fields": [
           {
@@ -492,7 +492,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "orders",
+        "name": "Orders",
         "description": null,
         "fields": [
           {
@@ -621,7 +621,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "client",
+              "name": "Client",
               "ofType": null
             },
             "isDeprecated": false,
@@ -636,7 +636,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "order_products",
+                "name": "OrderProducts",
                 "ofType": null
               }
             },
@@ -780,7 +780,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "providers",
+        "name": "Provider",
         "description": null,
         "fields": [
           {
@@ -932,7 +932,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "store",
+        "name": "Store",
         "description": null,
         "fields": [
           {
@@ -965,7 +965,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "providers",
+              "name": "Provider",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1159,7 +1159,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "clientInput",
+        "name": "ClientInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1240,7 +1240,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "updateClientInput",
+        "name": "UpdateClientInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1305,7 +1305,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "materialInput",
+        "name": "MaterialInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1344,7 +1344,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "providerInput",
+        "name": "ProviderInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1411,7 +1411,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "updateProviderInput",
+        "name": "UpdateProviderInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1476,7 +1476,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "storeInput",
+        "name": "StoreInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1571,7 +1571,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "updateStoreInput",
+        "name": "UpdateStoreInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1656,7 +1656,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "materialProductInput",
+        "name": "MaterialProductInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1695,7 +1695,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "productsInput",
+        "name": "ProductsInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1755,7 +1755,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "materialProductInput",
+                    "name": "MaterialProductInput",
                     "ofType": null
                   }
                 }
@@ -1770,7 +1770,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "updateProductsInput",
+        "name": "UpdateProductsInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1829,7 +1829,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "materialProductInput",
+                  "name": "MaterialProductInput",
                   "ofType": null
                 }
               }
@@ -1843,7 +1843,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "productOrderInput",
+        "name": "ProductOrderInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -1882,7 +1882,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "orderInput",
+        "name": "OrderInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -2008,7 +2008,7 @@
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "productOrderInput",
+                "name": "ProductOrderInput",
                 "ofType": null
               }
             },
@@ -2021,7 +2021,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "takeOrderInput",
+        "name": "TakeOrderInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -2175,7 +2175,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "productOrderInput",
+                    "name": "ProductOrderInput",
                     "ofType": null
                   }
                 }
@@ -2298,7 +2298,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "client",
+              "name": "Client",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2313,7 +2313,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "client",
+                "name": "Client",
                 "ofType": null
               }
             },
@@ -2373,7 +2373,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "providers",
+              "name": "Provider",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2388,7 +2388,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "providers",
+                "name": "Provider",
                 "ofType": null
               }
             },
@@ -2416,7 +2416,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "store",
+              "name": "Store",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2431,7 +2431,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "store",
+                "name": "Store",
                 "ofType": null
               }
             },
@@ -2502,7 +2502,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "orders",
+              "name": "Orders",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2517,7 +2517,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "orders",
+                "name": "Orders",
                 "ofType": null
               }
             },
@@ -2628,7 +2628,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "clientInput",
+                    "name": "ClientInput",
                     "ofType": null
                   }
                 },
@@ -2637,7 +2637,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "client",
+              "name": "Client",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2655,7 +2655,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "updateClientInput",
+                    "name": "UpdateClientInput",
                     "ofType": null
                   }
                 },
@@ -2664,7 +2664,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "client",
+              "name": "Client",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2709,7 +2709,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "materialInput",
+                    "name": "MaterialInput",
                     "ofType": null
                   }
                 },
@@ -2763,7 +2763,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "providerInput",
+                    "name": "ProviderInput",
                     "ofType": null
                   }
                 },
@@ -2772,7 +2772,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "providers",
+              "name": "Provider",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2790,7 +2790,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "updateProviderInput",
+                    "name": "UpdateProviderInput",
                     "ofType": null
                   }
                 },
@@ -2799,7 +2799,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "providers",
+              "name": "Provider",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2817,7 +2817,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "storeInput",
+                    "name": "StoreInput",
                     "ofType": null
                   }
                 },
@@ -2826,7 +2826,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "store",
+              "name": "Store",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2844,7 +2844,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "updateStoreInput",
+                    "name": "UpdateStoreInput",
                     "ofType": null
                   }
                 },
@@ -2853,7 +2853,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "store",
+              "name": "Store",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2898,7 +2898,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "productsInput",
+                    "name": "ProductsInput",
                     "ofType": null
                   }
                 },
@@ -2925,7 +2925,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "updateProductsInput",
+                    "name": "UpdateProductsInput",
                     "ofType": null
                   }
                 },
@@ -2952,7 +2952,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "takeOrderInput",
+                    "name": "TakeOrderInput",
                     "ofType": null
                   }
                 },
@@ -2961,7 +2961,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "orders",
+              "name": "Orders",
               "ofType": null
             },
             "isDeprecated": false,

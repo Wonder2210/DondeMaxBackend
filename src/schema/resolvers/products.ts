@@ -1,20 +1,16 @@
-import {Product,ProductMaterial} from '../../models';
-import {Products as IProducts,MaterialsProductResolvers,ProductsResolvers} from '../../generated/graphql';
-import {IResolvers} from '../../lib/utils';
+import {Product,ProductMaterial} from '../../database/models';
+import {Resolvers} from '../../__generated';
 
-interface Resolvers extends IResolvers{
-    Products:ProductsResolvers,
-    MaterialsProduct:MaterialsProductResolvers
-}
+
 
 export const product : Resolvers ={
     Query:{
         products:async (parent,args,ctx)=>{
-            const products : IProducts[] = await Product.query().select('id','precio','name','image');
+            const products : Product[] = await Product.query().select('id','precio','name','image');
             return products;
         },
         product:async (parent,{id},ctx)=>{
-            const product : IProducts = await Product.query().findById(id).select('id','name','precio','image');
+            const product : Product = await Product.query().findById(id).select('id','name','precio','image');
          
             return product;
         }
@@ -35,7 +31,7 @@ export const product : Resolvers ={
     },
     Mutation:{
         createProduct:async (parent,{product:{materials,...data}},ctx)=>{
-            const product:IProducts= await Product.query().insert(data);
+            const product:Product= await Product.query().insert(data);
             const ArrayMaterials = (materials?? []).map(item=>({material_id:item.id,product_id:product.id,quantity:item.quantity}));
             const product_material = await ProductMaterial
                                             .query()

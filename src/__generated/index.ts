@@ -35,7 +35,7 @@ export type User = IUser & {
 };
 
 export type Client = {
-   __typename?: 'client';
+   __typename?: 'Client';
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   cedula?: Maybe<Scalars['String']>;
@@ -52,8 +52,8 @@ export enum Pay_Method {
   Pesos = 'PESOS'
 }
 
-export type Order_Products = Product & {
-   __typename?: 'order_products';
+export type OrderProducts = Product & {
+   __typename?: 'OrderProducts';
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   precio?: Maybe<Scalars['Float']>;
@@ -63,7 +63,7 @@ export type Order_Products = Product & {
 };
 
 export type Orders = {
-   __typename?: 'orders';
+   __typename?: 'Orders';
   id?: Maybe<Scalars['Int']>;
   pay_method?: Maybe<Pay_Method>;
   delivery_date?: Maybe<Scalars['String']>;
@@ -75,7 +75,7 @@ export type Orders = {
   monto?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
   client?: Maybe<Client>;
-  order_products?: Maybe<Array<Maybe<Order_Products>>>;
+  order_products?: Maybe<Array<Maybe<OrderProducts>>>;
 };
 
 export type MaterialsProduct = {
@@ -98,8 +98,8 @@ export type MaterialType = {
   type?: Maybe<Scalars['String']>;
 };
 
-export type Providers = {
-   __typename?: 'providers';
+export type Provider = {
+   __typename?: 'Provider';
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   RIF?: Maybe<Scalars['String']>;
@@ -117,10 +117,10 @@ export type Products = Product & {
 };
 
 export type Store = {
-   __typename?: 'store';
+   __typename?: 'Store';
   id?: Maybe<Scalars['Int']>;
   material?: Maybe<Material>;
-  provider?: Maybe<Providers>;
+  provider?: Maybe<Provider>;
   uniteds?: Maybe<Scalars['Int']>;
   expiration_date?: Maybe<Scalars['String']>;
   brand?: Maybe<Scalars['String']>;
@@ -260,8 +260,8 @@ export type Query = {
   clients?: Maybe<Array<Maybe<Client>>>;
   materialTypes?: Maybe<Array<Maybe<MaterialType>>>;
   materials?: Maybe<Array<Maybe<Material>>>;
-  provider?: Maybe<Providers>;
-  providers?: Maybe<Array<Maybe<Providers>>>;
+  provider?: Maybe<Provider>;
+  providers?: Maybe<Array<Maybe<Provider>>>;
   store?: Maybe<Store>;
   storage?: Maybe<Array<Maybe<Store>>>;
   products?: Maybe<Array<Maybe<Products>>>;
@@ -316,8 +316,8 @@ export type Mutation = {
   deleteClient?: Maybe<Scalars['String']>;
   createMaterial?: Maybe<Material>;
   createMaterialType?: Maybe<MaterialType>;
-  createProvider?: Maybe<Providers>;
-  updateProvider?: Maybe<Providers>;
+  createProvider?: Maybe<Provider>;
+  updateProvider?: Maybe<Provider>;
   addToStore?: Maybe<Store>;
   updateStore?: Maybe<Store>;
   deleteStored?: Maybe<Scalars['String']>;
@@ -481,36 +481,36 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  product: ResolversTypes['order_products'] | ResolversTypes['Products'],
+  product: ResolversTypes['OrderProducts'] | ResolversTypes['Products'],
   Int: ResolverTypeWrapper<Scalars['Int']>,
   Float: ResolverTypeWrapper<Scalars['Float']>,
   IUser: ResolversTypes['User'],
   User: ResolverTypeWrapper<User>,
-  client: ResolverTypeWrapper<Client>,
+  Client: ResolverTypeWrapper<Client>,
   pay_method: Pay_Method,
-  order_products: ResolverTypeWrapper<Order_Products>,
-  orders: ResolverTypeWrapper<Orders>,
+  OrderProducts: ResolverTypeWrapper<OrderProducts>,
+  Orders: ResolverTypeWrapper<Orders>,
   MaterialsProduct: ResolverTypeWrapper<MaterialsProduct>,
   Material: ResolverTypeWrapper<Material>,
   MaterialType: ResolverTypeWrapper<MaterialType>,
-  providers: ResolverTypeWrapper<Providers>,
+  Provider: ResolverTypeWrapper<Provider>,
   Products: ResolverTypeWrapper<Products>,
-  store: ResolverTypeWrapper<Store>,
+  Store: ResolverTypeWrapper<Store>,
   UserInput: UserInput,
   UpdateUserInput: UpdateUserInput,
-  clientInput: ClientInput,
-  updateClientInput: UpdateClientInput,
-  materialInput: MaterialInput,
-  providerInput: ProviderInput,
-  updateProviderInput: UpdateProviderInput,
-  storeInput: StoreInput,
-  updateStoreInput: UpdateStoreInput,
-  materialProductInput: MaterialProductInput,
-  productsInput: ProductsInput,
-  updateProductsInput: UpdateProductsInput,
-  productOrderInput: ProductOrderInput,
-  orderInput: OrderInput,
-  takeOrderInput: TakeOrderInput,
+  ClientInput: ClientInput,
+  UpdateClientInput: UpdateClientInput,
+  MaterialInput: MaterialInput,
+  ProviderInput: ProviderInput,
+  UpdateProviderInput: UpdateProviderInput,
+  StoreInput: StoreInput,
+  UpdateStoreInput: UpdateStoreInput,
+  MaterialProductInput: MaterialProductInput,
+  ProductsInput: ProductsInput,
+  UpdateProductsInput: UpdateProductsInput,
+  ProductOrderInput: ProductOrderInput,
+  OrderInput: OrderInput,
+  TakeOrderInput: TakeOrderInput,
   Query: ResolverTypeWrapper<{}>,
   Mutation: ResolverTypeWrapper<{}>,
 };
@@ -519,42 +519,42 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   String: Scalars['String'],
   Boolean: Scalars['Boolean'],
-  product: ResolversParentTypes['order_products'] | ResolversParentTypes['Products'],
+  product: ResolversParentTypes['OrderProducts'] | ResolversParentTypes['Products'],
   Int: Scalars['Int'],
   Float: Scalars['Float'],
   IUser: ResolversParentTypes['User'],
   User: User,
-  client: Client,
+  Client: Client,
   pay_method: Pay_Method,
-  order_products: Order_Products,
-  orders: Orders,
+  OrderProducts: OrderProducts,
+  Orders: Orders,
   MaterialsProduct: MaterialsProduct,
   Material: Material,
   MaterialType: MaterialType,
-  providers: Providers,
+  Provider: Provider,
   Products: Products,
-  store: Store,
+  Store: Store,
   UserInput: UserInput,
   UpdateUserInput: UpdateUserInput,
-  clientInput: ClientInput,
-  updateClientInput: UpdateClientInput,
-  materialInput: MaterialInput,
-  providerInput: ProviderInput,
-  updateProviderInput: UpdateProviderInput,
-  storeInput: StoreInput,
-  updateStoreInput: UpdateStoreInput,
-  materialProductInput: MaterialProductInput,
-  productsInput: ProductsInput,
-  updateProductsInput: UpdateProductsInput,
-  productOrderInput: ProductOrderInput,
-  orderInput: OrderInput,
-  takeOrderInput: TakeOrderInput,
+  ClientInput: ClientInput,
+  UpdateClientInput: UpdateClientInput,
+  MaterialInput: MaterialInput,
+  ProviderInput: ProviderInput,
+  UpdateProviderInput: UpdateProviderInput,
+  StoreInput: StoreInput,
+  UpdateStoreInput: UpdateStoreInput,
+  MaterialProductInput: MaterialProductInput,
+  ProductsInput: ProductsInput,
+  UpdateProductsInput: UpdateProductsInput,
+  ProductOrderInput: ProductOrderInput,
+  OrderInput: OrderInput,
+  TakeOrderInput: TakeOrderInput,
   Query: {},
   Mutation: {},
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['product'] = ResolversParentTypes['product']> = {
-  __resolveType: TypeResolveFn<'order_products' | 'Products', ParentType, ContextType>,
+  __resolveType: TypeResolveFn<'OrderProducts' | 'Products', ParentType, ContextType>,
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   precio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
@@ -579,7 +579,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type ClientResolvers<ContextType = any, ParentType extends ResolversParentTypes['client'] = ResolversParentTypes['client']> = {
+export type ClientResolvers<ContextType = any, ParentType extends ResolversParentTypes['Client'] = ResolversParentTypes['Client']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   cedula?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -589,7 +589,7 @@ export type ClientResolvers<ContextType = any, ParentType extends ResolversParen
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type Order_ProductsResolvers<ContextType = any, ParentType extends ResolversParentTypes['order_products'] = ResolversParentTypes['order_products']> = {
+export type OrderProductsResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderProducts'] = ResolversParentTypes['OrderProducts']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   precio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
@@ -599,7 +599,7 @@ export type Order_ProductsResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type OrdersResolvers<ContextType = any, ParentType extends ResolversParentTypes['orders'] = ResolversParentTypes['orders']> = {
+export type OrdersResolvers<ContextType = any, ParentType extends ResolversParentTypes['Orders'] = ResolversParentTypes['Orders']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   pay_method?: Resolver<Maybe<ResolversTypes['pay_method']>, ParentType, ContextType>,
   delivery_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -610,8 +610,8 @@ export type OrdersResolvers<ContextType = any, ParentType extends ResolversParen
   abono?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   monto?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   total?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  client?: Resolver<Maybe<ResolversTypes['client']>, ParentType, ContextType>,
-  order_products?: Resolver<Maybe<Array<Maybe<ResolversTypes['order_products']>>>, ParentType, ContextType>,
+  client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType>,
+  order_products?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrderProducts']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -635,7 +635,7 @@ export type MaterialTypeResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type ProvidersResolvers<ContextType = any, ParentType extends ResolversParentTypes['providers'] = ResolversParentTypes['providers']> = {
+export type ProviderResolvers<ContextType = any, ParentType extends ResolversParentTypes['Provider'] = ResolversParentTypes['Provider']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   RIF?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -653,10 +653,10 @@ export type ProductsResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type StoreResolvers<ContextType = any, ParentType extends ResolversParentTypes['store'] = ResolversParentTypes['store']> = {
+export type StoreResolvers<ContextType = any, ParentType extends ResolversParentTypes['Store'] = ResolversParentTypes['Store']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   material?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType>,
-  provider?: Resolver<Maybe<ResolversTypes['providers']>, ParentType, ContextType>,
+  provider?: Resolver<Maybe<ResolversTypes['Provider']>, ParentType, ContextType>,
   uniteds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   expiration_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   brand?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -668,52 +668,52 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
   loginUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryLoginUserArgs, 'email' | 'password'>>,
-  client?: Resolver<Maybe<ResolversTypes['client']>, ParentType, ContextType, RequireFields<QueryClientArgs, 'id'>>,
-  clients?: Resolver<Maybe<Array<Maybe<ResolversTypes['client']>>>, ParentType, ContextType>,
+  client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<QueryClientArgs, 'id'>>,
+  clients?: Resolver<Maybe<Array<Maybe<ResolversTypes['Client']>>>, ParentType, ContextType>,
   materialTypes?: Resolver<Maybe<Array<Maybe<ResolversTypes['MaterialType']>>>, ParentType, ContextType>,
   materials?: Resolver<Maybe<Array<Maybe<ResolversTypes['Material']>>>, ParentType, ContextType>,
-  provider?: Resolver<Maybe<ResolversTypes['providers']>, ParentType, ContextType, RequireFields<QueryProviderArgs, 'id'>>,
-  providers?: Resolver<Maybe<Array<Maybe<ResolversTypes['providers']>>>, ParentType, ContextType>,
-  store?: Resolver<Maybe<ResolversTypes['store']>, ParentType, ContextType, RequireFields<QueryStoreArgs, 'id'>>,
-  storage?: Resolver<Maybe<Array<Maybe<ResolversTypes['store']>>>, ParentType, ContextType>,
+  provider?: Resolver<Maybe<ResolversTypes['Provider']>, ParentType, ContextType, RequireFields<QueryProviderArgs, 'id'>>,
+  providers?: Resolver<Maybe<Array<Maybe<ResolversTypes['Provider']>>>, ParentType, ContextType>,
+  store?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<QueryStoreArgs, 'id'>>,
+  storage?: Resolver<Maybe<Array<Maybe<ResolversTypes['Store']>>>, ParentType, ContextType>,
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Products']>>>, ParentType, ContextType>,
   product?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>,
-  order?: Resolver<Maybe<ResolversTypes['orders']>, ParentType, ContextType, RequireFields<QueryOrderArgs, 'id'>>,
-  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['orders']>>>, ParentType, ContextType>,
+  order?: Resolver<Maybe<ResolversTypes['Orders']>, ParentType, ContextType, RequireFields<QueryOrderArgs, 'id'>>,
+  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>,
   editUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationEditUserArgs, 'user'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
-  createClient?: Resolver<Maybe<ResolversTypes['client']>, ParentType, ContextType, RequireFields<MutationCreateClientArgs, 'client'>>,
-  editClient?: Resolver<Maybe<ResolversTypes['client']>, ParentType, ContextType, RequireFields<MutationEditClientArgs, 'client'>>,
+  createClient?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<MutationCreateClientArgs, 'client'>>,
+  editClient?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<MutationEditClientArgs, 'client'>>,
   deleteClient?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteClientArgs, 'id'>>,
   createMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationCreateMaterialArgs, 'material'>>,
   createMaterialType?: Resolver<Maybe<ResolversTypes['MaterialType']>, ParentType, ContextType, RequireFields<MutationCreateMaterialTypeArgs, 'type'>>,
-  createProvider?: Resolver<Maybe<ResolversTypes['providers']>, ParentType, ContextType, RequireFields<MutationCreateProviderArgs, 'provider'>>,
-  updateProvider?: Resolver<Maybe<ResolversTypes['providers']>, ParentType, ContextType, RequireFields<MutationUpdateProviderArgs, 'provider'>>,
-  addToStore?: Resolver<Maybe<ResolversTypes['store']>, ParentType, ContextType, RequireFields<MutationAddToStoreArgs, 'store'>>,
-  updateStore?: Resolver<Maybe<ResolversTypes['store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, 'store'>>,
+  createProvider?: Resolver<Maybe<ResolversTypes['Provider']>, ParentType, ContextType, RequireFields<MutationCreateProviderArgs, 'provider'>>,
+  updateProvider?: Resolver<Maybe<ResolversTypes['Provider']>, ParentType, ContextType, RequireFields<MutationUpdateProviderArgs, 'provider'>>,
+  addToStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationAddToStoreArgs, 'store'>>,
+  updateStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, 'store'>>,
   deleteStored?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteStoredArgs, 'id'>>,
   createProduct?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>,
   updateProduct?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'product'>>,
-  takeOrder?: Resolver<Maybe<ResolversTypes['orders']>, ParentType, ContextType, RequireFields<MutationTakeOrderArgs, 'order'>>,
+  takeOrder?: Resolver<Maybe<ResolversTypes['Orders']>, ParentType, ContextType, RequireFields<MutationTakeOrderArgs, 'order'>>,
 };
 
 export type Resolvers<ContextType = any> = {
   product?: ProductResolvers,
   IUser?: IUserResolvers,
   User?: UserResolvers<ContextType>,
-  client?: ClientResolvers<ContextType>,
-  order_products?: Order_ProductsResolvers<ContextType>,
-  orders?: OrdersResolvers<ContextType>,
+  Client?: ClientResolvers<ContextType>,
+  OrderProducts?: OrderProductsResolvers<ContextType>,
+  Orders?: OrdersResolvers<ContextType>,
   MaterialsProduct?: MaterialsProductResolvers<ContextType>,
   Material?: MaterialResolvers<ContextType>,
   MaterialType?: MaterialTypeResolvers<ContextType>,
-  providers?: ProvidersResolvers<ContextType>,
+  Provider?: ProviderResolvers<ContextType>,
   Products?: ProductsResolvers<ContextType>,
-  store?: StoreResolvers<ContextType>,
+  Store?: StoreResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
 };

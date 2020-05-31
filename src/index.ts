@@ -8,9 +8,9 @@ import cors from 'cors';
 import {material_types,
       material_store,materials,providers,product_materials,
       materialByProduct,user,order_products,client_order} from './lib/loaders';
-import config from './knexfile';
+import {config} from './database/config';
 import DataLoader from 'dataloader';
-import Schema from './typedefs';
+import Schema from './schema';
 import './lib/env';
 
 const {development} = config;

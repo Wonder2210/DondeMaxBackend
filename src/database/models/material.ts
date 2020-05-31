@@ -2,7 +2,7 @@ import { Model } from 'objection';
 import Store from './stores';
 import MaterialType from './materials_types';
 import ProductMaterial from './products_materials';
-import {Maybe} from '../../generated/graphql';
+import {Maybe} from '../../__generated';
 
 
 class Materials extends Model {

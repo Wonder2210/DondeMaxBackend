@@ -1,17 +1,16 @@
-import {Provider} from '../../models';
+import {Provider} from '../../database/models';
 
-import {Providers as IProviders} from '../../generated/graphql';
+import {Resolvers} from '../../__generated';
 
-import {IResolvers} from '../../lib/utils';
 
-export const provider : IResolvers ={
+export const provider : Resolvers ={
     Query:{
         providers:async (parent,args,ctx)=>{
-            const providers : IProviders[]= await Provider.query().select('id','name','RIF','phone','direction');
+            const providers : Provider[]= await Provider.query().select('id','name','RIF','phone','direction');
             return providers;
         },
         provider:async(parent,{id},ctx)=>{
-            const provider : IProviders = await Provider.query()
+            const provider : Provider = await Provider.query()
                                         .findById(id)
                                         .select('id','name','RIF','phone','direction');
          return provider;
@@ -19,14 +18,14 @@ export const provider : IResolvers ={
     },
     Mutation:{
         createProvider:async (parent,args,ctx)=>{
-            const provider : IProviders= await Provider.query()
+            const provider : Provider= await Provider.query()
                                                 .insert({...args.provider});
             return provider;
         },
         updateProvider:async (parent,args,ctx)=>{
             const {id, ...data} = args.provider!;
             const Id : number = id ?? 0;
-            const provider : IProviders = await Provider.query()
+            const provider : Provider = await Provider.query()
                                                 .patchAndFetchById(Id,{...data});
             return provider;
         },

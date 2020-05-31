@@ -1,6 +1,6 @@
 import { Model } from 'objection';
-import Materials from './materials'; 
-import {Maybe} from '../../generated/graphql';
+import Material from './material'; 
+import {Maybe} from '../../__generated';
 
 
 class MaterialsType extends Model {
@@ -12,7 +12,7 @@ class MaterialsType extends Model {
         return {
             products :{
                 relation : Model.HasManyRelation,
-                modelClass : Materials,
+                modelClass : Material,
                 join : {
                     from : 'materials_type.id',
                     to:'materials.type_id'

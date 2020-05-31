@@ -1,5 +1,5 @@
 import {BatchLoadFn} from 'dataloader';
-import {Material,Store,ProductMaterial,Order,Client,OrderProduct,User} from './../models';
+import {Material,Store,ProductMaterial,Order,Client,OrderProduct,User} from '../database/models';
 
 
 

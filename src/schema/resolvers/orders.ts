@@ -1,17 +1,12 @@
-import {Order,OrderProduct} from '../../models';
-import {Orders as IOrders,OrdersResolvers,Order_ProductsResolvers,MaterialsProductResolvers,ProductOrderInput,Order_Products, MaterialsProduct} from '../../generated/graphql';
-import {IResolvers} from '../../lib/utils';
+import {Order,OrderProduct} from '../../database/models';
+import { Resolvers,ProductOrderInput} from '../../__generated';
 
-interface Resolvers extends IResolvers{
-    orders:OrdersResolvers;
-    order_products:Order_ProductsResolvers;
-    MaterialsProduct:MaterialsProductResolvers;
-}
+
 
 export const order :Resolvers ={
     Query:{
         orders:async (parent,args,ctx)=>{
-            const orders : IOrders[] = await Order.query()
+            const orders : Order[] = await Order.query()
                                             .select('id',
                                             'pay_method','delivery_date',
                                             'note','delivery_status',
@@ -19,7 +14,7 @@ export const order :Resolvers ={
             return orders;
         },
         order:async (parent,{id},ctx)=>{
-            const order : IOrders = await Order.query()
+            const order : Order = await Order.query()
                                             .findById(id)
                                             .select('id',
                                             'pay_method','delivery_date',
@@ -29,7 +24,7 @@ export const order :Resolvers ={
            
         }
     },
-    orders:{
+    Orders:{
         client:async (parent,args,ctx)=>{
           
             return await ctx.loaders.clientOrder.load(parent.id);
@@ -39,7 +34,7 @@ export const order :Resolvers ={
             return await ctx.loaders.orderProducts.load(parent.id);
         }
     },
-    order_products:{
+    OrderProducts:{
         materials_required:async (parent,args,ctx)=>{
         
             const materialsProducts = await ctx.loaders
@@ -60,7 +55,7 @@ export const order :Resolvers ={
         takeOrder:async (parent,args,ctx)=>{
             const {client,order_products,...data} = args.order!;
    
-            const order : IOrders = await Order.query()
+            const order : Order = await Order.query()
                                             .insert(data);
             const products = order_products.map((item:ProductOrderInput)=>({
                 product_id:item?.id,

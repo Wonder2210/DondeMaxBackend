@@ -2,10 +2,21 @@ overwrite: true
 schema: "http://localhost:4000/graphql"
 documents: null
 generates:
-  src/generated/graphql.ts:
+  src/__generated/index.ts:
+    config:
+      User:'./src/database/models/user.ts'
+      Client:'./src/database/models/client.ts'
+      Store:'./src/database/models/store.ts'
+      Providers:'./src/database/models/provider.ts'
+      Material:'./src/database/models/material.ts'
+      MaterialType:'./src/database/models/materials_types.ts'
+      MaterialProducts:'./src/database/models/products_materials.ts'
+      Orders:'./src/database/models/orders.ts'
+      OrderProducts:'./src/database/models/order_products.ts'
     plugins:
       - "typescript"
       - "typescript-resolvers"
   ./graphql.schema.json:
     plugins:
       - "introspection"
+

@@ -20,7 +20,7 @@ type User implements IUser {
     phone: String
 }
 
-type client {
+type Client {
     id: Int
     name: String
     cedula: String
@@ -36,7 +36,7 @@ enum pay_method {
     PESOS,
 }
 
-type order_products implements product {
+type OrderProducts implements product {
     id: Int
     name: String
     precio: Float
@@ -45,7 +45,7 @@ type order_products implements product {
     quantity: Int
 }
 
-type orders {
+type Orders {
     id: Int
     pay_method: pay_method
     delivery_date: String
@@ -56,8 +56,8 @@ type orders {
     abono: Float
     monto: Float
     total: Float
-    client: client
-    order_products: [order_products]
+    client: Client
+    order_products: [OrderProducts]
 }
 type MaterialsProduct {
     id: Int
@@ -76,7 +76,7 @@ type MaterialType{
     type:String
 }
 
-type providers {
+type Provider {
     id: Int
     name: String
     RIF: String
@@ -93,10 +93,10 @@ type Products implements product{
 }
 
 
-type store {
+type Store {
     id: Int
     material: Material
-    provider: providers
+    provider: Provider
     uniteds: Int
     expiration_date: String
     brand: String
@@ -118,14 +118,14 @@ input UpdateUserInput {
     phone: String
 }
 
-input clientInput {
+input ClientInput {
     name: String!
     cedula: String!
     nationality: String!
     phone:String!
     creator:Int!
 }
-input updateClientInput {
+input UpdateClientInput {
      id: Int!
     name: String
     cedula: String
@@ -133,18 +133,18 @@ input updateClientInput {
     phone:String
 }
 
-input materialInput {
+input MaterialInput {
     nombre: String!
     type_id: Int!
 }
 
-input providerInput{
+input ProviderInput{
     name: String!
     RIF: String!
     phone: String!
     direction: String!
 }
-input updateProviderInput{
+input UpdateProviderInput{
      id: Int!
     name: String
     RIF: String
@@ -152,7 +152,7 @@ input updateProviderInput{
     direction: String
 }
 
-input storeInput {
+input StoreInput {
     materials_id: Int!
     provider_id: Int!
     uniteds: Int!
@@ -160,7 +160,7 @@ input storeInput {
     brand: String!
     weight: Float!
 }
-input updateStoreInput {
+input UpdateStoreInput {
     id: Int!
     materials_id: Int
     provider_id: Int
@@ -170,30 +170,30 @@ input updateStoreInput {
     weight: Float
 }
 
-input materialProductInput{
+input MaterialProductInput{
      id:Int!
     quantity:Float!
 }
 
-input productsInput {
+input ProductsInput {
     name: String!
     precio: Float!
     image: String!
-    materials:[materialProductInput!]!
+    materials:[MaterialProductInput!]!
 }
-input updateProductsInput {
+input UpdateProductsInput {
     id: Int!
     name: String
     precio: Float
     image: String
-    materials:[materialProductInput!]
+    materials:[MaterialProductInput!]
 }
-input productOrderInput{
+input ProductOrderInput{
     id:Int!
     quantity:Int!
 }
 
-input orderInput{
+input OrderInput{
      id: Int
     pay_method: pay_method
     delivery_date: String
@@ -205,9 +205,9 @@ input orderInput{
     monto: Float
     total: Float
     client:Int!
-    order_products: [productOrderInput]
+    order_products: [ProductOrderInput]
 }
-input takeOrderInput{
+input TakeOrderInput{
   
     pay_method: pay_method!
     delivery_date: String!
@@ -219,45 +219,45 @@ input takeOrderInput{
     monto: Float!
     total: Float!
     client:Int!
-    order_products: [productOrderInput!]!
+    order_products: [ProductOrderInput!]!
 }
 
 type Query {
     users: [User]
     user(id: Int!): User,
     loginUser(email: String!, password: String!): User
-    client(id: Int!):client
-    clients:[client]
+    client(id: Int!):Client
+    clients:[Client]
     materialTypes:[MaterialType]
     materials:[Material]
-    provider(id:Int!):providers
-    providers:[providers]
-    store(id:Int!):store
-    storage:[store]
+    provider(id:Int!):Provider
+    providers:[Provider]
+    store(id:Int!):Store
+    storage:[Store]
     products:[Products]
     product(id:Int!):Products
-    order(id:Int!):orders
-    orders:[orders]
+    order(id:Int!):Orders
+    orders:[Orders]
 }
 
 type Mutation {
     createUser(user: UserInput!): User
     editUser(user: UpdateUserInput!): User
     deleteUser(id: Int!): String
-    createClient(client: clientInput!): client
-    editClient(client:updateClientInput !): client
+    createClient(client: ClientInput!): Client
+    editClient(client:UpdateClientInput !): Client
     deleteClient(id:Int!): String
-    createMaterial(material:materialInput!):Material
+    createMaterial(material:MaterialInput!):Material
     createMaterialType(type:String!):MaterialType
     
-    createProvider(provider:providerInput!):providers
-    updateProvider(provider:updateProviderInput!):providers
-    addToStore(store:storeInput!):store
-    updateStore(store:updateStoreInput!):store
+    createProvider(provider:ProviderInput!):Provider
+    updateProvider(provider:UpdateProviderInput!):Provider
+    addToStore(store:StoreInput!):Store
+    updateStore(store:UpdateStoreInput!):Store
     deleteStored(id:Int!):String
-    createProduct(product:productsInput!):Products
-    updateProduct(product:updateProductsInput!):Products
-    takeOrder(order:takeOrderInput!):orders
+    createProduct(product:ProductsInput!):Products
+    updateProduct(product:UpdateProductsInput!):Products
+    takeOrder(order:TakeOrderInput!):Orders
 
 
     
