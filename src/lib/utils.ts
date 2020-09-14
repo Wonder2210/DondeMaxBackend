@@ -1,6 +1,6 @@
-import {QueryResolvers,MutationResolvers} from '../generated/graphql';
+import { QueryResolvers, MutationResolvers } from "../__generated";
 
 export interface IResolvers {
-    Query:QueryResolvers;
-    Mutation : MutationResolvers;
+  Query: QueryResolvers;
+  Mutation: MutationResolvers;
 }

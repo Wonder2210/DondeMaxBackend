@@ -1,264 +1,257 @@
 interface product {
-    id: Int
-    name: String
-    precio: Float
-    image: String
+  id: Int
+  name: String
+  precio: Float
+  image: String
 }
 
 interface IUser {
-    id: Int
-    name: String
-    email: String
-    password: String
-    phone: String
+  id: Int
+  name: String
+  email: String
+  password: String
+  phone: String
 }
 type User implements IUser {
-    id: Int
-    name: String
-    email: String
-    password: String
-    phone: String
+  id: Int
+  name: String
+  email: String
+  password: String
+  phone: String
 }
 
 type Client {
-    id: Int
-    name: String
-    cedula: String
-    nationality: String
-    phone:String
-    creator:User
+  id: Int
+  name: String
+  cedula: String
+  nationality: String
+  phone: String
+  creator_id: Int
+  creator: User
 }
 enum pay_method {
-    EFECTIVO,
-    DEBITO,
-    TRANSFERENCIA,
-    DOLARES,
-    PESOS,
+  EFECTIVO
+  DEBITO
+  TRANSFERENCIA
+  DOLARES
+  PESOS
 }
 
 type OrderProducts implements product {
-    id: Int
-    name: String
-    precio: Float
-    image: String
-    materials_required: [MaterialsProduct]
-    quantity: Int
+  id: Int
+  name: String
+  precio: Float
+  image: String
+  materials_required: [MaterialsProduct]
+  quantity: Int
 }
 
 type Orders {
-    id: Int
-    pay_method: pay_method
-    delivery_date: String
-    note: String
-    delivery_status: Boolean
-    production_status: Boolean
-    stage_status: Boolean
-    abono: Float
-    monto: Float
-    total: Float
-    client: Client
-    order_products: [OrderProducts]
+  id: Int
+  pay_method: pay_method
+  delivery_date: String
+  note: String
+  delivery_status: Boolean
+  production_status: Boolean
+  stage_status: Boolean
+  abono: Float
+  monto: Float
+  total: Float
+  client: Client
+  order_products: [OrderProducts]
 }
 type MaterialsProduct {
-    id: Int
-    quantity:Float
-    material:Material
+  id: Int
+  quantity: Float
+  material: Material
 }
 
 type Material {
-    id: Int
-    nombre: String
-    type:MaterialType
-
+  id: Int
+  nombre: String
+  type: MaterialType
 }
-type MaterialType{
-    id: Int
-    type:String
+type MaterialType {
+  id: Int
+  name: String
 }
-
 type Provider {
-    id: Int
-    name: String
-    RIF: String
-    phone: String
-    direction: String
+  id: Int
+  name: String
+  RIF: String
+  phone: String
+  direction: String
 }
 
-type Products implements product{
-     id: Int
-    name: String
-    precio: Float
-    image: String
-    materials:[MaterialsProduct]
+type Products implements product {
+  id: Int
+  name: String
+  precio: Float
+  image: String
+  materials: [MaterialsProduct]
 }
-
 
 type Store {
-    id: Int
-    material: Material
-    provider: Provider
-    uniteds: Int
-    expiration_date: String
-    brand: String
-    weight: Float
+  id: Int
+  material: Material
+  provider: Provider
+  uniteds: Int
+  expiration_date: String
+  brand: String
+  weight: Float
 }
 
 input UserInput {
- 
-    name: String!
-    email: String!
-    password: String!
-    phone: String!
+  name: String!
+  email: String!
+  password: String!
+  phone: String!
 }
 input UpdateUserInput {
-    id: Int!
-    name: String
-    email: String
-    password: String
-    phone: String
+  id: Int!
+  name: String
+  email: String
+  password: String
+  phone: String
 }
 
 input ClientInput {
-    name: String!
-    cedula: String!
-    nationality: String!
-    phone:String!
-    creator:Int!
+  name: String!
+  cedula: String!
+  nationality: String!
+  phone: String!
+  creator: Int!
 }
 input UpdateClientInput {
-     id: Int!
-    name: String
-    cedula: String
-    nationality: String
-    phone:String
+  id: Int!
+  name: String
+  cedula: String
+  nationality: String
+  phone: String
 }
 
 input MaterialInput {
-    nombre: String!
-    type_id: Int!
+  nombre: String!
+  type_id: Int!
 }
 
-input ProviderInput{
-    name: String!
-    RIF: String!
-    phone: String!
-    direction: String!
+input ProviderInput {
+  name: String!
+  RIF: String!
+  phone: String!
+  direction: String!
 }
-input UpdateProviderInput{
-     id: Int!
-    name: String
-    RIF: String
-    phone: String
-    direction: String
+input UpdateProviderInput {
+  id: Int!
+  name: String
+  RIF: String
+  phone: String
+  direction: String
 }
 
 input StoreInput {
-    materials_id: Int!
-    provider_id: Int!
-    uniteds: Int!
-    expiration_date: String!
-    brand: String!
-    weight: Float!
+  materials_id: Int!
+  provider_id: Int!
+  uniteds: Int!
+  expiration_date: String!
+  brand: String!
+  weight: Float!
 }
 input UpdateStoreInput {
-    id: Int!
-    materials_id: Int
-    provider_id: Int
-    uniteds: Int
-    expiration_date: String
-    brand: String
-    weight: Float
+  id: Int!
+  materials_id: Int
+  provider_id: Int
+  uniteds: Int
+  expiration_date: String
+  brand: String
+  weight: Float
 }
 
-input MaterialProductInput{
-     id:Int!
-    quantity:Float!
+input MaterialProductInput {
+  id: Int!
+  quantity: Float!
 }
 
 input ProductsInput {
-    name: String!
-    precio: Float!
-    image: String!
-    materials:[MaterialProductInput!]!
+  name: String!
+  precio: Float!
+  image: String!
+  materials: [MaterialProductInput!]!
 }
 input UpdateProductsInput {
-    id: Int!
-    name: String
-    precio: Float
-    image: String
-    materials:[MaterialProductInput!]
+  id: Int!
+  name: String
+  precio: Float
+  image: String
+  materials: [MaterialProductInput!]
 }
-input ProductOrderInput{
-    id:Int!
-    quantity:Int!
+input ProductOrderInput {
+  id: Int!
+  quantity: Int!
 }
 
-input OrderInput{
-     id: Int
-    pay_method: pay_method
-    delivery_date: String
-    note: String
-    delivery_status: Boolean
-    production_status: Boolean
-    stage_status: Boolean
-    abono: Float
-    monto: Float
-    total: Float
-    client:Int!
-    order_products: [ProductOrderInput]
+input OrderInput {
+  id: Int
+  pay_method: pay_method
+  delivery_date: String
+  note: String
+  delivery_status: Boolean
+  production_status: Boolean
+  stage_status: Boolean
+  abono: Float
+  monto: Float
+  total: Float
+  client: Int!
+  order_products: [ProductOrderInput]
 }
-input TakeOrderInput{
-  
-    pay_method: pay_method!
-    delivery_date: String!
-    note: String
-    delivery_status: Boolean!
-    production_status: Boolean!
-    stage_status: Boolean!
-    abono: Float!
-    monto: Float!
-    total: Float!
-    client:Int!
-    order_products: [ProductOrderInput!]!
+input TakeOrderInput {
+  pay_method: pay_method!
+  delivery_date: String!
+  note: String
+  delivery_status: Boolean!
+  production_status: Boolean!
+  stage_status: Boolean!
+  abono: Float!
+  monto: Float!
+  total: Float!
+  client: Int!
+  order_products: [ProductOrderInput!]!
 }
 
 type Query {
-    users: [User]
-    user(id: Int!): User,
-    loginUser(email: String!, password: String!): User
-    client(id: Int!):Client
-    clients:[Client]
-    materialTypes:[MaterialType]
-    materials:[Material]
-    provider(id:Int!):Provider
-    providers:[Provider]
-    store(id:Int!):Store
-    storage:[Store]
-    products:[Products]
-    product(id:Int!):Products
-    order(id:Int!):Orders
-    orders:[Orders]
+  users: [User]
+  user(id: Int!): User
+  loginUser(email: String!, password: String!): User
+  client(id: Int!): Client
+  clients: [Client]
+  materialTypes: [MaterialType]
+  materials: [Material]
+  provider(id: Int!): Provider
+  providers: [Provider]
+  store(id: Int!): Store
+  storage: [Store]
+  products: [Products]
+  product(id: Int!): Products
+  order(id: Int!): Orders
+  orders: [Orders]
 }
 
 type Mutation {
-    createUser(user: UserInput!): User
-    editUser(user: UpdateUserInput!): User
-    deleteUser(id: Int!): String
-    createClient(client: ClientInput!): Client
-    editClient(client:UpdateClientInput !): Client
-    deleteClient(id:Int!): String
-    createMaterial(material:MaterialInput!):Material
-    createMaterialType(type:String!):MaterialType
-    
-    createProvider(provider:ProviderInput!):Provider
-    updateProvider(provider:UpdateProviderInput!):Provider
-    addToStore(store:StoreInput!):Store
-    updateStore(store:UpdateStoreInput!):Store
-    deleteStored(id:Int!):String
-    createProduct(product:ProductsInput!):Products
-    updateProduct(product:UpdateProductsInput!):Products
-    takeOrder(order:TakeOrderInput!):Orders
+  createUser(user: UserInput!): User
+  editUser(user: UpdateUserInput!): User
+  deleteUser(id: Int!): String
+  createClient(client: ClientInput!): Client
+  editClient(client: UpdateClientInput!): Client
+  deleteClient(id: Int!): String
+  createMaterial(material: MaterialInput!): Material
+  createMaterialType(type: String!): MaterialType
 
-
-    
+  createProvider(provider: ProviderInput!): Provider
+  updateProvider(provider: UpdateProviderInput!): Provider
+  addToStore(store: StoreInput!): Store
+  updateStore(store: UpdateStoreInput!): Store
+  deleteStored(id: Int!): String
+  createProduct(product: ProductsInput!): Products
+  updateProduct(product: UpdateProductsInput!): Products
+  takeOrder(order: TakeOrderInput!): Orders
 }

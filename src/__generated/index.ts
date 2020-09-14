@@ -41,6 +41,7 @@ export type Client = {
   cedula?: Maybe<Scalars['String']>;
   nationality?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
+  creator_id?: Maybe<Scalars['Int']>;
   creator?: Maybe<User>;
 };
 
@@ -585,6 +586,7 @@ export type ClientResolvers<ContextType = any, ParentType extends ResolversParen
   cedula?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   nationality?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  creator_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   creator?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
