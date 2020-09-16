@@ -9,12 +9,12 @@ import {
   material_types,
   material_store,
   materials,
-  providers,
-  product_materials,
   materialByProduct,
-  user,
+  user_creator,
   order_products,
-  client_order,
+  client_orders,
+  order_client,
+  store_providers,
 } from "./lib/loaders";
 import { config } from "./database/config";
 import DataLoader from "dataloader";
@@ -46,13 +46,13 @@ const server = new ApolloServer({
     loaders: {
       material_types: new DataLoader(material_types),
       material_store: new DataLoader(material_store),
-      provider: new DataLoader(providers),
       materialByProduct: new DataLoader(materialByProduct),
-      productMaterial: new DataLoader(product_materials),
-      user: new DataLoader(user),
+      order_client: new DataLoader(order_client),
+      user_creator: new DataLoader(user_creator),
       orderProducts: new DataLoader(order_products),
-      clientOrder: new DataLoader(client_order),
+      clientOrders: new DataLoader(client_orders),
       materials: new DataLoader(materials),
+      store_providers: new DataLoader(store_providers),
     },
   },
 });

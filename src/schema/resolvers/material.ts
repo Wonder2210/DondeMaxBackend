@@ -24,7 +24,7 @@ export const material: Resolvers = {
     type: async (parent, args, ctx) => {
       const data = await ctx.loaders.material_types.load(parent.id);
 
-      return data[0];
+      return data[0]!.type;
     },
   },
   Mutation: {
@@ -35,10 +35,10 @@ export const material: Resolvers = {
       return material;
     },
     createMaterialType: async (parent, args, ctx) => {
-      const { type } = args;
+      const { name } = args;
       let types: MaterialType;
       try {
-        types = await MaterialType.query().insert({ type });
+        types = await MaterialType.query().insert({ name });
       } catch (error) {
         throw new UserInputError("Email Invalido", {
           invalidArgs: Object.keys(args),

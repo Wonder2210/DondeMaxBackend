@@ -41,8 +41,8 @@ export type Client = {
   cedula?: Maybe<Scalars['String']>;
   nationality?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
-  creator_id?: Maybe<Scalars['Int']>;
   creator?: Maybe<User>;
+  orders?: Maybe<Array<Maybe<Orders>>>;
 };
 
 export enum Pay_Method {
@@ -76,7 +76,8 @@ export type Orders = {
   monto?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
   client?: Maybe<Client>;
-  order_products?: Maybe<Array<Maybe<OrderProducts>>>;
+  creator?: Maybe<User>;
+  products?: Maybe<Array<Maybe<OrderProducts>>>;
 };
 
 export type MaterialsProduct = {
@@ -96,7 +97,7 @@ export type Material = {
 export type MaterialType = {
    __typename?: 'MaterialType';
   id?: Maybe<Scalars['Int']>;
-  type?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type Provider = {
@@ -364,7 +365,7 @@ export type MutationCreateMaterialArgs = {
 
 
 export type MutationCreateMaterialTypeArgs = {
-  type: Scalars['String'];
+  name: Scalars['String'];
 };
 
 
@@ -586,8 +587,8 @@ export type ClientResolvers<ContextType = any, ParentType extends ResolversParen
   cedula?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   nationality?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  creator_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   creator?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -613,7 +614,8 @@ export type OrdersResolvers<ContextType = any, ParentType extends ResolversParen
   monto?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   total?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType>,
-  order_products?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrderProducts']>>>, ParentType, ContextType>,
+  creator?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  products?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrderProducts']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -633,7 +635,7 @@ export type MaterialResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type MaterialTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['MaterialType'] = ResolversParentTypes['MaterialType']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -692,7 +694,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   editClient?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<MutationEditClientArgs, 'client'>>,
   deleteClient?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteClientArgs, 'id'>>,
   createMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationCreateMaterialArgs, 'material'>>,
-  createMaterialType?: Resolver<Maybe<ResolversTypes['MaterialType']>, ParentType, ContextType, RequireFields<MutationCreateMaterialTypeArgs, 'type'>>,
+  createMaterialType?: Resolver<Maybe<ResolversTypes['MaterialType']>, ParentType, ContextType, RequireFields<MutationCreateMaterialTypeArgs, 'name'>>,
   createProvider?: Resolver<Maybe<ResolversTypes['Provider']>, ParentType, ContextType, RequireFields<MutationCreateProviderArgs, 'provider'>>,
   updateProvider?: Resolver<Maybe<ResolversTypes['Provider']>, ParentType, ContextType, RequireFields<MutationUpdateProviderArgs, 'provider'>>,
   addToStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationAddToStoreArgs, 'store'>>,

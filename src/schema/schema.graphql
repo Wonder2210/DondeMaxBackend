@@ -26,8 +26,8 @@ type Client {
   cedula: String
   nationality: String
   phone: String
-  creator_id: Int
   creator: User
+  orders: [Orders]
 }
 enum pay_method {
   EFECTIVO
@@ -37,13 +37,10 @@ enum pay_method {
   PESOS
 }
 
-type OrderProducts implements product {
+type OrderProducts {
   id: Int
-  name: String
-  precio: Float
-  image: String
-  materials_required: [MaterialsProduct]
   quantity: Int
+  product: Products
 }
 
 type Orders {
@@ -58,7 +55,8 @@ type Orders {
   monto: Float
   total: Float
   client: Client
-  order_products: [OrderProducts]
+  creator: User
+  products: [OrderProducts]
 }
 type MaterialsProduct {
   id: Int
@@ -244,7 +242,7 @@ type Mutation {
   editClient(client: UpdateClientInput!): Client
   deleteClient(id: Int!): String
   createMaterial(material: MaterialInput!): Material
-  createMaterialType(type: String!): MaterialType
+  createMaterialType(name: String!): MaterialType
 
   createProvider(provider: ProviderInput!): Provider
   updateProvider(provider: UpdateProviderInput!): Provider

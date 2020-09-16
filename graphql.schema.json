@@ -339,18 +339,6 @@
             "deprecationReason": null
           },
           {
-            "name": "creator_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "creator",
             "description": null,
             "args": [],
@@ -358,6 +346,22 @@
               "kind": "OBJECT",
               "name": "User",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orders",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Orders",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -640,7 +644,19 @@
             "deprecationReason": null
           },
           {
-            "name": "order_products",
+            "name": "creator",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "products",
             "description": null,
             "args": [],
             "type": {
@@ -773,7 +789,7 @@
             "deprecationReason": null
           },
           {
-            "name": "type",
+            "name": "name",
             "description": null,
             "args": [],
             "type": {
@@ -2741,7 +2757,7 @@
             "description": null,
             "args": [
               {
-                "name": "type",
+                "name": "name",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",

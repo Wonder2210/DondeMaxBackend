@@ -1,10 +1,9 @@
 overwrite: true
-schema: "http://localhost:4000/graphql"
+schema: "http://localhost:3000/graphql"
 documents: null
 generates:
   src/__generated/index.ts:
-    config:
-      User:'./src/database/models/user.ts'
+    config: User:'./src/database/models/user.ts'
       Client:'./src/database/models/client.ts'
       Store:'./src/database/models/store.ts'
       Providers:'./src/database/models/provider.ts'
@@ -19,4 +18,3 @@ generates:
   ./graphql.schema.json:
     plugins:
       - "introspection"
-

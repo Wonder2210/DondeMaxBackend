@@ -32,20 +32,34 @@ export const client: Resolvers = {
   },
   Client: {
     creator: async (parent, args, ctx) => {
-      const user = await ctx.loaders.user.load(parent.creator_id);
-      return user[0];
+      const user = await ctx.loaders.user_creator.load(parent.id);
+      return user[0]!.creator;
+    },
+    orders: async (parent, args, ctx) => {
+      const orders = await ctx.loaders.clientOrders.load(parent.id);
+      return orders[0]!.orders;
     },
   },
   Mutation: {
-    createClient: async (parent, { client: data }, ctx) => {
+    createClient: async (
+      parent,
+      { client: { name, nationality, cedula, creator, phone } },
+      ctx
+    ) => {
       let client: Client;
 
       try {
-        client = await Client.query().insert(data);
+        client = await Client.query().insert({
+          name,
+          nationality,
+          cedula,
+          user_creator: creator,
+          phone,
+        });
         return client;
       } catch (e) {
         throw new UserInputError("Dato invalido", {
-          invalidArgs: Object.keys(data),
+          invalidArgs: "On your input you idiot",
         });
       }
     },
