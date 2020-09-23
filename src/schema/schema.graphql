@@ -1,3 +1,4 @@
+scalar Upload
 interface product {
   id: Int
   name: String
@@ -41,8 +42,16 @@ type OrderProducts {
   id: Int
   quantity: Int
   product: Products
+  materials: [MaterialWaste]
 }
-
+type MaterialWaste {
+  material_name: String
+  quantity: Float
+}
+type OrderWaste {
+  name: String
+  materials: [MaterialWaste]
+}
 type Orders {
   id: Int
   pay_method: pay_method
@@ -54,8 +63,8 @@ type Orders {
   abono: Float
   monto: Float
   total: Float
-  client: Client
   creator: User
+  client: Client
   products: [OrderProducts]
 }
 type MaterialsProduct {
@@ -80,6 +89,16 @@ type Provider {
   phone: String
   direction: String
 }
+type ProductType {
+  id: Int
+  type: String
+  products: [Products]
+}
+type PreservationType {
+  id: Int
+  type: String
+  products: [Products]
+}
 
 type Products implements product {
   id: Int
@@ -87,6 +106,8 @@ type Products implements product {
   precio: Float
   image: String
   materials: [MaterialsProduct]
+  type: String
+  preservation: String
 }
 
 type Store {
@@ -166,14 +187,14 @@ input UpdateStoreInput {
 }
 
 input MaterialProductInput {
-  id: Int!
+  material_id: Int!
   quantity: Float!
 }
 
 input ProductsInput {
   name: String!
   precio: Float!
-  image: String!
+  image: Upload!
   materials: [MaterialProductInput!]!
 }
 input UpdateProductsInput {
@@ -216,6 +237,11 @@ input TakeOrderInput {
   order_products: [ProductOrderInput!]!
 }
 
+type GetProducts {
+  results: [Products]
+  total: Int
+}
+
 type Query {
   users: [User]
   user(id: Int!): User
@@ -228,7 +254,14 @@ type Query {
   providers: [Provider]
   store(id: Int!): Store
   storage: [Store]
-  products: [Products]
+  products(
+    size: Int!
+    cursor: Int!
+    type: String
+    preservation: String
+  ): GetProducts
+  productTypes: [ProductType]
+  productPreservation: [PreservationType]
   product(id: Int!): Products
   order(id: Int!): Orders
   orders: [Orders]

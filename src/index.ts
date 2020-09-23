@@ -5,19 +5,10 @@ import Knex from "knex";
 import { Model } from "objection";
 import bodyParser from "body-parser";
 import cors from "cors";
-import {
-  material_types,
-  material_store,
-  materials,
-  materialByProduct,
-  user_creator,
-  order_products,
-  client_orders,
-  order_client,
-  store_providers,
-} from "./lib/loaders";
+import Loaders from "./lib/loaders";
+import Mocks from "./lib/mocks";
 import { config } from "./database/config";
-import DataLoader from "dataloader";
+
 import Schema from "./schema";
 import "./lib/env";
 
@@ -42,18 +33,9 @@ const server = new ApolloServer({
   schema: Schema,
   introspection: true,
   playground: true,
+  mocks: false,
   context: {
-    loaders: {
-      material_types: new DataLoader(material_types),
-      material_store: new DataLoader(material_store),
-      materialByProduct: new DataLoader(materialByProduct),
-      order_client: new DataLoader(order_client),
-      user_creator: new DataLoader(user_creator),
-      orderProducts: new DataLoader(order_products),
-      clientOrders: new DataLoader(client_orders),
-      materials: new DataLoader(materials),
-      store_providers: new DataLoader(store_providers),
-    },
+    loaders: Loaders(),
   },
 });
 //naming convention

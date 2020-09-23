@@ -1,32 +1,14 @@
-import { Order, OrderProduct } from "../../database/models";
+import { Order, OrderProduct, ProductMaterial } from "../../database/models";
 import { Resolvers, ProductOrderInput } from "../../__generated";
 
 export const order: Resolvers = {
   Query: {
     orders: async (parent, args, ctx) => {
-      const orders: Order[] = await Order.query().select(
-        "id",
-        "pay_method",
-        "delivery_date",
-        "note",
-        "delivery_status",
-        "production_status",
-        "stage_status"
-      );
+      const orders: Order[] = await Order.query();
       return orders;
     },
     order: async (parent, { id }, ctx) => {
-      const order: Order = await Order.query()
-        .findById(id)
-        .select(
-          "id",
-          "pay_method",
-          "delivery_date",
-          "note",
-          "delivery_status",
-          "production_status",
-          "stage_status"
-        );
+      const order: Order = await Order.query().findById(id);
       return order;
     },
   },
@@ -38,6 +20,25 @@ export const order: Resolvers = {
     products: async (parent, args, ctx) => {
       const products = await ctx.loaders.orderProducts.load(parent.id);
       return products;
+    },
+    creator: async (parent, args, ctx) => {
+      const creator = await ctx.loaders.order_creator.load(parent.id);
+
+      return creator[0]!.creator;
+    },
+  },
+  OrderProducts: {
+    materials: async (parent, args, ctx) => {
+      const materials = await ctx.loaders.materials_products.load(parent.id);
+      const materials_filtered = materials.map((i: ProductMaterial) => {
+        let quantity = i!.quantity!;
+        let parent_quantity = parent!.quantity!;
+        return {
+          material_name: i!.material!.nombre,
+          quantity: quantity * parent_quantity,
+        };
+      });
+      return materials_filtered;
     },
   },
 

@@ -49,11 +49,31 @@ export async function up(knex: Knex): Promise<any> {
       table.float("total");
       table.timestamps(true, true);
     })
+    .createTable("product_types", (table: Knex.CreateTableBuilder) => {
+      table.increments("id");
+      table.string("type").unique();
+    })
+    .createTable("preservation_types", (table: Knex.CreateTableBuilder) => {
+      table.increments("id");
+      table.string("type").unique();
+    })
     .createTable("products", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
       table.float("precio");
       table.string("image");
+      table.string("type").unsigned();
+      table
+        .foreign("type")
+        .references("product_types.type")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      table.string("preservation");
+      table
+        .foreign("preservation")
+        .references("preservation_types.type")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
       table.timestamps(true, true);
     })
     .createTable("orders_products", (table: Knex.CreateTableBuilder) => {
@@ -116,6 +136,7 @@ export async function up(knex: Knex): Promise<any> {
       table.string("direction");
       table.timestamps(true, true);
     })
+
     .createTable("store", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.integer("materials_id").unsigned();

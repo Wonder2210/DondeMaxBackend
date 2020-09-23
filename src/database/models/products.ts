@@ -1,6 +1,7 @@
 import { Model } from "objection";
 import { Maybe } from "../../__generated";
-import Material from "./material";
+import ProductMaterial from "./products_materials";
+import ProductType from "./product_type";
 
 class Product extends Model {
   static tableName = "products";
@@ -8,19 +9,25 @@ class Product extends Model {
   name?: Maybe<string>;
   precio?: Maybe<number>;
   image?: Maybe<string>;
-  materials?: Material[];
+  materials?: ProductMaterial[];
+  type?: Maybe<string>;
+  preservation?: Maybe<string>;
 
   static relationMappings = () => ({
     materials: {
-      relation: Model.ManyToManyRelation,
-      modelClass: Material,
+      relation: Model.HasManyRelation,
+      modelClass: ProductMaterial,
       join: {
         from: "products.id",
-        through: {
-          from: "products_materials.product_id",
-          to: "products_materials.material_id",
-        },
-        to: "materials.id",
+        to: "products_materials.product_id",
+      },
+    },
+    type: {
+      relation: Model.HasOneRelation,
+      modelClass: ProductType,
+      join: {
+        from: "products.type_id",
+        to: "product_types.id",
       },
     },
   });

@@ -19,7 +19,6 @@ class Order extends Model {
   client_id?: Maybe<Number>;
   creator?: User;
   client?: Client;
-  products?: Product[];
 
   static relationMappings = () => ({
     client: {

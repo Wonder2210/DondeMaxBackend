@@ -32,4 +32,6 @@ class OrderProducts extends Model {
   });
 }
 
+class OrderWaste extends OrderProducts {}
+
 export default OrderProducts;

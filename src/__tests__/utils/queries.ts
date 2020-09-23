@@ -27,3 +27,29 @@ export const clients = gql`
     }
   }
 `;
+
+export const orders = gql`
+  query {
+    orders {
+      creator {
+        name
+      }
+      client {
+        name
+        id
+      }
+      products {
+        id
+        quantity
+        product {
+          name
+          precio
+        }
+        materials {
+          material_name
+          quantity
+        }
+      }
+    }
+  }
+`;

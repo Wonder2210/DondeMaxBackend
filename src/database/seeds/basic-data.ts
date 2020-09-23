@@ -66,6 +66,39 @@ export async function seed(knex: Knex): Promise<any> {
           ]);
         });
     })
+    .then(() => {
+      return knex("product_types")
+        .del()
+        .then(function () {
+          return knex("product_types").insert([
+            {
+              id: 1,
+              type: "Tortas",
+            },
+            {
+              id: 2,
+              type: "Porcion de torta",
+            },
+            {
+              id: 3,
+              type: "Galleta",
+            },
+          ]);
+        });
+    })
+    .then(() => {
+      return knex("preservation_types")
+        .del()
+        .then(function () {
+          return knex("preservation_types").insert([
+            { id: 1, type: "Refrigerado" },
+            {
+              id: 2,
+              type: "No refrigerado",
+            },
+          ]);
+        });
+    })
 
     .then(() => {
       return knex("products")
@@ -78,18 +111,24 @@ export async function seed(knex: Knex): Promise<any> {
               name: "Tres leches",
               precio: "3500",
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+              type: "Tortas",
+              preservation: "Refrigerado",
             },
             {
               id: 2,
               name: "Milhojas",
               precio: "3000",
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+              type: "Porcion de torta",
+              preservation: "Refrigerado",
             },
             {
               id: 3,
               name: "alfajor",
               precio: "1000",
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+              type: "Galleta",
+              preservation: "No refrigerado",
             },
           ]);
         });
