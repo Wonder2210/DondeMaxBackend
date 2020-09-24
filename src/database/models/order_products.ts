@@ -4,8 +4,8 @@ import { Maybe } from "../../__generated";
 import Order from "./orders";
 import Product from "./products";
 
-class OrderProducts extends Model {
-  static tableName = "orders_products";
+class OrderProduct extends Model {
+  static tableName = "orders_product";
   id?: Maybe<number>;
   order_id?: Maybe<number>;
   product_id?: Maybe<number>;
@@ -17,7 +17,7 @@ class OrderProducts extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: Order,
       join: {
-        from: "orders_products.order_id",
+        from: "order_product.order_id",
         to: "orders.id",
       },
     },
@@ -25,13 +25,11 @@ class OrderProducts extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: Product,
       join: {
-        from: "orders_products.product_id",
+        from: "order_product.product_id",
         to: "products.id",
       },
     },
   });
 }
 
-class OrderWaste extends OrderProducts {}
-
-export default OrderProducts;
+export default OrderProduct;

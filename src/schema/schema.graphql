@@ -30,7 +30,7 @@ type Client {
   creator: User
   orders: [Orders]
 }
-enum pay_method {
+enum PayMethod {
   EFECTIVO
   DEBITO
   TRANSFERENCIA
@@ -54,12 +54,12 @@ type OrderWaste {
 }
 type Orders {
   id: Int
-  pay_method: pay_method
-  delivery_date: String
+  payMethod: PayMethod
+  deliveryDate: String
   note: String
-  delivery_status: Boolean
-  production_status: Boolean
-  stage_status: Boolean
+  deliveryStatus: Boolean
+  productionStatus: Boolean
+  stageStatus: Boolean
   abono: Float
   monto: Float
   total: Float
@@ -151,7 +151,7 @@ input UpdateClientInput {
 
 input MaterialInput {
   nombre: String!
-  type_id: Int!
+  typeId: Int!
 }
 
 input ProviderInput {
@@ -169,17 +169,17 @@ input UpdateProviderInput {
 }
 
 input StoreInput {
-  materials_id: Int!
-  provider_id: Int!
+  materialsId: Int!
+  providerId: Int!
   uniteds: Int!
-  expiration_date: String!
+  expirationDate: String!
   brand: String!
   weight: Float!
 }
 input UpdateStoreInput {
   id: Int!
-  materials_id: Int
-  provider_id: Int
+  materialsId: Int
+  providerId: Int
   uniteds: Int
   expiration_date: String
   brand: String
@@ -187,7 +187,7 @@ input UpdateStoreInput {
 }
 
 input MaterialProductInput {
-  material_id: Int!
+  materialId: Int!
   quantity: Float!
 }
 
@@ -211,30 +211,30 @@ input ProductOrderInput {
 
 input OrderInput {
   id: Int
-  pay_method: pay_method
-  delivery_date: String
+  payMethod: PayMethod
+  deliveryDate: String
   note: String
-  delivery_status: Boolean
-  production_status: Boolean
+  deliveryStatus: Boolean
+  productionStatus: Boolean
   stage_status: Boolean
   abono: Float
   monto: Float
   total: Float
   client: Int!
-  order_products: [ProductOrderInput]
+  orderProducts: [ProductOrderInput]
 }
 input TakeOrderInput {
-  pay_method: pay_method!
-  delivery_date: String!
+  payMethod: PayMethod!
+  deliveryDate: String!
   note: String
-  delivery_status: Boolean!
-  production_status: Boolean!
-  stage_status: Boolean!
+  deliveryStatus: Boolean!
+  productionStatus: Boolean!
+  stageStatus: Boolean!
   abono: Float!
   monto: Float!
   total: Float!
   client: Int!
-  order_products: [ProductOrderInput!]!
+  orderProducts: [ProductOrderInput!]!
 }
 
 type GetProducts {

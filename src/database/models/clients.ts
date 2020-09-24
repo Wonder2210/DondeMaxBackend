@@ -4,7 +4,7 @@ import User from "./users";
 import { Maybe } from "../../__generated";
 
 class Client extends Model {
-  static tableName = "clients";
+  static tableName = "client";
   id?: Maybe<number>;
   name?: Maybe<string>;
   cedula?: Maybe<string>;
@@ -12,14 +12,14 @@ class Client extends Model {
   user_creator?: Maybe<number>;
   phone?: Maybe<string>;
   creator?: User;
-  Orders?: Order[];
+  orders?: Order[];
 
   static relationMappings = () => ({
     creator: {
       relation: Model.BelongsToOneRelation,
       modelClass: User,
       join: {
-        from: "clients.user_creator",
+        from: "client.user_creator",
         to: "users.id",
       },
     },
@@ -27,8 +27,8 @@ class Client extends Model {
       relation: Model.HasManyRelation,
       modelClass: Order,
       join: {
-        from: "clients.id",
-        to: "orders.client_id",
+        from: "client.id",
+        to: "order.client_id",
       },
     },
   });

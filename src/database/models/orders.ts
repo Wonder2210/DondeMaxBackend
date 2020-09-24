@@ -1,13 +1,13 @@
-import { Model, RelationMapping } from "objection";
-import { Maybe, Pay_Method } from "../../__generated";
+import { Model } from "objection";
+import { Maybe, PayMethod } from "../../__generated";
 import Client from "./clients";
 import Product from "./products";
 import User from "./users";
 
 class Order extends Model {
-  static tableName = "orders";
+  static tableName = "order";
   id?: Maybe<number>;
-  pay_method?: Maybe<Pay_Method>;
+  pay_method?: Maybe<PayMethod>;
   delivery_date?: Maybe<string>;
   note?: Maybe<string>;
   delivery_status?: Maybe<boolean>;
@@ -25,7 +25,7 @@ class Order extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: Client,
       join: {
-        from: "orders.client_id",
+        from: "order.client_id",
         to: "clients.id",
       },
     },
@@ -33,20 +33,20 @@ class Order extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Product,
       join: {
-        from: "orders.id",
+        from: "order.id",
         through: {
-          from: "orders_products.order_id",
-          to: "orders_product.product_id",
+          from: "order_product.order_id",
+          to: "order_product.product_id",
         },
-        to: "products.id",
+        to: "product.id",
       },
     },
     creator: {
       relation: Model.BelongsToOneRelation,
       modelClass: User,
       join: {
-        from: "orders.user_id",
-        to: "users.id",
+        from: "order.user_id",
+        to: "user.id",
       },
     },
   });

@@ -5,11 +5,11 @@ export async function seed(knex: Knex): Promise<any> {
   let date = new Date();
   let now = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
 
-  return knex("orders")
+  return knex("order")
     .del()
     .then(function () {
       // Inserts seed entries
-      return knex("orders").insert([
+      return knex("order").insert([
         {
           id: 1,
           user_id: 1,
@@ -27,11 +27,11 @@ export async function seed(knex: Knex): Promise<any> {
       ]);
     })
     .then(() => {
-      return knex("products_materials")
+      return knex("product_material")
         .del()
         .then(function () {
           // Inserts seed entries
-          return knex("products_materials").insert([
+          return knex("product_material").insert([
             {
               id: 1,
               product_id: 1,
@@ -54,11 +54,11 @@ export async function seed(knex: Knex): Promise<any> {
         });
     })
     .then(() => {
-      return knex("orders_products")
+      return knex("order_product")
         .del()
         .then(function () {
           // Inserts seed entries
-          return knex("orders_products").insert([
+          return knex("order_product").insert([
             {
               id: 1,
               order_id: 1,

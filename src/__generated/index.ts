@@ -47,7 +47,7 @@ export type Client = {
   orders?: Maybe<Array<Maybe<Orders>>>;
 };
 
-export enum Pay_Method {
+export enum PayMethod {
   Efectivo = 'EFECTIVO',
   Debito = 'DEBITO',
   Transferencia = 'TRANSFERENCIA',
@@ -78,12 +78,12 @@ export type OrderWaste = {
 export type Orders = {
    __typename?: 'Orders';
   id?: Maybe<Scalars['Int']>;
-  pay_method?: Maybe<Pay_Method>;
-  delivery_date?: Maybe<Scalars['String']>;
+  payMethod?: Maybe<PayMethod>;
+  deliveryDate?: Maybe<Scalars['String']>;
   note?: Maybe<Scalars['String']>;
-  delivery_status?: Maybe<Scalars['Boolean']>;
-  production_status?: Maybe<Scalars['Boolean']>;
-  stage_status?: Maybe<Scalars['Boolean']>;
+  deliveryStatus?: Maybe<Scalars['Boolean']>;
+  productionStatus?: Maybe<Scalars['Boolean']>;
+  stageStatus?: Maybe<Scalars['Boolean']>;
   abono?: Maybe<Scalars['Float']>;
   monto?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
@@ -190,7 +190,7 @@ export type UpdateClientInput = {
 
 export type MaterialInput = {
   nombre: Scalars['String'];
-  type_id: Scalars['Int'];
+  typeId: Scalars['Int'];
 };
 
 export type ProviderInput = {
@@ -209,18 +209,18 @@ export type UpdateProviderInput = {
 };
 
 export type StoreInput = {
-  materials_id: Scalars['Int'];
-  provider_id: Scalars['Int'];
+  materialsId: Scalars['Int'];
+  providerId: Scalars['Int'];
   uniteds: Scalars['Int'];
-  expiration_date: Scalars['String'];
+  expirationDate: Scalars['String'];
   brand: Scalars['String'];
   weight: Scalars['Float'];
 };
 
 export type UpdateStoreInput = {
   id: Scalars['Int'];
-  materials_id?: Maybe<Scalars['Int']>;
-  provider_id?: Maybe<Scalars['Int']>;
+  materialsId?: Maybe<Scalars['Int']>;
+  providerId?: Maybe<Scalars['Int']>;
   uniteds?: Maybe<Scalars['Int']>;
   expiration_date?: Maybe<Scalars['String']>;
   brand?: Maybe<Scalars['String']>;
@@ -228,7 +228,7 @@ export type UpdateStoreInput = {
 };
 
 export type MaterialProductInput = {
-  material_id: Scalars['Int'];
+  materialId: Scalars['Int'];
   quantity: Scalars['Float'];
 };
 
@@ -254,31 +254,31 @@ export type ProductOrderInput = {
 
 export type OrderInput = {
   id?: Maybe<Scalars['Int']>;
-  pay_method?: Maybe<Pay_Method>;
-  delivery_date?: Maybe<Scalars['String']>;
+  payMethod?: Maybe<PayMethod>;
+  deliveryDate?: Maybe<Scalars['String']>;
   note?: Maybe<Scalars['String']>;
-  delivery_status?: Maybe<Scalars['Boolean']>;
-  production_status?: Maybe<Scalars['Boolean']>;
+  deliveryStatus?: Maybe<Scalars['Boolean']>;
+  productionStatus?: Maybe<Scalars['Boolean']>;
   stage_status?: Maybe<Scalars['Boolean']>;
   abono?: Maybe<Scalars['Float']>;
   monto?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
   client: Scalars['Int'];
-  order_products?: Maybe<Array<Maybe<ProductOrderInput>>>;
+  orderProducts?: Maybe<Array<Maybe<ProductOrderInput>>>;
 };
 
 export type TakeOrderInput = {
-  pay_method: Pay_Method;
-  delivery_date: Scalars['String'];
+  payMethod: PayMethod;
+  deliveryDate: Scalars['String'];
   note?: Maybe<Scalars['String']>;
-  delivery_status: Scalars['Boolean'];
-  production_status: Scalars['Boolean'];
-  stage_status: Scalars['Boolean'];
+  deliveryStatus: Scalars['Boolean'];
+  productionStatus: Scalars['Boolean'];
+  stageStatus: Scalars['Boolean'];
   abono: Scalars['Float'];
   monto: Scalars['Float'];
   total: Scalars['Float'];
   client: Scalars['Int'];
-  order_products: Array<ProductOrderInput>;
+  orderProducts: Array<ProductOrderInput>;
 };
 
 export type GetProducts = {
@@ -534,7 +534,7 @@ export type ResolversTypes = {
   IUser: ResolversTypes['User'],
   User: ResolverTypeWrapper<User>,
   Client: ResolverTypeWrapper<Client>,
-  pay_method: Pay_Method,
+  PayMethod: PayMethod,
   OrderProducts: ResolverTypeWrapper<OrderProducts>,
   MaterialWaste: ResolverTypeWrapper<MaterialWaste>,
   OrderWaste: ResolverTypeWrapper<OrderWaste>,
@@ -578,7 +578,7 @@ export type ResolversParentTypes = {
   IUser: ResolversParentTypes['User'],
   User: User,
   Client: Client,
-  pay_method: Pay_Method,
+  PayMethod: PayMethod,
   OrderProducts: OrderProducts,
   MaterialWaste: MaterialWaste,
   OrderWaste: OrderWaste,
@@ -674,12 +674,12 @@ export type OrderWasteResolvers<ContextType = any, ParentType extends ResolversP
 
 export type OrdersResolvers<ContextType = any, ParentType extends ResolversParentTypes['Orders'] = ResolversParentTypes['Orders']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  pay_method?: Resolver<Maybe<ResolversTypes['pay_method']>, ParentType, ContextType>,
-  delivery_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  payMethod?: Resolver<Maybe<ResolversTypes['PayMethod']>, ParentType, ContextType>,
+  deliveryDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   note?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  delivery_status?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  production_status?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  stage_status?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  deliveryStatus?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  productionStatus?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  stageStatus?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   abono?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   monto?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   total?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,

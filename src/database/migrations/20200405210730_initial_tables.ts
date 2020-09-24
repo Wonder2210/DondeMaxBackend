@@ -2,7 +2,7 @@ import * as Knex from "knex";
 
 export async function up(knex: Knex): Promise<any> {
   return knex.schema
-    .createTable("users", (table: Knex.CreateTableBuilder) => {
+    .createTable("user", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
       table.string("email").unique();
@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<any> {
       table.string("phone", 12);
       table.timestamps(true, true);
     })
-    .createTable("clients", (table: Knex.CreateTableBuilder) => {
+    .createTable("client", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
       table.integer("cedula");
@@ -18,24 +18,24 @@ export async function up(knex: Knex): Promise<any> {
       table.integer("user_creator").unsigned();
       table
         .foreign("user_creator")
-        .references("users.id")
+        .references("user.id")
         .onDelete("SET NULL")
         .onUpdate("CASCADE");
       table.string("phone");
       table.timestamps(true, true);
     })
-    .createTable("orders", (table: Knex.CreateTableBuilder) => {
+    .createTable("order", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table
         .integer("user_id")
         .unsigned()
-        .references("users.id")
+        .references("user.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.integer("client_id").unsigned();
       table
         .foreign("client_id")
-        .references("clients.id")
+        .references("client.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.string("pay_method").nullable();
@@ -49,15 +49,15 @@ export async function up(knex: Knex): Promise<any> {
       table.float("total");
       table.timestamps(true, true);
     })
-    .createTable("product_types", (table: Knex.CreateTableBuilder) => {
+    .createTable("product_type", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("type").unique();
     })
-    .createTable("preservation_types", (table: Knex.CreateTableBuilder) => {
+    .createTable("preservation_type", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("type").unique();
     })
-    .createTable("products", (table: Knex.CreateTableBuilder) => {
+    .createTable("product", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
       table.float("precio");
@@ -65,70 +65,70 @@ export async function up(knex: Knex): Promise<any> {
       table.string("type").unsigned();
       table
         .foreign("type")
-        .references("product_types.type")
+        .references("product_type.type")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.string("preservation");
       table
         .foreign("preservation")
-        .references("preservation_types.type")
+        .references("preservation_type.type")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       table.timestamps(true, true);
     })
-    .createTable("orders_products", (table: Knex.CreateTableBuilder) => {
+    .createTable("order_product", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.integer("order_id").unsigned();
       table
         .foreign("order_id")
-        .references("orders.id")
+        .references("order.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.integer("product_id").unsigned();
       table
         .foreign("product_id")
-        .references("products.id")
+        .references("product.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.integer("quantity");
       table.timestamps(true, true);
     })
 
-    .createTable("materials_type", (table: Knex.CreateTableBuilder) => {
+    .createTable("material_type", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
       table.timestamps(true, true);
     })
-    .createTable("materials", (table: Knex.CreateTableBuilder) => {
+    .createTable("material", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("nombre");
       table.integer("type_id").unsigned();
       table
         .foreign("type_id")
-        .references("materials_type.id")
+        .references("material_type.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.timestamps(true, true);
     })
 
-    .createTable("products_materials", (table: Knex.CreateTableBuilder) => {
+    .createTable("product_material", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.integer("product_id").unsigned();
       table
         .foreign("product_id")
-        .references("products.id")
+        .references("product.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.integer("material_id").unsigned();
       table
         .foreign("material_id")
-        .references("materials.id")
+        .references("material.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.float("quantity");
       table.timestamps(true, true);
     })
-    .createTable("providers", (table: Knex.CreateTableBuilder) => {
+    .createTable("provider", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
       table.string("RIF");
@@ -139,16 +139,16 @@ export async function up(knex: Knex): Promise<any> {
 
     .createTable("store", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
-      table.integer("materials_id").unsigned();
+      table.integer("material_id").unsigned();
       table
-        .foreign("materials_id")
-        .references("materials.id")
+        .foreign("material_id")
+        .references("material.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.integer("provider_id").unsigned();
       table
         .foreign("provider_id")
-        .references("providers.id")
+        .references("provider.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.integer("uniteds");

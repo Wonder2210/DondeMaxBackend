@@ -18,8 +18,8 @@ class Store extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: Material,
       join: {
-        from: "store.materials_id",
-        to: "materials.id",
+        from: "store.material_id",
+        to: "material.id",
       },
     },
     provider: {
@@ -27,7 +27,7 @@ class Store extends Model {
       modelClass: Provider,
       join: {
         from: "store.provider_id",
-        to: "providers.id",
+        to: "provider.id",
       },
     },
   });

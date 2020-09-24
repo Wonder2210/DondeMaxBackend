@@ -5,11 +5,11 @@ export async function seed(knex: Knex): Promise<any> {
   // Deletes ALL existing entries
   let date = new Date();
   let now = `${date.getMonth}/${date.getDay}/${date.getFullYear}`;
-  return knex("users")
+  return knex("user")
     .del()
     .then(async () => {
       // Inserts seed entries
-      return knex("users").insert([
+      return knex("user").insert([
         {
           id: 1,
           name: "Raul",
@@ -34,11 +34,11 @@ export async function seed(knex: Knex): Promise<any> {
       ]);
     })
     .then(() => {
-      return knex("clients")
+      return knex("client")
         .del()
         .then(function () {
           // Inserts seed entries
-          return knex("clients").insert([
+          return knex("client").insert([
             {
               id: 1,
               name: "Sara",
@@ -67,10 +67,10 @@ export async function seed(knex: Knex): Promise<any> {
         });
     })
     .then(() => {
-      return knex("product_types")
+      return knex("product_type")
         .del()
         .then(function () {
-          return knex("product_types").insert([
+          return knex("product_type").insert([
             {
               id: 1,
               type: "Tortas",
@@ -87,10 +87,10 @@ export async function seed(knex: Knex): Promise<any> {
         });
     })
     .then(() => {
-      return knex("preservation_types")
+      return knex("preservation_type")
         .del()
         .then(function () {
-          return knex("preservation_types").insert([
+          return knex("preservation_type").insert([
             { id: 1, type: "Refrigerado" },
             {
               id: 2,
@@ -101,11 +101,11 @@ export async function seed(knex: Knex): Promise<any> {
     })
 
     .then(() => {
-      return knex("products")
+      return knex("product")
         .del()
         .then(function () {
           // Inserts seed entries
-          return knex("products").insert([
+          return knex("product").insert([
             {
               id: 1,
               name: "Tres leches",
@@ -135,11 +135,11 @@ export async function seed(knex: Knex): Promise<any> {
     })
 
     .then(() => {
-      return knex("materials_type")
+      return knex("material_type")
         .del()
         .then(function () {
           // Inserts seed entries
-          return knex("materials_type").insert([
+          return knex("material_type").insert([
             {
               id: 1,
               name: "FRIO",
@@ -156,11 +156,11 @@ export async function seed(knex: Knex): Promise<any> {
         });
     })
     .then(() => {
-      return knex("materials")
+      return knex("material")
         .del()
         .then(function () {
           // Inserts seed entries
-          return knex("materials").insert([
+          return knex("material").insert([
             {
               id: 1,
               nombre: "Harina",
@@ -181,11 +181,11 @@ export async function seed(knex: Knex): Promise<any> {
     })
 
     .then(() => {
-      return knex("providers")
+      return knex("provider")
         .del()
         .then(function () {
           // Inserts seed entries
-          return knex("providers").insert([
+          return knex("provider").insert([
             {
               id: 1,
               name: "VIAINCO",
@@ -218,7 +218,7 @@ export async function seed(knex: Knex): Promise<any> {
           return knex("store").insert([
             {
               id: 1,
-              materials_id: 1,
+              material_id: 1,
               provider_id: 1,
               uniteds: 15,
               expiration_date: "17-12-2015",
@@ -227,7 +227,7 @@ export async function seed(knex: Knex): Promise<any> {
             },
             {
               id: 2,
-              materials_id: 2,
+              material_id: 2,
               provider_id: 2,
               uniteds: 15,
               expiration_date: "17-12-2015",
@@ -236,7 +236,7 @@ export async function seed(knex: Knex): Promise<any> {
             },
             {
               id: 3,
-              materials_id: 3,
+              material_id: 3,
               provider_id: 3,
               uniteds: 25,
               expiration_date: "17-12-2015",

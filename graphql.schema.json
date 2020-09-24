@@ -379,7 +379,7 @@
       },
       {
         "kind": "ENUM",
-        "name": "pay_method",
+        "name": "PayMethod",
         "description": null,
         "fields": null,
         "inputFields": null,
@@ -573,19 +573,19 @@
             "deprecationReason": null
           },
           {
-            "name": "pay_method",
+            "name": "payMethod",
             "description": null,
             "args": [],
             "type": {
               "kind": "ENUM",
-              "name": "pay_method",
+              "name": "PayMethod",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delivery_date",
+            "name": "deliveryDate",
             "description": null,
             "args": [],
             "type": {
@@ -609,7 +609,7 @@
             "deprecationReason": null
           },
           {
-            "name": "delivery_status",
+            "name": "deliveryStatus",
             "description": null,
             "args": [],
             "type": {
@@ -621,7 +621,7 @@
             "deprecationReason": null
           },
           {
-            "name": "production_status",
+            "name": "productionStatus",
             "description": null,
             "args": [],
             "type": {
@@ -633,7 +633,7 @@
             "deprecationReason": null
           },
           {
-            "name": "stage_status",
+            "name": "stageStatus",
             "description": null,
             "args": [],
             "type": {
@@ -1527,7 +1527,7 @@
             "defaultValue": null
           },
           {
-            "name": "type_id",
+            "name": "typeId",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1684,7 +1684,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "materials_id",
+            "name": "materialsId",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1698,7 +1698,7 @@
             "defaultValue": null
           },
           {
-            "name": "provider_id",
+            "name": "providerId",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1726,7 +1726,7 @@
             "defaultValue": null
           },
           {
-            "name": "expiration_date",
+            "name": "expirationDate",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1793,7 +1793,7 @@
             "defaultValue": null
           },
           {
-            "name": "materials_id",
+            "name": "materialsId",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1803,7 +1803,7 @@
             "defaultValue": null
           },
           {
-            "name": "provider_id",
+            "name": "providerId",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1864,7 +1864,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "material_id",
+            "name": "materialId",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -2100,17 +2100,17 @@
             "defaultValue": null
           },
           {
-            "name": "pay_method",
+            "name": "payMethod",
             "description": null,
             "type": {
               "kind": "ENUM",
-              "name": "pay_method",
+              "name": "PayMethod",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "delivery_date",
+            "name": "deliveryDate",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -2130,7 +2130,7 @@
             "defaultValue": null
           },
           {
-            "name": "delivery_status",
+            "name": "deliveryStatus",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -2140,7 +2140,7 @@
             "defaultValue": null
           },
           {
-            "name": "production_status",
+            "name": "productionStatus",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -2204,7 +2204,7 @@
             "defaultValue": null
           },
           {
-            "name": "order_products",
+            "name": "orderProducts",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -2229,21 +2229,21 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "pay_method",
+            "name": "payMethod",
             "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "pay_method",
+                "name": "PayMethod",
                 "ofType": null
               }
             },
             "defaultValue": null
           },
           {
-            "name": "delivery_date",
+            "name": "deliveryDate",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -2267,7 +2267,7 @@
             "defaultValue": null
           },
           {
-            "name": "delivery_status",
+            "name": "deliveryStatus",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -2281,7 +2281,7 @@
             "defaultValue": null
           },
           {
-            "name": "production_status",
+            "name": "productionStatus",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -2295,7 +2295,7 @@
             "defaultValue": null
           },
           {
-            "name": "stage_status",
+            "name": "stageStatus",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -2365,7 +2365,7 @@
             "defaultValue": null
           },
           {
-            "name": "order_products",
+            "name": "orderProducts",
             "description": null,
             "type": {
               "kind": "NON_NULL",

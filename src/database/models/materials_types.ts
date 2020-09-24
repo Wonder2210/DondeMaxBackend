@@ -2,8 +2,8 @@ import { Model } from "objection";
 import Material from "./material";
 import { Maybe } from "../../__generated";
 
-class MaterialsType extends Model {
-  static tableName = "materials_type";
+class MaterialType extends Model {
+  static tableName = "material_type";
   id?: Maybe<number>;
   name?: Maybe<string>;
 
@@ -13,12 +13,12 @@ class MaterialsType extends Model {
         relation: Model.HasManyRelation,
         modelClass: Material,
         join: {
-          from: "materials_type.id",
-          to: "materials.type_id",
+          from: "material_type.id",
+          to: "material.type_id",
         },
       },
     };
   }
 }
 
-export default MaterialsType;
+export default MaterialType;

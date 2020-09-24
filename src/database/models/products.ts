@@ -4,7 +4,7 @@ import ProductMaterial from "./products_materials";
 import ProductType from "./product_type";
 
 class Product extends Model {
-  static tableName = "products";
+  static tableName = "product";
   id!: number;
   name?: Maybe<string>;
   precio?: Maybe<number>;
@@ -19,15 +19,15 @@ class Product extends Model {
       modelClass: ProductMaterial,
       join: {
         from: "products.id",
-        to: "products_materials.product_id",
+        to: "product_material.product_id",
       },
     },
     type: {
       relation: Model.HasOneRelation,
       modelClass: ProductType,
       join: {
-        from: "products.type_id",
-        to: "product_types.id",
+        from: "product.type_id",
+        to: "product_type.id",
       },
     },
   });

@@ -44,10 +44,10 @@ export const order: Resolvers = {
 
   Mutation: {
     takeOrder: async (parent, args, ctx) => {
-      const { client, order_products, ...data } = args.order!;
+      const { client, orderProducts, ...data } = args.order!;
 
       const order: Order = await Order.query().insert(data);
-      const products = order_products.map((item: ProductOrderInput) => ({
+      const products = orderProducts.map((item: ProductOrderInput) => ({
         product_id: item?.id,
         order_id: order.id,
         quantity: item?.quantity,

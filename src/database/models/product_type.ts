@@ -1,20 +1,20 @@
 import { Model } from "objection";
 import { Maybe } from "../../__generated";
-import Products from "./products";
+import Product from "./products";
 
 class ProductType extends Model {
-  static tableName = "product_types";
+  static tableName = "product_type";
   id?: Maybe<number>;
   name?: Maybe<string>;
-  products?: Products[];
+  products?: Product[];
 
   static relationMappings = () => ({
     products: {
       relation: Model.HasManyRelation,
-      modelClass: Products,
+      modelClass: Product,
       join: {
-        from: "product_types.type",
-        to: "products.type",
+        from: "product_type.type",
+        to: "product.type",
       },
     },
   });
