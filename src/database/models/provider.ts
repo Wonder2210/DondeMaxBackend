@@ -1,7 +1,7 @@
 import { Model } from "objection";
 import { Maybe } from "../../__generated";
 
-import Store from "./stores";
+import Store from "./store";
 
 class Provider extends Model {
   static tableName = "provider";

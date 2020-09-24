@@ -1,6 +1,6 @@
 import { Model } from "objection";
-import Order from "./orders";
-import User from "./users";
+import Order from "./order";
+import User from "./user";
 import { Maybe } from "../../__generated";
 
 class Client extends Model {

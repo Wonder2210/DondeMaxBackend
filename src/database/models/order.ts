@@ -1,8 +1,8 @@
 import { Model } from "objection";
 import { Maybe, PayMethod } from "../../__generated";
 import Client from "./clients";
-import Product from "./products";
-import User from "./users";
+import Product from "./product";
+import User from "./user";
 
 class Order extends Model {
   static tableName = "order";

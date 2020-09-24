@@ -1,7 +1,7 @@
 import { Model } from "objection";
-import Store from "./stores";
-import MaterialType from "./materials_types";
-import ProductMaterial from "./products_materials";
+import Store from "./store";
+import MaterialType from "./material_type";
+import ProductMaterial from "./product_material";
 import { Maybe } from "../../__generated";
 
 class Material extends Model {

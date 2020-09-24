@@ -1,6 +1,6 @@
 import { Model } from "objection";
 import { Maybe } from "../../__generated";
-import Product from "./products";
+import Product from "./product";
 
 class PreservationType extends Model {
   static tableName = "preservation_type";

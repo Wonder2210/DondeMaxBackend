@@ -1,6 +1,6 @@
 import { Model } from "objection";
 import { Maybe } from "../../__generated";
-import ProductMaterial from "./products_materials";
+import ProductMaterial from "./product_material";
 import ProductType from "./product_type";
 
 class Product extends Model {

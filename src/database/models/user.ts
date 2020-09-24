@@ -1,5 +1,5 @@
 import { Model } from "objection";
-import Order from "./orders";
+import Order from "./order";
 import bcrypt from "bcrypt";
 import { Maybe } from "../../__generated";
 
