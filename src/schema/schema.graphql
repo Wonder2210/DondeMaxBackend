@@ -106,6 +106,7 @@ type Products implements product {
   precio: Float
   image: String
   materials: [MaterialsProduct]
+  info: String
   type: String
   preservation: String
 }

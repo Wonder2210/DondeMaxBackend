@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const store = gql`
+export const GET_STORE = gql`
   query {
     store(id: 1) {
       material {
@@ -17,7 +17,7 @@ export const store = gql`
     }
   }
 `;
-export const clients = gql`
+export const GET_CLIENTS = gql`
   query {
     clients {
       creator {
@@ -28,7 +28,7 @@ export const clients = gql`
   }
 `;
 
-export const orders = gql`
+export const GET_ORDERS = gql`
   query {
     orders {
       creator {

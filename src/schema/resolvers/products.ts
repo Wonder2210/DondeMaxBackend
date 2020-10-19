@@ -33,7 +33,6 @@ export const product: Resolvers = {
             preservation: preservation,
             type: type,
           })
-
           .page(cursor, size);
         return {
           results: products.results,
@@ -69,7 +68,7 @@ export const product: Resolvers = {
     product: async (parent, { id }, ctx) => {
       const product: Product = await Product.query()
         .findById(id)
-        .select("id", "name", "precio", "image");
+        .select("id", "name", "precio", "image","info");
 
       return product;
     },

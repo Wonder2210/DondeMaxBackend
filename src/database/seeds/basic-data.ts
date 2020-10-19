@@ -1,5 +1,6 @@
 import * as Knex from "knex";
 import bcrypt from "bcrypt";
+import casual from "casual";
 
 export async function seed(knex: Knex): Promise<any> {
   // Deletes ALL existing entries
@@ -113,6 +114,7 @@ export async function seed(knex: Knex): Promise<any> {
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
               type: "Tortas",
               preservation: "Refrigerado",
+              info:casual.description
             },
             {
               id: 2,
@@ -121,6 +123,7 @@ export async function seed(knex: Knex): Promise<any> {
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
               type: "Porcion de torta",
               preservation: "Refrigerado",
+              info:casual.description
             },
             {
               id: 3,
@@ -129,6 +132,7 @@ export async function seed(knex: Knex): Promise<any> {
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
               type: "Galleta",
               preservation: "No refrigerado",
+              info:casual.description
             },
           ]);
         });

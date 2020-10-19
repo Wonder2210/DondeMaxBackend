@@ -62,6 +62,7 @@ export async function up(knex: Knex): Promise<any> {
       table.string("name");
       table.float("precio");
       table.string("image");
+      table.string("info");
       table.string("type").unsigned();
       table
         .foreign("type")

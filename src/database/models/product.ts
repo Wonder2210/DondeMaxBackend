@@ -9,6 +9,7 @@ class Product extends Model {
   name?: Maybe<string>;
   precio?: Maybe<number>;
   image?: Maybe<string>;
+  info?: Maybe<string>;
   materials?: ProductMaterial[];
   type?: Maybe<string>;
   preservation?: Maybe<string>;

@@ -142,6 +142,7 @@ export type Products = Product & {
   precio?: Maybe<Scalars['Float']>;
   image?: Maybe<Scalars['String']>;
   materials?: Maybe<Array<Maybe<MaterialsProduct>>>;
+  info?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   preservation?: Maybe<Scalars['String']>;
 };
@@ -738,6 +739,7 @@ export type ProductsResolvers<ContextType = any, ParentType extends ResolversPar
   precio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   materials?: Resolver<Maybe<Array<Maybe<ResolversTypes['MaterialsProduct']>>>, ParentType, ContextType>,
+  info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   preservation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
