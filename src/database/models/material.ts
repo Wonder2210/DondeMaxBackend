@@ -8,6 +8,7 @@ class Material extends Model {
   static tableName = "material";
   id?: Maybe<number>;
   nombre?: Maybe<string>;
+  type_id?: Maybe<number>;
   type?: MaterialType;
 
   static relationMappings = () => ({

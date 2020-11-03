@@ -7,7 +7,7 @@ export const material: Resolvers = {
     materialTypes: async (parent, args, ctx) => {
       const types: MaterialType[] = await MaterialType.query().select(
         "id",
-        "type"
+        "name"
       );
       return types;
     },
@@ -27,12 +27,24 @@ export const material: Resolvers = {
       return data[0]!.type;
     },
   },
+
   Mutation: {
     createMaterial: async (parent, args, ctx) => {
+      const {material:{nombre,type}} = args;
       const material: Material = await Material.query().insert({
-        ...args.material,
+       nombre: nombre,
+       type_id: type
       });
       return material;
+    },
+    updateMaterial: async (parent , args , ctx)=>{
+      const {id , material} = args;
+      const updateMaterial = await Material.query().patchAndFetchById(id,{nombre:material.nombre, type_id:material.type})
+      return updateMaterial;
+    },
+    deleteMaterial:async (parent,args, ctx)=>{
+      const deleted = await Material.query().deleteById(args.id);
+      return deleted ? true : false ;
     },
     createMaterialType: async (parent, args, ctx) => {
       const { name } = args;

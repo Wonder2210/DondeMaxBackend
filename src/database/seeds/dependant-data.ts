@@ -3,7 +3,7 @@ import * as Knex from "knex";
 export async function seed(knex: Knex): Promise<any> {
   // Deletes ALL existing entries
   let date = new Date();
-  let now = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
+  let now = `${11}-${1}-${2020}`;
 
   return knex("order")
     .del()

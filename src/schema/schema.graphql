@@ -152,7 +152,7 @@ input UpdateClientInput {
 
 input MaterialInput {
   nombre: String!
-  typeId: Int!
+  type: Int!
 }
 
 input ProviderInput {
@@ -268,17 +268,23 @@ type Query {
   orders: [Orders]
 }
 
+
 type Mutation {
   createUser(user: UserInput!): User
   editUser(user: UpdateUserInput!): User
   deleteUser(id: Int!): String
+
   createClient(client: ClientInput!): Client
   editClient(client: UpdateClientInput!): Client
   deleteClient(id: Int!): String
-  createMaterial(material: MaterialInput!): Material
-  createMaterialType(name: String!): MaterialType
 
+  createMaterial(material: MaterialInput!): Material
+  deleteMaterial(id: Int!) : Boolean
+  updateMaterial(id: Int!,material: MaterialInput!): Material
+
+  createMaterialType(name: String!): MaterialType
   createProvider(provider: ProviderInput!): Provider
+  deleteProvider(id: Int!): Boolean
   updateProvider(provider: UpdateProviderInput!): Provider
   addToStore(store: StoreInput!): Store
   updateStore(store: UpdateStoreInput!): Store

@@ -191,21 +191,21 @@ export async function seed(knex: Knex): Promise<any> {
           // Inserts seed entries
           return knex("provider").insert([
             {
-              id: 1,
+             
               name: "VIAINCO",
               RIF: "231456-j",
               phone: "0987654321",
               direction: "Sant teresa",
             },
             {
-              id: 2,
+           
               name: "Azucar los andes",
               RIF: "231456-j",
               phone: "0987654321",
               direction: "Sant teresa",
             },
             {
-              id: 3,
+           
               name: "Dafilca",
               RIF: "231456-j",
               phone: "0987654321",

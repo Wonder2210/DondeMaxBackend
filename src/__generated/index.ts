@@ -191,7 +191,7 @@ export type UpdateClientInput = {
 
 export type MaterialInput = {
   nombre: Scalars['String'];
-  typeId: Scalars['Int'];
+  type: Scalars['Int'];
 };
 
 export type ProviderInput = {
@@ -362,8 +362,11 @@ export type Mutation = {
   editClient?: Maybe<Client>;
   deleteClient?: Maybe<Scalars['String']>;
   createMaterial?: Maybe<Material>;
+  deleteMaterial?: Maybe<Scalars['Boolean']>;
+  updateMaterial?: Maybe<Material>;
   createMaterialType?: Maybe<MaterialType>;
   createProvider?: Maybe<Provider>;
+  deleteProvider?: Maybe<Scalars['Boolean']>;
   updateProvider?: Maybe<Provider>;
   addToStore?: Maybe<Store>;
   updateStore?: Maybe<Store>;
@@ -409,6 +412,17 @@ export type MutationCreateMaterialArgs = {
 };
 
 
+export type MutationDeleteMaterialArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationUpdateMaterialArgs = {
+  id: Scalars['Int'];
+  material: MaterialInput;
+};
+
+
 export type MutationCreateMaterialTypeArgs = {
   name: Scalars['String'];
 };
@@ -416,6 +430,11 @@ export type MutationCreateMaterialTypeArgs = {
 
 export type MutationCreateProviderArgs = {
   provider: ProviderInput;
+};
+
+
+export type MutationDeleteProviderArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -790,8 +809,11 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   editClient?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<MutationEditClientArgs, 'client'>>,
   deleteClient?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteClientArgs, 'id'>>,
   createMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationCreateMaterialArgs, 'material'>>,
+  deleteMaterial?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteMaterialArgs, 'id'>>,
+  updateMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationUpdateMaterialArgs, 'id' | 'material'>>,
   createMaterialType?: Resolver<Maybe<ResolversTypes['MaterialType']>, ParentType, ContextType, RequireFields<MutationCreateMaterialTypeArgs, 'name'>>,
   createProvider?: Resolver<Maybe<ResolversTypes['Provider']>, ParentType, ContextType, RequireFields<MutationCreateProviderArgs, 'provider'>>,
+  deleteProvider?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteProviderArgs, 'id'>>,
   updateProvider?: Resolver<Maybe<ResolversTypes['Provider']>, ParentType, ContextType, RequireFields<MutationUpdateProviderArgs, 'provider'>>,
   addToStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationAddToStoreArgs, 'store'>>,
   updateStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, 'store'>>,

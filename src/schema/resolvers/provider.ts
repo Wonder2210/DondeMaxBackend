@@ -25,9 +25,15 @@ export const provider : Resolvers ={
         updateProvider:async (parent,args,ctx)=>{
             const {id, ...data} = args.provider!;
             const Id : number = id ?? 0;
+            console.log(data);
             const provider : Provider = await Provider.query()
                                                 .patchAndFetchById(Id,{...data});
             return provider;
         },
+        deleteProvider: async (parent,args,ctx)=>{
+            const res = await Provider.query().deleteById(args.id);
+
+            return res ? true : false;
+        }
     }
 }

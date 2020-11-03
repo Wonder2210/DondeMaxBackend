@@ -74,8 +74,6 @@ const client_orders: BatchLoadFn<number, Client[]> = async (ids) => {
 };
 const order_waste: BatchLoadFn<number, OrderProduct[]> = async (ids) => {
   const products = await OrderProduct.query().withGraphFetched("product");
-
-  console.log(products);
   return ids.map((id) => products.filter((i) => i.order_id === id));
 };
 

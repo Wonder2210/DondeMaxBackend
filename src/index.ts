@@ -8,7 +8,6 @@ import cors from "cors";
 import Loaders from "./lib/loaders";
 import Mocks from "./lib/mocks";
 import { config } from "./database/config";
-
 import Schema from "./schema";
 import "./lib/env";
 
@@ -47,9 +46,9 @@ server.applyMiddleware({
 
 app.listen(
   {
-    port: 3000,
+    port: 4000,
   },
   () =>
-    console.log(`🚀 Server ready at http://localhost:3000${server.graphqlPath}`)
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
 //use graphql 14 , and add .mjs extension to webpack
