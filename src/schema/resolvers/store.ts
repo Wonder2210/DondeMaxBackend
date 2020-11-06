@@ -36,7 +36,8 @@ export const store: Resolvers = {
   },
   Mutation: {
     addToStore: async (parent, args, ctx) => {
-      const stored: Store = await Store.query().insert({ ...args.store });
+      const {expirationDate:expiration_date, materialsId:material_id, providerId: provider_id , ...data} = args.store;
+      const stored: Store = await Store.query().insert({ ...data, expiration_date:expiration_date, material_id:material_id, provider_id:provider_id});
       return stored;
     },
 

@@ -10,6 +10,7 @@ class Material extends Model {
   nombre?: Maybe<string>;
   type_id?: Maybe<number>;
   type?: MaterialType;
+  store?: [Store];
 
   static relationMappings = () => ({
     store: {

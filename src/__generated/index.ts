@@ -99,11 +99,18 @@ export type MaterialsProduct = {
   material?: Maybe<Material>;
 };
 
+export type OnStockMaterial = {
+   __typename?: 'onStockMaterial';
+  uniteds?: Maybe<Scalars['Int']>;
+  weight?: Maybe<Scalars['Float']>;
+};
+
 export type Material = {
    __typename?: 'Material';
   id?: Maybe<Scalars['Int']>;
   nombre?: Maybe<Scalars['String']>;
   type?: Maybe<MaterialType>;
+  onStock?: Maybe<OnStockMaterial>;
 };
 
 export type MaterialType = {
@@ -560,6 +567,7 @@ export type ResolversTypes = {
   OrderWaste: ResolverTypeWrapper<OrderWaste>,
   Orders: ResolverTypeWrapper<Orders>,
   MaterialsProduct: ResolverTypeWrapper<MaterialsProduct>,
+  onStockMaterial: ResolverTypeWrapper<OnStockMaterial>,
   Material: ResolverTypeWrapper<Material>,
   MaterialType: ResolverTypeWrapper<MaterialType>,
   Provider: ResolverTypeWrapper<Provider>,
@@ -604,6 +612,7 @@ export type ResolversParentTypes = {
   OrderWaste: OrderWaste,
   Orders: Orders,
   MaterialsProduct: MaterialsProduct,
+  onStockMaterial: OnStockMaterial,
   Material: Material,
   MaterialType: MaterialType,
   Provider: Provider,
@@ -716,10 +725,17 @@ export type MaterialsProductResolvers<ContextType = any, ParentType extends Reso
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type OnStockMaterialResolvers<ContextType = any, ParentType extends ResolversParentTypes['onStockMaterial'] = ResolversParentTypes['onStockMaterial']> = {
+  uniteds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  weight?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type MaterialResolvers<ContextType = any, ParentType extends ResolversParentTypes['Material'] = ResolversParentTypes['Material']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   nombre?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   type?: Resolver<Maybe<ResolversTypes['MaterialType']>, ParentType, ContextType>,
+  onStock?: Resolver<Maybe<ResolversTypes['onStockMaterial']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -834,6 +850,7 @@ export type Resolvers<ContextType = any> = {
   OrderWaste?: OrderWasteResolvers<ContextType>,
   Orders?: OrdersResolvers<ContextType>,
   MaterialsProduct?: MaterialsProductResolvers<ContextType>,
+  onStockMaterial?: OnStockMaterialResolvers<ContextType>,
   Material?: MaterialResolvers<ContextType>,
   MaterialType?: MaterialTypeResolvers<ContextType>,
   Provider?: ProviderResolvers<ContextType>,

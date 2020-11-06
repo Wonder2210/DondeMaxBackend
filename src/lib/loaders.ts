@@ -77,6 +77,13 @@ const order_waste: BatchLoadFn<number, OrderProduct[]> = async (ids) => {
   return ids.map((id) => products.filter((i) => i.order_id === id));
 };
 
+const onStockMaterial : BatchLoadFn<number ,Material[]> = async(ids)=>{
+  const materials  = await Material.query().select("id").withGraphFetched("store");
+
+  return ids.map(id=> materials.filter(i=> i.id === id));
+
+}
+
 export default () => ({
   material_types: new DataLoader(material_types),
   material_store: new DataLoader(material_store),
@@ -90,4 +97,5 @@ export default () => ({
   order_creator: new DataLoader(order_creator),
   order_waste: new DataLoader(order_waste),
   materials_products: new DataLoader(materials_products),
+  onStock : new DataLoader(onStockMaterial)
 });

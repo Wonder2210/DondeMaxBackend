@@ -72,11 +72,15 @@ type MaterialsProduct {
   quantity: Float
   material: Material
 }
-
+type onStockMaterial {
+  uniteds: Int
+  weight: Float
+}
 type Material {
   id: Int
   nombre: String
   type: MaterialType
+  onStock: onStockMaterial
 }
 type MaterialType {
   id: Int

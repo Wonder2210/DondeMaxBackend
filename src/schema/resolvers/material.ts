@@ -26,6 +26,13 @@ export const material: Resolvers = {
 
       return data[0]!.type;
     },
+    onStock: async (parent, args, ctx)=>{
+
+      const list =await ctx.loaders.onStock.load(parent.id);
+      const result = list[0].store.reduce((ac,current)=>({ uniteds:ac.uniteds + current.uniteds, 
+        weight: ac.weight + (current.uniteds * current.weight)}), {uniteds:0, weight:0})
+     return result;
+    }
   },
 
   Mutation: {

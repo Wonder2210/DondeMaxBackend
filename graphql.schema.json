@@ -775,6 +775,41 @@
       },
       {
         "kind": "OBJECT",
+        "name": "onStockMaterial",
+        "description": null,
+        "fields": [
+          {
+            "name": "uniteds",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "weight",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Material",
         "description": null,
         "fields": [
@@ -809,6 +844,18 @@
             "type": {
               "kind": "OBJECT",
               "name": "MaterialType",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "onStock",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "onStockMaterial",
               "ofType": null
             },
             "isDeprecated": false,

@@ -8,6 +8,8 @@ class Store extends Model {
   id?: Maybe<number>;
   uniteds?: Maybe<number>;
   expiration_date?: Maybe<string>;
+  material_id?: Maybe<number>;
+  provider_id?: Maybe<number>;
   brand?: Maybe<string>;
   weight?: Maybe<number>;
   material?: Material;
