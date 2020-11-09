@@ -1,6 +1,7 @@
 const path = require('path');
 const {CheckerPlugin} = require('awesome-typescript-loader');
 var nodeExternals = require('webpack-node-externals');
+const Dotenv = require('dotenv-webpack');
 //nunca olvides de colocar target node en webpack
 //node externals pior el error de aws-sdk 
 module.exports = {
@@ -35,6 +36,7 @@ module.exports = {
   },
   plugins:[
     new CheckerPlugin(),
+    new Dotenv()
   ]
   
 };

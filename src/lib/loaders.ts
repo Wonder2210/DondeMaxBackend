@@ -18,12 +18,14 @@ const materialByProduct: BatchLoadFn<number, Array<ProductMaterial>> = async (
   ids
 ) => {
   const materials = await ProductMaterial.query().withGraphFetched("material");
-  return ids.map((id) => materials.filter((i) => i.material_id === id));
+
+  return ids.map((id) => materials.filter((i) => i.product_id === id));
 };
 const materials_products: BatchLoadFn<number, Array<ProductMaterial>> = async (
   ids
 ) => {
   const materials = await ProductMaterial.query().withGraphFetched("material");
+  console.log(materials);
   return ids.map((id) => materials.filter((i) => i.product_id === id));
 };
 const order_creator: BatchLoadFn<number, Order[]> = async (ids) => {

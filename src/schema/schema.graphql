@@ -18,6 +18,7 @@ type User implements IUser {
   name: String
   email: String
   password: String
+  role: UserRole
   phone: String
 }
 
@@ -36,6 +37,11 @@ enum PayMethod {
   TRANSFERENCIA
   DOLARES
   PESOS
+}
+
+enum UserRole {
+  EMPLEADO
+  ADMINISTRADOR
 }
 
 type OrderProducts {
@@ -130,6 +136,7 @@ input UserInput {
   email: String!
   password: String!
   phone: String!
+  role: UserRole!
 }
 input UpdateUserInput {
   id: Int!
@@ -200,6 +207,8 @@ input ProductsInput {
   name: String!
   precio: Float!
   image: Upload!
+  info: String!
+  type: String!
   materials: [MaterialProductInput!]!
 }
 input UpdateProductsInput {
@@ -287,12 +296,15 @@ type Mutation {
   updateMaterial(id: Int!,material: MaterialInput!): Material
 
   createMaterialType(name: String!): MaterialType
+
   createProvider(provider: ProviderInput!): Provider
   deleteProvider(id: Int!): Boolean
   updateProvider(provider: UpdateProviderInput!): Provider
+
   addToStore(store: StoreInput!): Store
   updateStore(store: UpdateStoreInput!): Store
   deleteStored(id: Int!): String
+  
   createProduct(product: ProductsInput!): Products
   updateProduct(product: UpdateProductsInput!): Products
   takeOrder(order: TakeOrderInput!): Orders

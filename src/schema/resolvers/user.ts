@@ -6,16 +6,16 @@ import {User} from '../../database/models';
  export const user:Resolvers  = {
      Query:{
          users:async (parent,args,ctx)=>{
-             const users : User[] = await User.query().select('id','name','email','password','phone');
+             const users : User[] = await User.query();
              
              return users;
          },
          user:async (parent,args,ctx)=>{
-             const user : User = await User.query().findById(args.id).select('id','name','email','password','phone');
+             const user : User = await User.query().findById(args.id);
              return user;
          },
          loginUser:async (parent,args,ctx)=>{
-            const user : User = await User.query().select('id','name','email','password','phone').first().where('email',args.email);
+            const user : User = await User.query().first().where('email',args.email);
             const verification = await user.verifyPassword(args.password);
             
             if(verification){

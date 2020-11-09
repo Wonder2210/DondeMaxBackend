@@ -19,7 +19,7 @@ class Product extends Model {
       relation: Model.HasManyRelation,
       modelClass: ProductMaterial,
       join: {
-        from: "products.id",
+        from: "product.id",
         to: "product_material.product_id",
       },
     },

@@ -33,19 +33,31 @@ export async function seed(knex: Knex): Promise<any> {
           // Inserts seed entries
           return knex("product_material").insert([
             {
-              id: 1,
+              
               product_id: 1,
               material_id: 1,
               quantity: 0.5,
             },
             {
-              id: 2,
+              
+              product_id: 1,
+              material_id: 2,
+              quantity: 0.5,
+            },
+            {
+              
+              product_id: 1,
+              material_id: 3,
+              quantity: 0.5,
+            },
+            {
+          
               product_id: 2,
               material_id: 2,
               quantity: 0.5,
             },
             {
-              id: 3,
+            
               product_id: 2,
               material_id: 2,
               quantity: 0.5,

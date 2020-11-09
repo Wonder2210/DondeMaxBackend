@@ -11,7 +11,7 @@ import { config } from "./database/config";
 import Schema from "./schema";
 import "./lib/env";
 
-const { development } = config;
+
 // import {UserInput} from './generated/graphql';
 
 const app: Application = express();
@@ -24,7 +24,7 @@ app.use(
 
 app.use(cors());
 
-const db = Knex(development);
+const db = Knex(config[process.env.ENV]);
 
 Model.knex(db);
 
@@ -46,9 +46,9 @@ server.applyMiddleware({
 
 app.listen(
   {
-    port: 4000,
+    port: process.env.PORT,
   },
   () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+    console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`)
 );
 //use graphql 14 , and add .mjs extension to webpack

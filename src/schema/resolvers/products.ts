@@ -5,24 +5,9 @@ import {
   ProductType,
 } from "../../database/models";
 import { Resolvers } from "../../__generated";
-import { Page } from "objection";
-import fs from "fs";
-// const storeFS = ({ stream, filename }) => {
-//   const uploadDir = "../../../uloads";
-//   const path = `${uploadDir}/${filename}`;
-//   return new Promise((resolve, reject) =>
-//     stream
-//       .on("error", (error) => {
-//         if (stream.truncated)
-//           // delete the truncated file
-//           fs.unlinkSync(path);
-//         reject(error);
-//       })
-//       .pipe(fs.createWriteStream(path))
-//       .on("error", (error) => reject(error))
-//       .on("finish", () => resolve({ path }))
-//   );
-// };
+import { UserInputError } from 'apollo-server-express';
+import {v2} from "cloudinary";
+
 export const product: Resolvers = {
   Query: {
     products: async (parent, args, ctx) => {
@@ -97,22 +82,59 @@ export const product: Resolvers = {
   Mutation: {
     createProduct: async (
       parent,
-      { product: { materials, name, precio, image } },
+      { product: { materials, name, precio, image, info, type } },
       ctx
     ) => {
-      // const { filename } = image;
-      const product: Product = await Product.query().insert({
-        name,
-        precio,
-        image: "filename",
+      v2.config({
+        cloud_name: process.env.CLOUDINARY_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
       });
-      const pr_m: ProductMaterial[] = await product
-        .$relatedQuery("materials")
-        .insertGraph(materials);
+      
+      const { createReadStream } = await image;
+      const stream = createReadStream();
+      let resultUrl : string = "";
+      let resultSecureUrl : string = "";
 
-      // const upload = storeFS(image);
+       
+      try {
+        await new Promise((resolve, reject) => {
+            const streamLoad = v2.uploader.upload_stream(function (error, result) {
+                if (result) {
+                    resultUrl = result.secure_url;
+                    resultSecureUrl = result.secure_url;
+                    resolve(resultUrl)
+                } else {
+                    reject(error);
+                }
+            });
 
-      return product;
+            stream.pipe(streamLoad);
+        });
+    } catch(error){
+      console.log(error);
+      throw new UserInputError("La imagen no pude ser procesada",
+          {
+            invalidArgs: "None but the image doesnt work",
+          }
+      )
+    }
+     
+        const product: Product = await Product.query().insert({
+          name,
+          precio,
+          image: resultUrl,
+          info,
+          type
+        });
+        const pr_m: ProductMaterial[] = await product
+          .$relatedQuery("materials")
+          .insertGraph([...materials.map(i=>({quantity:i.quantity,material_id:i.materialId}))]);
+  
+        return product;
+      
+         
+       
     },
     // deleteProduct,
     // updateProduct,

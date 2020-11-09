@@ -17,6 +17,7 @@ export async function seed(knex: Knex): Promise<any> {
           email: "ra@gmail.com",
           password: await bcrypt.hash("1234", 10),
           phone: "0412345678",
+          role:"ADMINISTRADOR"
         },
         {
           id: 2,
@@ -24,6 +25,7 @@ export async function seed(knex: Knex): Promise<any> {
           email: "jose@gmail.com",
           password: await bcrypt.hash("1234", 10),
           phone: "0412347632",
+          role:"EMPLEADO"
         },
         {
           id: 3,
@@ -31,6 +33,7 @@ export async function seed(knex: Knex): Promise<any> {
           email: "manuel@gmail.com",
           password: await bcrypt.hash("1234", 10),
           phone: "041234098",
+          role:"EMPLEADO"
         },
       ]);
     })
@@ -108,31 +111,31 @@ export async function seed(knex: Knex): Promise<any> {
           // Inserts seed entries
           return knex("product").insert([
             {
-              id: 1,
+     
               name: "Tres leches",
               precio: "3500",
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
               type: "Tortas",
               preservation: "Refrigerado",
-              info:casual.description
+              info:"here"
             },
             {
-              id: 2,
+       
               name: "Milhojas",
               precio: "3000",
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
               type: "Porcion de torta",
               preservation: "Refrigerado",
-              info:casual.description
+              info:"casual.description"
             },
             {
-              id: 3,
+          
               name: "alfajor",
               precio: "1000",
               image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
               type: "Galleta",
               preservation: "No refrigerado",
-              info:casual.description
+              info:"there"
             },
           ]);
         });

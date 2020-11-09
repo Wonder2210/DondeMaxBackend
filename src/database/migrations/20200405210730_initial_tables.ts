@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<any> {
       table.string("name");
       table.string("email").unique();
       table.string("password");
+      table.string("role");
       table.string("phone", 12);
       table.timestamps(true, true);
     })
@@ -114,20 +115,23 @@ export async function up(knex: Knex): Promise<any> {
 
     .createTable("product_material", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
-      table.integer("product_id").unsigned();
+      table.integer("product_id");
+      table.integer("material_id");
+      
+      table.float("quantity");
+      table.timestamps(true, true);
       table
-        .foreign("product_id")
-        .references("product.id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-      table.integer("material_id").unsigned();
+      .foreign("product_id")
+      .references("product.id")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
       table
         .foreign("material_id")
         .references("material.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      table.float("quantity");
-      table.timestamps(true, true);
+     
+      
     })
     .createTable("provider", (table: Knex.CreateTableBuilder) => {
       table.increments("id");

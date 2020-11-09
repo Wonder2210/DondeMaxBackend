@@ -33,6 +33,7 @@ export type User = IUser & {
   name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+  role?: Maybe<UserRole>;
   phone?: Maybe<Scalars['String']>;
 };
 
@@ -53,6 +54,11 @@ export enum PayMethod {
   Transferencia = 'TRANSFERENCIA',
   Dolares = 'DOLARES',
   Pesos = 'PESOS'
+}
+
+export enum UserRole {
+  Empleado = 'EMPLEADO',
+  Administrador = 'ADMINISTRADOR'
 }
 
 export type OrderProducts = {
@@ -170,6 +176,7 @@ export type UserInput = {
   email: Scalars['String'];
   password: Scalars['String'];
   phone: Scalars['String'];
+  role: UserRole;
 };
 
 export type UpdateUserInput = {
@@ -244,6 +251,8 @@ export type ProductsInput = {
   name: Scalars['String'];
   precio: Scalars['Float'];
   image: Scalars['Upload'];
+  info: Scalars['String'];
+  type: Scalars['String'];
   materials: Array<MaterialProductInput>;
 };
 
@@ -552,20 +561,21 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  String: ResolverTypeWrapper<Scalars['String']>,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
   product: ResolversTypes['Products'],
   Int: ResolverTypeWrapper<Scalars['Int']>,
+  String: ResolverTypeWrapper<Scalars['String']>,
   Float: ResolverTypeWrapper<Scalars['Float']>,
   IUser: ResolversTypes['User'],
   User: ResolverTypeWrapper<User>,
   Client: ResolverTypeWrapper<Client>,
   PayMethod: PayMethod,
+  UserRole: UserRole,
   OrderProducts: ResolverTypeWrapper<OrderProducts>,
   MaterialWaste: ResolverTypeWrapper<MaterialWaste>,
   OrderWaste: ResolverTypeWrapper<OrderWaste>,
   Orders: ResolverTypeWrapper<Orders>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   MaterialsProduct: ResolverTypeWrapper<MaterialsProduct>,
   onStockMaterial: ResolverTypeWrapper<OnStockMaterial>,
   Material: ResolverTypeWrapper<Material>,
@@ -597,20 +607,21 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  String: Scalars['String'],
-  Boolean: Scalars['Boolean'],
   Upload: Scalars['Upload'],
   product: ResolversParentTypes['Products'],
   Int: Scalars['Int'],
+  String: Scalars['String'],
   Float: Scalars['Float'],
   IUser: ResolversParentTypes['User'],
   User: User,
   Client: Client,
   PayMethod: PayMethod,
+  UserRole: UserRole,
   OrderProducts: OrderProducts,
   MaterialWaste: MaterialWaste,
   OrderWaste: OrderWaste,
   Orders: Orders,
+  Boolean: Scalars['Boolean'],
   MaterialsProduct: MaterialsProduct,
   onStockMaterial: OnStockMaterial,
   Material: Material,
@@ -666,6 +677,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  role?: Resolver<Maybe<ResolversTypes['UserRole']>, ParentType, ContextType>,
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };

@@ -29,7 +29,7 @@ export const material: Resolvers = {
     onStock: async (parent, args, ctx)=>{
 
       const list =await ctx.loaders.onStock.load(parent.id);
-      const result = list[0].store.reduce((ac,current)=>({ uniteds:ac.uniteds + current.uniteds, 
+      const result = list[0].store.reduce((ac:{weight: number, uniteds: number;},current:{weight: number, uniteds: number;})=>({ uniteds:ac.uniteds + current.uniteds, 
         weight: ac.weight + (current.uniteds * current.weight)}), {uniteds:0, weight:0})
      return result;
     }
