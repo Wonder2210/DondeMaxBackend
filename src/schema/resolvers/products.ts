@@ -11,6 +11,7 @@ import {v2} from "cloudinary";
 export const product: Resolvers = {
   Query: {
     products: async (parent, args, ctx) => {
+      console.log(ctx.user);
       const { size, cursor, type, preservation } = args;
       if (preservation && type) {
         const products = await Product.query()

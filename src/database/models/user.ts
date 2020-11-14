@@ -1,7 +1,7 @@
 import { Model } from "objection";
 import Order from "./order";
 import bcrypt from "bcrypt";
-import { Maybe } from "../../__generated";
+import { Maybe , UserRole } from "../../__generated";
 
 type Constructor<T extends Model = Model> = new (...args: any[]) => T;
 
@@ -24,6 +24,7 @@ class User extends mixin(Model) {
   id?: Maybe<number>;
   email?: Maybe<string>;
   name?: Maybe<string>;
+  role?: Maybe<UserRole>;
   password?: Maybe<string>;
   phone?: Maybe<string>;
 

@@ -598,7 +598,7 @@
             "deprecationReason": null
           },
           {
-            "name": "payMethod",
+            "name": "pay_method",
             "description": null,
             "args": [],
             "type": {
@@ -610,7 +610,7 @@
             "deprecationReason": null
           },
           {
-            "name": "deliveryDate",
+            "name": "delivery_date",
             "description": null,
             "args": [],
             "type": {
@@ -634,7 +634,7 @@
             "deprecationReason": null
           },
           {
-            "name": "deliveryStatus",
+            "name": "delivery_status",
             "description": null,
             "args": [],
             "type": {
@@ -646,7 +646,7 @@
             "deprecationReason": null
           },
           {
-            "name": "productionStatus",
+            "name": "production_status",
             "description": null,
             "args": [],
             "type": {
@@ -658,7 +658,7 @@
             "deprecationReason": null
           },
           {
-            "name": "stageStatus",
+            "name": "stage_status",
             "description": null,
             "args": [],
             "type": {
@@ -2568,6 +2568,49 @@
       },
       {
         "kind": "OBJECT",
+        "name": "ClientOrders",
+        "description": null,
+        "fields": [
+          {
+            "name": "delivered",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Orders",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pending",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Orders",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Query",
         "description": null,
         "fields": [
@@ -2615,42 +2658,17 @@
             "deprecationReason": null
           },
           {
-            "name": "loginUser",
+            "name": "sessionUser",
             "description": null,
-            "args": [
-              {
-                "name": "email",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null
-              },
-              {
-                "name": "password",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null
-              }
-            ],
+            "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -2694,6 +2712,18 @@
                 "name": "Client",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientOrders",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ClientOrders",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -2990,6 +3020,74 @@
         "name": "Mutation",
         "description": null,
         "fields": [
+          {
+            "name": "loginUser",
+            "description": null,
+            "args": [
+              {
+                "name": "email",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "password",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "loginClient",
+            "description": null,
+            "args": [
+              {
+                "name": "cedula",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createUser",
             "description": null,

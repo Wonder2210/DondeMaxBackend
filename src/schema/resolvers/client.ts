@@ -1,6 +1,7 @@
-import { Client } from "../../database/models";
+import { Client, Order } from "../../database/models";
 import { Resolvers } from "../../__generated";
 import { UserInputError } from "apollo-server-express";
+import {sign} from "jsonwebtoken";
 
 export const client: Resolvers = {
   Query: {
@@ -29,6 +30,16 @@ export const client: Resolvers = {
         );
       return client;
     },
+    clientOrders:async (parent, args, ctx)=>{
+      const client : Client = await Client.query().findById(ctx.user.id);
+      const delivered : Order[] = await client.$relatedQuery("orders").where("order.delivery_status",true);
+      const pending : Order[] = await client.$relatedQuery("orders").where("order.delivery_status",false);
+
+      return {
+        delivered,
+        pending
+      }
+    }
   },
   Client: {
     creator: async (parent, args, ctx) => {
@@ -73,7 +84,21 @@ export const client: Resolvers = {
       const deleted = await Client.query().deleteById(args.id);
       return "Succesfully deleted";
     },
-  },
-};
+    loginClient: async(parent, args , ctx)=>{
+      const {id,cedula,name}: Client = await Client.query().first().where("cedula",args.cedula);
+      const secretKey = process.env.SECRET || "221099";
+
+      if(client){
+        return sign({id,cedula,name, role:"CLIENT"},secretKey,{
+          expiresIn:"1d"
+      });
+    }
+      throw new UserInputError("bad fields",{args:args});
+
+      }
+
+    }
+  }
+
 
 //eliminar los errores de typescript

@@ -1,6 +1,7 @@
 import {User} from '../../database/models';
  import {Resolvers} from '../../__generated';
  import {UserInputError} from 'apollo-server-express';
+ import {sign} from "jsonwebtoken";
 
 
  export const user:Resolvers  = {
@@ -14,21 +15,10 @@ import {User} from '../../database/models';
              const user : User = await User.query().findById(args.id);
              return user;
          },
-         loginUser:async (parent,args,ctx)=>{
-            const user : User = await User.query().first().where('email',args.email);
-            const verification = await user.verifyPassword(args.password);
-            
-            if(verification){
-                return  user;
-            }
-            throw new UserInputError('Email o clave Invalido', {
-                invalidArgs: Object.keys(args),
-              });
-
-        }
-        
-         
-     },
+         sessionUser: async (parent,args,ctx)=>{
+                return JSON.stringify(ctx.user);
+         }
+           },
      Mutation:{
          createUser:async (parent,args,ctx)=>{
              let user : User;
@@ -53,7 +43,20 @@ import {User} from '../../database/models';
          deleteUser:async (parent,args,ctx)=>{
              const deleted = await User.query().deleteById(args.id);
              return "Succesfull deleted";
-         }
+         },
+         loginUser:async (parent,args,ctx)=>{
+            const user : User = await User.query().first().where('email',args.email);
+            const verification = await user.verifyPassword(args.password);
+            const secretKey = process.env.SECRET || "221099";
+            const {id,name,email,role, phone} = user;
+            if(verification){
+                return sign({id,name,email,role, phone},secretKey,{
+                    expiresIn:"1d"
+                });
+            }
+            throw new UserInputError("bad fields",{args:args});
+
+        }
      }
  }
 

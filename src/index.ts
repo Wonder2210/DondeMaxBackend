@@ -7,9 +7,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import Loaders from "./lib/loaders";
 import Mocks from "./lib/mocks";
+import {verify} from "jsonwebtoken";
 import { config } from "./database/config";
 import Schema from "./schema";
 import "./lib/env";
+
 
 
 // import {UserInput} from './generated/graphql';
@@ -33,8 +35,23 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
   mocks: false,
-  context: {
-    loaders: Loaders(),
+  context:async ({req})=>{
+    const token = req.headers.authorization || "";
+    const secretKey = process.env.SECRET || "221099";
+    let user = {};
+    if(token){
+      let reuser = verify(token,secretKey,(err,succeed)=>{
+        if(err) console.log(err)
+        user= succeed
+        return succeed
+      });
+      
+    }
+    
+    return {
+      loaders: Loaders(),
+      user: user
+    }
   },
 });
 //naming convention

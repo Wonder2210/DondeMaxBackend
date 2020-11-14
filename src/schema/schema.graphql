@@ -60,12 +60,12 @@ type OrderWaste {
 }
 type Orders {
   id: Int
-  payMethod: PayMethod
-  deliveryDate: String
+  pay_method: PayMethod
+  delivery_date: String
   note: String
-  deliveryStatus: Boolean
-  productionStatus: Boolean
-  stageStatus: Boolean
+  delivery_status: Boolean
+  production_status: Boolean
+  stage_status: Boolean
   abono: Float
   monto: Float
   total: Float
@@ -129,6 +129,10 @@ type Store {
   expiration_date: String
   brand: String
   weight: Float
+}
+
+type Auditorias{
+  
 }
 
 input UserInput {
@@ -256,12 +260,18 @@ type GetProducts {
   total: Int
 }
 
+type ClientOrders {
+  delivered: [Orders]
+  pending: [Orders]
+}
+
 type Query {
   users: [User]
   user(id: Int!): User
-  loginUser(email: String!, password: String!): User
+  sessionUser: String!
   client(id: Int!): Client
   clients: [Client]
+  clientOrders:ClientOrders
   materialTypes: [MaterialType]
   materials: [Material]
   provider(id: Int!): Provider
@@ -283,6 +293,9 @@ type Query {
 
 
 type Mutation {
+  loginUser(email: String!, password: String!): String
+  loginClient(cedula: String!): String
+
   createUser(user: UserInput!): User
   editUser(user: UpdateUserInput!): User
   deleteUser(id: Int!): String
