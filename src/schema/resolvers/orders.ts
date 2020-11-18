@@ -15,6 +15,7 @@ export const order: Resolvers = {
   Orders: {
     client: async (parent, args, ctx) => {
       const client = await ctx.loaders.order_client.load(parent.id);
+ 
       return client[0]!.client;
     },
     products: async (parent, args, ctx) => {

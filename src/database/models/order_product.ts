@@ -5,7 +5,7 @@ import Order from "./order";
 import Product from "./product";
 
 class OrderProduct extends Model {
-  static tableName = "orders_product";
+  static tableName = "order_product";
   id?: Maybe<number>;
   order_id?: Maybe<number>;
   product_id?: Maybe<number>;
@@ -18,7 +18,7 @@ class OrderProduct extends Model {
       modelClass: Order,
       join: {
         from: "order_product.order_id",
-        to: "orders.id",
+        to: "order.id",
       },
     },
     product: {
@@ -26,7 +26,7 @@ class OrderProduct extends Model {
       modelClass: Product,
       join: {
         from: "order_product.product_id",
-        to: "products.id",
+        to: "product.id",
       },
     },
   });

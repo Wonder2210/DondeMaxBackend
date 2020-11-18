@@ -19,6 +19,7 @@ class Order extends Model {
   client_id?: Maybe<Number>;
   creator?: User;
   client?: Client;
+  products?: [Product];
 
   static relationMappings = () => ({
     client: {
@@ -26,7 +27,7 @@ class Order extends Model {
       modelClass: Client,
       join: {
         from: "order.client_id",
-        to: "clients.id",
+        to: "client.id",
       },
     },
     products: {

@@ -38,16 +38,12 @@ const server = new ApolloServer({
   context:async ({req})=>{
     const token = req.headers.authorization || "";
     const secretKey = process.env.SECRET || "221099";
-    let user = {};
+    let user = null;
     if(token){
-      let reuser = verify(token,secretKey,(err,succeed)=>{
-        if(err) console.log(err)
-        user= succeed
-        return succeed
-      });
-      
+      let res = await verify(token,secretKey);
+      user = res.valueOf();
+
     }
-    
     return {
       loaders: Loaders(),
       user: user

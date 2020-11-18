@@ -131,9 +131,6 @@ type Store {
   weight: Float
 }
 
-type Auditorias{
-  
-}
 
 input UserInput {
   name: String!
@@ -200,6 +197,7 @@ input UpdateStoreInput {
   expiration_date: String
   brand: String
   weight: Float
+
 }
 
 input MaterialProductInput {
@@ -220,7 +218,9 @@ input UpdateProductsInput {
   name: String
   precio: Float
   image: String
-  materials: [MaterialProductInput!]
+  type: String
+  info: String
+  materials: [MaterialProductInput]
 }
 input ProductOrderInput {
   id: Int!

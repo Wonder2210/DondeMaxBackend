@@ -51,7 +51,7 @@ import {User} from '../../database/models';
             const {id,name,email,role, phone} = user;
             if(verification){
                 return sign({id,name,email,role, phone},secretKey,{
-                    expiresIn:"1d"
+                    expiresIn:'365d'
                 });
             }
             throw new UserInputError("bad fields",{args:args});
