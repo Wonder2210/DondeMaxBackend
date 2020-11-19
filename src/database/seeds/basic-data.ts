@@ -169,17 +169,17 @@ export async function seed(knex: Knex): Promise<any> {
           // Inserts seed entries
           return knex("material").insert([
             {
-              id: 1,
+         
               nombre: "Harina",
               type_id: 2,
             },
             {
-              id: 2,
+        
               nombre: "Huevos",
               type_id: 3,
             },
             {
-              id: 3,
+     
               nombre: "Leche",
               type_id: 1,
             },
@@ -221,10 +221,9 @@ export async function seed(knex: Knex): Promise<any> {
       return knex("store")
         .del()
         .then(function () {
-          // Inserts seed entries
           return knex("store").insert([
             {
-              id: 1,
+            
               material_id: 1,
               provider_id: 1,
               uniteds: 15,
@@ -233,7 +232,7 @@ export async function seed(knex: Knex): Promise<any> {
               weight: 1,
             },
             {
-              id: 2,
+         
               material_id: 2,
               provider_id: 2,
               uniteds: 15,
@@ -242,7 +241,7 @@ export async function seed(knex: Knex): Promise<any> {
               weight: 0.5,
             },
             {
-              id: 3,
+         
               material_id: 3,
               provider_id: 3,
               uniteds: 25,

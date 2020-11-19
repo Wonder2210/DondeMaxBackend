@@ -171,6 +171,35 @@ export type Store = {
   weight?: Maybe<Scalars['Float']>;
 };
 
+export type OrdersLog = {
+   __typename?: 'OrdersLog';
+  id_pedido?: Maybe<Scalars['Int']>;
+  user_db?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+  client?: Maybe<Scalars['Int']>;
+  delivered?: Maybe<Scalars['Boolean']>;
+  stage?: Maybe<Scalars['Boolean']>;
+  action_name?: Maybe<Scalars['String']>;
+  production?: Maybe<Scalars['Boolean']>;
+};
+
+export type StorageLog = {
+   __typename?: 'StorageLog';
+  id_material?: Maybe<Scalars['Int']>;
+  id_provider?: Maybe<Scalars['Int']>;
+  user_db?: Maybe<Scalars['String']>;
+  action_name?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+};
+
+export type ProducstLog = {
+   __typename?: 'ProducstLog';
+  user_db?: Maybe<Scalars['String']>;
+  id_product?: Maybe<Scalars['Int']>;
+  action_name?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+};
+
 export type UserInput = {
   name: Scalars['String'];
   email: Scalars['String'];
@@ -261,7 +290,9 @@ export type UpdateProductsInput = {
   name?: Maybe<Scalars['String']>;
   precio?: Maybe<Scalars['Float']>;
   image?: Maybe<Scalars['String']>;
-  materials?: Maybe<Array<MaterialProductInput>>;
+  type?: Maybe<Scalars['String']>;
+  info?: Maybe<Scalars['String']>;
+  materials?: Maybe<Array<Maybe<MaterialProductInput>>>;
 };
 
 export type ProductOrderInput = {
@@ -330,6 +361,9 @@ export type Query = {
   product?: Maybe<Products>;
   order?: Maybe<Orders>;
   orders?: Maybe<Array<Maybe<Orders>>>;
+  productsLog?: Maybe<Array<Maybe<ProducstLog>>>;
+  storageLog?: Maybe<Array<Maybe<StorageLog>>>;
+  ordersLog?: Maybe<Array<Maybe<OrdersLog>>>;
 };
 
 
@@ -599,6 +633,9 @@ export type ResolversTypes = {
   PreservationType: ResolverTypeWrapper<PreservationType>,
   Products: ResolverTypeWrapper<Products>,
   Store: ResolverTypeWrapper<Store>,
+  OrdersLog: ResolverTypeWrapper<OrdersLog>,
+  StorageLog: ResolverTypeWrapper<StorageLog>,
+  ProducstLog: ResolverTypeWrapper<ProducstLog>,
   UserInput: UserInput,
   UpdateUserInput: UpdateUserInput,
   ClientInput: ClientInput,
@@ -646,6 +683,9 @@ export type ResolversParentTypes = {
   PreservationType: PreservationType,
   Products: Products,
   Store: Store,
+  OrdersLog: OrdersLog,
+  StorageLog: StorageLog,
+  ProducstLog: ProducstLog,
   UserInput: UserInput,
   UpdateUserInput: UpdateUserInput,
   ClientInput: ClientInput,
@@ -819,6 +859,35 @@ export type StoreResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type OrdersLogResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrdersLog'] = ResolversParentTypes['OrdersLog']> = {
+  id_pedido?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  user_db?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  client?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  delivered?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  stage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  action_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  production?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type StorageLogResolvers<ContextType = any, ParentType extends ResolversParentTypes['StorageLog'] = ResolversParentTypes['StorageLog']> = {
+  id_material?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  id_provider?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  user_db?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  action_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ProducstLogResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProducstLog'] = ResolversParentTypes['ProducstLog']> = {
+  user_db?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id_product?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  action_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type GetProductsResolvers<ContextType = any, ParentType extends ResolversParentTypes['GetProducts'] = ResolversParentTypes['GetProducts']> = {
   results?: Resolver<Maybe<Array<Maybe<ResolversTypes['Products']>>>, ParentType, ContextType>,
   total?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
@@ -850,6 +919,9 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   product?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>,
   order?: Resolver<Maybe<ResolversTypes['Orders']>, ParentType, ContextType, RequireFields<QueryOrderArgs, 'id'>>,
   orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
+  productsLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProducstLog']>>>, ParentType, ContextType>,
+  storageLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['StorageLog']>>>, ParentType, ContextType>,
+  ordersLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrdersLog']>>>, ParentType, ContextType>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -895,6 +967,9 @@ export type Resolvers<ContextType = any> = {
   PreservationType?: PreservationTypeResolvers<ContextType>,
   Products?: ProductsResolvers<ContextType>,
   Store?: StoreResolvers<ContextType>,
+  OrdersLog?: OrdersLogResolvers<ContextType>,
+  StorageLog?: StorageLogResolvers<ContextType>,
+  ProducstLog?: ProducstLogResolvers<ContextType>,
   GetProducts?: GetProductsResolvers<ContextType>,
   ClientOrders?: ClientOrdersResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,

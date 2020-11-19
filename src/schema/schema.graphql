@@ -131,6 +131,32 @@ type Store {
   weight: Float
 }
 
+type OrdersLog{
+  id_pedido: Int
+  user_db: String
+  date: String
+  client: Int
+  delivered: Boolean
+  stage: Boolean
+   action_name: String
+  production: Boolean
+}
+
+type StorageLog{
+  id_material: Int
+  id_provider: Int
+  user_db: String
+   action_name: String
+  date: String
+}
+
+type ProducstLog{
+  user_db: String
+  id_product: Int
+  action_name: String
+  date: String
+}
+
 
 input UserInput {
   name: String!
@@ -289,6 +315,10 @@ type Query {
   product(id: Int!): Products
   order(id: Int!): Orders
   orders: [Orders]
+
+  productsLog: [ProducstLog]
+  storageLog: [StorageLog]
+  ordersLog: [OrdersLog]
 }
 
 

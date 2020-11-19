@@ -10,6 +10,9 @@ import Store from "./store";
 import User from "./user";
 import ProductPreservation from "./preservation_type";
 import ProductType from "./product_type";
+import OrdersLog from "./orders_log";
+import ProductsLog from "./products_log";
+import StorageLog from "./storage_log";
 
 export {
   Client,
@@ -24,4 +27,7 @@ export {
   User,
   ProductType,
   ProductPreservation,
+  OrdersLog,
+  ProductsLog,
+  StorageLog
 };

@@ -1,6 +1,7 @@
 import * as Knex from "knex";
 
 export async function up(knex: Knex): Promise<any> {
+  
   return knex.schema
     .createTable("user", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
@@ -50,6 +51,17 @@ export async function up(knex: Knex): Promise<any> {
       table.float("total");
       table.timestamps(true, true);
     })
+    .createTable("orders_log",(table:Knex.CreateTableBuilder)=>{
+      table.integer("id_pedido");
+      table.string("user_db");
+      table.timestamp("date").defaultTo(knex.fn.now());
+      table.integer("client");
+      table.boolean("delivered");
+      table.boolean("stage");
+      table.boolean("production");
+      table.string("action_name");
+
+    })
     .createTable("product_type", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("type").unique();
@@ -77,6 +89,12 @@ export async function up(knex: Knex): Promise<any> {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       table.timestamps(true, true);
+    })
+    .createTable("products_log",(table: Knex.CreateTableBuilder)=>{
+      table.string("user_db");
+      table.integer("id_product");
+      table.string("action_name");
+      table.timestamp("date").defaultTo(knex.fn.now());
     })
     .createTable("order_product", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
@@ -161,9 +179,15 @@ export async function up(knex: Knex): Promise<any> {
       table.string("brand");
       table.float("weight");
       table.timestamps(true, true);
+    }).createTable("storage_log",(table: Knex.CreateTableBuilder)=>{
+      table.integer("id_material");
+      table.integer("id_provider");
+      table.string("user_db");
+      table.string("action_name");
+      table.timestamp("date").defaultTo(knex.fn.now());
     });
 }
 
 export async function down(knex: Knex): Promise<any> {
-  return knex.destroy();
+ await knex.raw('DROP DATABASE "DondeMax"');
 }
