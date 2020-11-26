@@ -1,7 +1,7 @@
 import {User} from '../../database/models';
  import {Resolvers} from '../../__generated';
  import {UserInputError} from 'apollo-server-express';
- import {sign} from "jsonwebtoken";
+ import {sign,verify} from "jsonwebtoken";
 
 
  export const user:Resolvers  = {
@@ -16,7 +16,14 @@ import {User} from '../../database/models';
              return user;
          },
          sessionUser: async (parent,args,ctx)=>{
-                return JSON.stringify(ctx.user);
+             let user= "";
+                try{
+                    let verified = await verify(ctx.user,process.env.SECRET || "221099");
+                    user=JSON.stringify(verified.valueOf());
+                }catch(err){
+                    console.log(err);
+                };
+                return user;
          }
            },
      Mutation:{

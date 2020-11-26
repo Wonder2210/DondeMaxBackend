@@ -1,4 +1,4 @@
-import { Material, MaterialType } from "../../database/models";
+import { Material, MaterialType, MaterialsStage } from "../../database/models";
 import { Resolvers } from "../../__generated";
 import { UserInputError } from "apollo-server-express";
 
@@ -19,12 +19,21 @@ export const material: Resolvers = {
       return material;
       //resolver eso de no mandar el ID del tipo 2 veces
     },
+    materialsStage: async (parent,args,ctx)=>{
+      const materials = await MaterialsStage.query();
+      return materials;
+    }
   },
   Material: {
     type: async (parent, args, ctx) => {
       const data = await ctx.loaders.material_types.load(parent.id);
 
       return data[0]!.type;
+    },
+    store: async (parent,args,ctx)=>{
+      const list = await ctx.loaders.materialStorage.load(parent.id);
+      
+      return list[0].store;
     },
     onStock: async (parent, args, ctx)=>{
 
@@ -34,6 +43,7 @@ export const material: Resolvers = {
      return result;
     }
   },
+
 
   Mutation: {
     createMaterial: async (parent, args, ctx) => {
@@ -65,5 +75,15 @@ export const material: Resolvers = {
       }
       return types;
     },
+    updateMaterialStage: async (parent,{id,uniteds,weight},ctx)=>{
+      const update = await MaterialsStage.query().where("material_id",id).first();
+      const results = await update.$query().patchAndFetch({uniteds,weight});
+
+      return results;
+    },
+    updateMateriaStageW: async (parent,args,ctx)=>{
+      const update = await MaterialsStage.query().findById(args.materials[0].id).patch();
+      return update;
+    }
   },
 };

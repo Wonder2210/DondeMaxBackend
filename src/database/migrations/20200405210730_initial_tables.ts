@@ -12,6 +12,12 @@ export async function up(knex: Knex): Promise<any> {
       table.string("phone", 12);
       table.timestamps(true, true);
     })
+    .createTable("session_log",(table: Knex.CreateTableBuilder)=>{
+      table.integer("id_user");
+      table.string("username");
+      table.timestamp("date").defaultTo(knex.fn.now());
+      table.string("action_name");
+    })
     .createTable("client", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
@@ -31,6 +37,7 @@ export async function up(knex: Knex): Promise<any> {
       table
         .integer("user_id")
         .unsigned()
+        .nullable()
         .references("user.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
@@ -178,6 +185,7 @@ export async function up(knex: Knex): Promise<any> {
       table.date("expiration_date");
       table.string("brand");
       table.float("weight");
+      table.float("united_weight");
       table.timestamps(true, true);
     }).createTable("storage_log",(table: Knex.CreateTableBuilder)=>{
       table.integer("id_material");
@@ -185,6 +193,15 @@ export async function up(knex: Knex): Promise<any> {
       table.string("user_db");
       table.string("action_name");
       table.timestamp("date").defaultTo(knex.fn.now());
+    }).createTable("materials_stage",(table: Knex.CreateTableBuilder)=>{
+      table.increments('id');
+      table.integer("material_id");
+      table.foreign("material_id")
+        .references("material.id")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      table.string("name");
+      table.float("weight");
     });
 }
 

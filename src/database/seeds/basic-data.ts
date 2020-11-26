@@ -35,6 +35,14 @@ export async function seed(knex: Knex): Promise<any> {
           phone: "041234098",
           role:"EMPLEADO"
         },
+        {
+          id: 1999,
+          name: "system",
+          email: "system@root.com",
+          password: await bcrypt.hash("1234", 10),
+          phone: "0000000000",
+          role:"admin"
+        },
       ]);
     })
     .then(() => {
@@ -114,7 +122,8 @@ export async function seed(knex: Knex): Promise<any> {
      
               name: "Tres leches",
               precio: "3500",
-              image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+              image:    "https://images.unsplash.com/photo-1508737804141-4c3b688e2546?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=633&q=80",
+              
               type: "Tortas",
               preservation: "Refrigerado",
               info:"here"
@@ -123,7 +132,7 @@ export async function seed(knex: Knex): Promise<any> {
        
               name: "Milhojas",
               precio: "3000",
-              image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+              image:  "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80",
               type: "Porcion de torta",
               preservation: "Refrigerado",
               info:"casual.description"
@@ -132,7 +141,8 @@ export async function seed(knex: Knex): Promise<any> {
           
               name: "alfajor",
               precio: "1000",
-              image: "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+              image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80",
+              
               type: "Galleta",
               preservation: "No refrigerado",
               info:"there"
@@ -229,7 +239,8 @@ export async function seed(knex: Knex): Promise<any> {
               uniteds: 15,
               expiration_date: "17-12-2015",
               brand: "Juana",
-              weight: 1,
+              weight: 15,
+              united_weight:1
             },
             {
          
@@ -238,7 +249,8 @@ export async function seed(knex: Knex): Promise<any> {
               uniteds: 15,
               expiration_date: "17-12-2015",
               brand: "polar",
-              weight: 0.5,
+              weight: 7.5,
+              united_weight:0.5
             },
             {
          
@@ -247,7 +259,8 @@ export async function seed(knex: Knex): Promise<any> {
               uniteds: 25,
               expiration_date: "17-12-2015",
               brand: "Tachira",
-              weight: 2,
+              weight: 25,
+              united_weight:1,
             },
           ]);
         });

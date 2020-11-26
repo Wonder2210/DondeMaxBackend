@@ -1,7 +1,8 @@
 import { Client, Order } from "../../database/models";
 import { Resolvers } from "../../__generated";
 import { UserInputError } from "apollo-server-express";
-import {sign} from "jsonwebtoken";
+import {sign,verify} from "jsonwebtoken";
+
 
 export const client: Resolvers = {
   Query: {
@@ -31,7 +32,15 @@ export const client: Resolvers = {
       return client;
     },
     clientOrders:async (parent, args, ctx)=>{
-      const client : Client = await Client.query().findById(ctx.user.id);
+      let clientInfo=null;
+                try{
+                    let verified = await verify(ctx.user,process.env.SECRET || "221099");
+                    clientInfo= verified.valueOf();
+                }catch(err){
+                    console.log(err);
+                };
+     
+      const client : Client = await Client.query().findById(clientInfo.id);
       const delivered : Order[] = await client.$relatedQuery("orders").where("order.delivery_status",true);
       const pending : Order[] = await client.$relatedQuery("orders").where("order.delivery_status",false);
 

@@ -50,7 +50,10 @@ export const product: Resolvers = {
         };
       }
     },
-
+    productsRaw: async (parent, args, ctx)=>{
+      const products : Product[] = await Product.query();
+      return products;
+    },
     product: async (parent, { id }, ctx) => {
       const product: Product = await Product.query()
         .findById(id)

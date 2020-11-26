@@ -15,7 +15,7 @@ class ProductMaterial extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: Material,
       join: {
-        from: "product_material.id",
+        from: "product_material.material_id",
         to: "material.id",
       },
     },

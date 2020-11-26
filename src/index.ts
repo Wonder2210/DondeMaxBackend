@@ -36,17 +36,10 @@ const server = new ApolloServer({
   playground: true,
   mocks: false,
   context:async ({req})=>{
-    const token = req.headers.authorization || "";
-    const secretKey = process.env.SECRET || "221099";
-    let user = null;
-    if(token){
-      let res = await verify(token,secretKey);
-      user = res.valueOf();
-
-    }
+    
     return {
       loaders: Loaders(),
-      user: user
+      user: req.headers.authorization || ""
     }
   },
 });

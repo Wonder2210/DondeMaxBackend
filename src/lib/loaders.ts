@@ -14,6 +14,8 @@ const material_store: BatchLoadFn<number, Array<Material>> = async (ids) => {
 
   return ids.map((id) => stores!.filter((i) => i.id === id));
 };
+
+
 const materialByProduct: BatchLoadFn<number, Array<ProductMaterial>> = async (
   ids
 ) => {
@@ -21,13 +23,18 @@ const materialByProduct: BatchLoadFn<number, Array<ProductMaterial>> = async (
 
   return ids.map((id) => materials.filter((i) => i.product_id === id));
 };
+
+
 const materials_products: BatchLoadFn<number, Array<ProductMaterial>> = async (
   ids
 ) => {
   const materials = await ProductMaterial.query().withGraphFetched("material");
-  console.log(materials);
-  return ids.map((id) => materials.filter((i) => i.product_id === id));
+  
+  
+  return ids.map((id) => materials.filter((i) => i.material_id === id));
 };
+
+
 const order_creator: BatchLoadFn<number, Order[]> = async (ids) => {
   const creator = await Order.query().select("id").withGraphFetched("creator");
   return ids.map((id) => creator.filter((i) => i.id === id));
@@ -48,6 +55,13 @@ const material_types: BatchLoadFn<number, Material[]> = async (ids) => {
     .withGraphFetched({
       type: true,
     });
+
+  return ids.map((id) => materials.filter((i) => i.id === id));
+};
+const materialStorage: BatchLoadFn<number, Material[]> = async (ids) => {
+  const materials: Material[] = await Material.query()
+    .select("id")
+    .withGraphFetched("store");
 
   return ids.map((id) => materials.filter((i) => i.id === id));
 };
@@ -99,5 +113,6 @@ export default () => ({
   order_creator: new DataLoader(order_creator),
   order_waste: new DataLoader(order_waste),
   materials_products: new DataLoader(materials_products),
-  onStock : new DataLoader(onStockMaterial)
+  onStock : new DataLoader(onStockMaterial),
+  materialStorage: new DataLoader(materialStorage)
 });

@@ -7,6 +7,7 @@ class Store extends Model {
   static tableName = "store";
   id?: Maybe<number>;
   uniteds?: Maybe<number>;
+  united_weight?: Maybe<number>;
   expiration_date?: Maybe<string>;
   material_id?: Maybe<number>;
   provider_id?: Maybe<number>;

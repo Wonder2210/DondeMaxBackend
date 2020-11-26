@@ -51,6 +51,7 @@ type OrderProducts {
   materials: [MaterialWaste]
 }
 type MaterialWaste {
+  id:Int
   material_name: String
   quantity: Float
 }
@@ -82,12 +83,7 @@ type onStockMaterial {
   uniteds: Int
   weight: Float
 }
-type Material {
-  id: Int
-  nombre: String
-  type: MaterialType
-  onStock: onStockMaterial
-}
+
 type MaterialType {
   id: Int
   name: String
@@ -110,6 +106,7 @@ type PreservationType {
   products: [Products]
 }
 
+
 type Products implements product {
   id: Int
   name: String
@@ -129,8 +126,15 @@ type Store {
   expiration_date: String
   brand: String
   weight: Float
+  united_weight: Float
 }
-
+type Material {
+  id: Int
+  nombre: String
+  type: MaterialType
+  store:[Store]
+  onStock: onStockMaterial
+}
 type OrdersLog{
   id_pedido: Int
   user_db: String
@@ -140,6 +144,13 @@ type OrdersLog{
   stage: Boolean
    action_name: String
   production: Boolean
+}
+
+type MaterialsStage{
+  id: Int
+  name: String
+  weight: Float
+  uniteds: Int
 }
 
 type StorageLog{
@@ -155,6 +166,14 @@ type ProducstLog{
   id_product: Int
   action_name: String
   date: String
+}
+
+type SessionLog{
+  id_user: Int
+  username: String
+  date: String
+  action_name: String
+
 }
 
 
@@ -214,15 +233,17 @@ input StoreInput {
   expirationDate: String!
   brand: String!
   weight: Float!
+  united_weight: Float!
 }
 input UpdateStoreInput {
   id: Int!
-  materialsId: Int
-  providerId: Int
+  materials_id: Int
+  provider_id: Int
   uniteds: Int
   expiration_date: String
   brand: String
   weight: Float
+  united_weight: Float
 
 }
 
@@ -290,6 +311,17 @@ type ClientOrders {
   delivered: [Orders]
   pending: [Orders]
 }
+input UpdateOrder{
+  delivery_status: Boolean
+  production_status: Boolean
+  stage_status: Boolean
+}
+input UpdateMaterialStage{
+   id: Int!
+  name: String
+  weight: Float!
+
+}
 
 type Query {
   users: [User]
@@ -299,6 +331,7 @@ type Query {
   clients: [Client]
   clientOrders:ClientOrders
   materialTypes: [MaterialType]
+  materialsStage:[MaterialsStage]
   materials: [Material]
   provider(id: Int!): Provider
   providers: [Provider]
@@ -310,6 +343,7 @@ type Query {
     type: String
     preservation: String
   ): GetProducts
+  productsRaw:[Products]
   productTypes: [ProductType]
   productPreservation: [PreservationType]
   product(id: Int!): Products
@@ -344,11 +378,18 @@ type Mutation {
   deleteProvider(id: Int!): Boolean
   updateProvider(provider: UpdateProviderInput!): Provider
 
+  updateMaterialStage(id:Int!,weight:Float!, uniteds: Int!): MaterialsStage
+  updateMateriaStageW(materials:[UpdateMaterialStage]): Int
+
   addToStore(store: StoreInput!): Store
   updateStore(store: UpdateStoreInput!): Store
   deleteStored(id: Int!): String
   
+  updatStateOrder(id: Int!,state:UpdateOrder): MaterialsStage
   createProduct(product: ProductsInput!): Products
   updateProduct(product: UpdateProductsInput!): Products
   takeOrder(order: TakeOrderInput!): Orders
+  takeOrderClient(order: TakeOrderInput!): Orders
+
+
 }

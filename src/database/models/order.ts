@@ -17,6 +17,7 @@ class Order extends Model {
   monto?: Maybe<number>;
   total?: Maybe<number>;
   client_id?: Maybe<Number>;
+  user_id?: Maybe<Number>;
   creator?: User;
   client?: Client;
   products?: [Product];

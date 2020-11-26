@@ -12,13 +12,7 @@ export const store: Resolvers = {
       return store;
     },
     storage: async (parent, args, ctx) => {
-      const storage: Store[] = await Store.query().select(
-        "id",
-        "uniteds",
-        "expiration_date",
-        "brand",
-        "weight"
-      );
+      const storage: Store[] = await Store.query();
 
       return storage;
     },
@@ -43,9 +37,9 @@ export const store: Resolvers = {
 
     updateStore: async (parent, args, ctx) => {
       const { id, ...data } = args.store!;
-      const Id: number = id ?? 0;
+     
 
-      const stored: Store = await Store.query().patchAndFetchById(Id, data);
+      const stored: Store = await Store.query().patchAndFetchById(id, data);
       return stored;
     },
     // deleteStore:async (parent,{id},ctx)=>{
