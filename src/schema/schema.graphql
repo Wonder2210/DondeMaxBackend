@@ -116,6 +116,7 @@ type Products implements product {
   info: String
   type: String
   preservation: String
+  available: Boolean
 }
 
 type Store {
@@ -190,6 +191,7 @@ input UpdateUserInput {
   email: String
   password: String
   phone: String
+  role: UserRole
 }
 
 input ClientInput {
@@ -197,7 +199,6 @@ input ClientInput {
   cedula: String!
   nationality: String!
   phone: String!
-  creator: Int!
 }
 input UpdateClientInput {
   id: Int!
@@ -258,15 +259,17 @@ input ProductsInput {
   image: Upload!
   info: String!
   type: String!
+  available: Boolean
   materials: [MaterialProductInput!]!
 }
 input UpdateProductsInput {
   id: Int!
   name: String
   precio: Float
-  image: String
+  image: Upload
   type: String
   info: String
+  available: Boolean
   materials: [MaterialProductInput]
 }
 input ProductOrderInput {
@@ -388,6 +391,7 @@ type Mutation {
   updatStateOrder(id: Int!,state:UpdateOrder): MaterialsStage
   createProduct(product: ProductsInput!): Products
   updateProduct(product: UpdateProductsInput!): Products
+  deleteProduct(id: Int!): String
   takeOrder(order: TakeOrderInput!): Orders
   takeOrderClient(order: TakeOrderInput!): Orders
 

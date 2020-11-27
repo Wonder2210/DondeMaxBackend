@@ -11,7 +11,7 @@ import {v2} from "cloudinary";
 export const product: Resolvers = {
   Query: {
     products: async (parent, args, ctx) => {
-      console.log(ctx.user,"user");
+     
       const { size, cursor, type, preservation } = args;
       if (preservation && type) {
         const products = await Product.query()
@@ -140,9 +140,67 @@ export const product: Resolvers = {
          
        
     },
-    // updateProduct:(parent, { product: { materials, name, precio, image, info, type } }, ctx )=>{
-
-    // },
+    updateProduct:async (parent, { product }, ctx )=>{
+      const {materials,id,image,...data}=product;
+      let newData = data;
+      
+      let resultUrl : string = "";
+      let resultSecureUrl : string = "";
+      if(image){
+        v2.config({
+          cloud_name: process.env.CLOUDINARY_NAME,
+          api_key: process.env.CLOUDINARY_API_KEY,
+          api_secret: process.env.CLOUDINARY_API_SECRET,
+        });
+        
+        const { createReadStream } = await image;
+        const stream = createReadStream();
+       
+  
+         
+        try {
+          await new Promise((resolve, reject) => {
+              const streamLoad = v2.uploader.upload_stream(function (error, result) {
+                  if (result) {
+                      resultUrl = result.secure_url;
+                      resultSecureUrl = result.secure_url;
+                      resolve(resultUrl)
+                  } else {
+                      reject(error);
+                  }
+              });
+  
+              stream.pipe(streamLoad);
+          });
+      } catch(error){
+        console.log(error);
+        throw new UserInputError("La imagen no pude ser procesada",
+            {
+              invalidArgs: "None but the image doesnt work",
+            }
+        )
+      }
+      }
+      if(resultUrl!=""){
+        Object.assign(newData,{image:resultUrl})
+      }
+      const updated = await Product.query().patchAndFetchById(id,{...newData});
+      if(materials){
+        const delete_older = await ProductMaterial.query().where("product_id",updated.id).delete();
+        const pr_m: ProductMaterial[] = await updated
+        .$relatedQuery("materials")
+        .insertGraph([...materials.map(i=>({quantity:i.quantity,material_id:i.materialId}))]);
+      }
+      return updated;
+     },
+     deleteProduct: async(paren,{id},ctx)=>{
+       try{
+        const deleted = await Product.query().deleteById(id);
+       }catch(e){
+         console.log(e);
+       }
+       return "Succesfull deleted";
+     }
 
     // addProductMaterial,
     // updateProductMaterial,

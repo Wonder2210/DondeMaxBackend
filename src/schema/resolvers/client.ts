@@ -63,9 +63,16 @@ export const client: Resolvers = {
   Mutation: {
     createClient: async (
       parent,
-      { client: { name, nationality, cedula, creator, phone } },
+      { client: { name, nationality, cedula, phone } },
       ctx
     ) => {
+      let user=null;
+      try{
+        let verified = await verify(ctx.user,process.env.SECRET || "221099");
+        user=verified.valueOf();
+    }catch(err){
+        console.log(err);
+    };
       let client: Client;
 
       try {
@@ -73,7 +80,7 @@ export const client: Resolvers = {
           name,
           nationality,
           cedula,
-          user_creator: creator,
+          user_creator:user.id?user.id: 1999 ,
           phone,
         });
         return client;

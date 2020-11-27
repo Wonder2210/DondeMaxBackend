@@ -84,6 +84,7 @@ export async function up(knex: Knex): Promise<any> {
       table.string("image");
       table.string("info");
       table.string("type").unsigned();
+      table.boolean("available").defaultTo(true);
       table
         .foreign("type")
         .references("product_type.type")
@@ -186,6 +187,7 @@ export async function up(knex: Knex): Promise<any> {
       table.string("brand");
       table.float("weight");
       table.float("united_weight");
+      table.boolean("gastada").defaultTo(false);
       table.timestamps(true, true);
     }).createTable("storage_log",(table: Knex.CreateTableBuilder)=>{
       table.integer("id_material");

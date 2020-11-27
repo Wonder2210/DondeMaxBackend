@@ -41,7 +41,7 @@ export async function seed(knex: Knex): Promise<any> {
           email: "system@root.com",
           password: await bcrypt.hash("1234", 10),
           phone: "0000000000",
-          role:"admin"
+          role:"ADMINISTRADOR"
         },
       ]);
     })
