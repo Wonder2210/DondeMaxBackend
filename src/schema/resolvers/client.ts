@@ -76,7 +76,9 @@ export const client: Resolvers = {
     };
       let client: Client;
       if(!user){
-        user.id=1999;
+        user={
+          id:1999
+        }
       }
 
       try {
