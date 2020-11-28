@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Client, Order } from "../../database/models";
 import { Resolvers } from "../../__generated";
 import { UserInputError } from "apollo-server-express";

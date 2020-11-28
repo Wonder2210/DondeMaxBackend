@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Material, MaterialType, MaterialsStage } from "../../database/models";
 import { Resolvers } from "../../__generated";
 import { UserInputError } from "apollo-server-express";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Order, OrderProduct, ProductMaterial } from "../../database/models";
 import { Resolvers, ProductOrderInput } from "../../__generated";
 import {verify} from "jsonwebtoken";
