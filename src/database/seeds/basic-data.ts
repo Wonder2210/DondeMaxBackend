@@ -6,13 +6,14 @@ export async function seed(knex: Knex): Promise<any> {
   // Deletes ALL existing entries
   let date = new Date();
   let now = `${date.getMonth}/${date.getDay}/${date.getFullYear}`;
+  knex.raw("SET datestyle = dmy;");
   return knex("user")
     .del()
     .then(async () => {
       // Inserts seed entries
       return knex("user").insert([
         {
-          id: 1,
+       
           name: "Raul",
           email: "ra@gmail.com",
           password: await bcrypt.hash("1234", 10),
@@ -20,7 +21,7 @@ export async function seed(knex: Knex): Promise<any> {
           role:"ADMINISTRADOR"
         },
         {
-          id: 2,
+       
           name: "Jose",
           email: "jose@gmail.com",
           password: await bcrypt.hash("1234", 10),
@@ -28,7 +29,7 @@ export async function seed(knex: Knex): Promise<any> {
           role:"EMPLEADO"
         },
         {
-          id: 3,
+   
           name: "Manuel",
           email: "manuel@gmail.com",
           password: await bcrypt.hash("1234", 10),
@@ -52,7 +53,7 @@ export async function seed(knex: Knex): Promise<any> {
           // Inserts seed entries
           return knex("client").insert([
             {
-              id: 1,
+          
               name: "Sara",
               cedula: "21566398",
               nationality: "VE",
@@ -60,7 +61,7 @@ export async function seed(knex: Knex): Promise<any> {
               phone: "0414567890",
             },
             {
-              id: 2,
+          
               name: "Difi",
               cedula: "14528736",
               nationality: "VE",
@@ -68,7 +69,7 @@ export async function seed(knex: Knex): Promise<any> {
               phone: "0414567890",
             },
             {
-              id: 3,
+        
               name: "Keren",
               cedula: "25879357",
               nationality: "VE",
@@ -103,9 +104,9 @@ export async function seed(knex: Knex): Promise<any> {
         .del()
         .then(function () {
           return knex("preservation_type").insert([
-            { id: 1, type: "Refrigerado" },
+            {  type: "Refrigerado" },
             {
-              id: 2,
+    
               type: "No refrigerado",
             },
           ]);
@@ -158,15 +159,15 @@ export async function seed(knex: Knex): Promise<any> {
           // Inserts seed entries
           return knex("material_type").insert([
             {
-              id: 1,
+             
               name: "FRIO",
             },
             {
-              id: 2,
+           
               name: "POLVO",
             },
             {
-              id: 3,
+            
               name: "LIQUIDO",
             },
           ]);
@@ -237,7 +238,7 @@ export async function seed(knex: Knex): Promise<any> {
               material_id: 1,
               provider_id: 1,
               uniteds: 15,
-              expiration_date: "17-12-2015",
+              expiration_date: "10-12-2020",
               brand: "Juana",
               weight: 15,
               united_weight:1
@@ -247,7 +248,7 @@ export async function seed(knex: Knex): Promise<any> {
               material_id: 2,
               provider_id: 2,
               uniteds: 15,
-              expiration_date: "17-12-2015",
+              expiration_date: "10-12-2020",
               brand: "polar",
               weight: 7.5,
               united_weight:0.5
@@ -257,7 +258,7 @@ export async function seed(knex: Knex): Promise<any> {
               material_id: 3,
               provider_id: 3,
               uniteds: 25,
-              expiration_date: "17-12-2015",
+              expiration_date: "10-12-2020",
               brand: "Tachira",
               weight: 25,
               united_weight:1,

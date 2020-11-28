@@ -2,7 +2,7 @@ import * as Knex from "knex";
 
 
 export async function up(knex: Knex): Promise<any> {
-    await knex.raw(`CREATE FUNCTION public.order_log()
+    await knex.raw(`CREATE FUNCTION order_log()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<any> {
 AS $BODY$declare nm session_log;
 begin
 SELECT "id", id_user, username, date, action_name
-	FROM public.session_log ORDER BY id DESC LIMIT 1 INTO nm;
+	FROM session_log ORDER BY id DESC LIMIT 1 INTO nm;
 	INSERT INTO orders_log(id_pedido,user_db,client,delivered,stage,production,action_name) values(NEW.id,nm.username,NEW.client_id,NEW.delivery_status,NEW.stage_status,NEW.production_status,TG_ARGV[0]);
 	
 	RETURN NEW;
@@ -18,7 +18,7 @@ end;$BODY$;
 
 
 
-CREATE FUNCTION public.products_log()
+CREATE FUNCTION products_log()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -26,14 +26,14 @@ CREATE FUNCTION public.products_log()
 AS $BODY$declare nm session_log;
 begin
 SELECT "id", id_user, username, date, action_name
-	FROM public.session_log ORDER BY id DESC LIMIT 1 into nm;
+	FROM session_log ORDER BY id DESC LIMIT 1 into nm;
 	INSERT INTO products_log(user_db,id_product,action_name) values(nm.username,NEW.id,TG_ARGV[0]);
 	RETURN NEW;
 	
 end;$BODY$;
 
 
-CREATE FUNCTION public.storage_log()
+CREATE FUNCTION storage_log()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -41,70 +41,70 @@ CREATE FUNCTION public.storage_log()
 AS $BODY$declare nm session_log;
 begin
 SELECT "id", id_user, username, date, action_name
-	FROM public.session_log ORDER BY id DESC LIMIT 1 INTO nm;
+	FROM session_log ORDER BY id DESC LIMIT 1 INTO nm;
 	INSERT INTO storage_log(id_material,id_provider,user_db,action_name) values(NEW.material_id,NEW.provider_id,nm.username,TG_ARGV[0]);
 	RETURN NEW;
 	
 end;$BODY$;
 
 
--- DROP TRIGGER on_insert ON public.store;
+-- DROP TRIGGER on_insert ON store;
 
 create trigger on_insert before
 insert
     on
-    public.store for each row execute function storage_log('insert');
+    store for each row execute function storage_log('insert');
 
--- DROP TRIGGER on_update ON public.store;
+-- DROP TRIGGER on_update ON store;
 create trigger on_update before
 update
     on
-    public.store for each row execute function storage_log('update');
+    store for each row execute function storage_log('update');
 
--- DROP TRIGGER on_delete ON public.store;
+-- DROP TRIGGER on_delete ON store;
 create trigger on_delete before
 delete
     on
-    public.store for each row execute function storage_log('delete');
+    store for each row execute function storage_log('delete');
 
--- DROP TRIGGER on_insert ON public.product;
+-- DROP TRIGGER on_insert ON product;
 
 create trigger on_insert before
 insert
     on
-    public.product for each row execute function products_log('insert');
+    product for each row execute function products_log('insert');
 
--- DROP TRIGGER on_update ON public.product;
+-- DROP TRIGGER on_update ON product;
 
 create trigger on_update before
 update
     on
-    public.product for each row execute function products_log('update');
+    product for each row execute function products_log('update');
 
--- DROP TRIGGER on_delete ON public.product;
+-- DROP TRIGGER on_delete ON product;
 
 create trigger on_delete before
 delete
     on
-    public.product for each row execute function products_log('delete');
+    product for each row execute function products_log('delete');
 
--- DROP TRIGGER on_insert ON public."order";
+-- DROP TRIGGER on_insert ON "order";
 
 create trigger on_insert before
 insert
     on
-    public."order" for each row execute function order_log('insert');
+    "order" for each row execute function order_log('insert');
 
--- DROP TRIGGER on_update ON public."order";
+-- DROP TRIGGER on_update ON "order";
 
 create trigger on_update before
 update
     on
-    public."order" for each row execute function order_log('update');
+    "order" for each row execute function order_log('update');
     
 
 
-CREATE FUNCTION public.create_material_storage()
+CREATE FUNCTION create_material_storage()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -115,16 +115,13 @@ AS $BODY$begin
     RETURN NEW;
 end;$BODY$;
 
-ALTER FUNCTION public.create_material_storage()
-    OWNER TO postgres;
-
 CREATE TRIGGER create_material_stage
     AFTER INSERT
-    ON public.material
+    ON material
     FOR EACH ROW
-    EXECUTE PROCEDURE public.create_material_storage();
+    EXECUTE PROCEDURE create_material_storage();
 
-    CREATE FUNCTION public.update_materials_stage()
+    CREATE FUNCTION update_materials_stage()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -132,20 +129,19 @@ CREATE TRIGGER create_material_stage
 AS $BODY$declare mat materials_stage;
 begin
 	select * from materials_stage where materials_stage.material_id=new.material_id into mat;
-	UPDATE public.materials_stage
+	UPDATE materials_stage
 	SET   weight= mat.weight + NEW.weight
 	WHERE material_id=NEW.material_id;
 	return NEW;
 end;$BODY$;
 
-ALTER FUNCTION public.update_materials_stage()
-    OWNER TO postgres;
+
 
 CREATE TRIGGER upd_materials_stage
     AFTER INSERT
-    ON public.store
+    ON store
     FOR EACH ROW
-    EXECUTE PROCEDURE public.update_materials_stage();
+    EXECUTE PROCEDURE update_materials_stage();
     `)
 }
 

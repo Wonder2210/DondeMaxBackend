@@ -1,7 +1,7 @@
 import * as Knex from "knex";
 
 export async function up(knex: Knex): Promise<any> {
-  
+  knex.raw("  SET datestyle = dmy;");
   return knex.schema
     .createTable("user", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
@@ -209,5 +209,6 @@ export async function up(knex: Knex): Promise<any> {
 }
 
 export async function down(knex: Knex): Promise<any> {
- await knex.raw('DROP DATABASE "DondeMax"');
+  
+  return;
 }
