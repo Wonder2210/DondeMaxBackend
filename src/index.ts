@@ -35,7 +35,6 @@ Model.knex(db);
 const server = new ApolloServer({
   schema: Schema,
   introspection: true,
-  playground: true,
   mocks: false,
   context:async ({req})=>{
     

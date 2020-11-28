@@ -6,8 +6,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "concurrently \"nodemon ./dist/bundle.js\" \"webpack --env.NODE_ENV=development --watch\"  ",
-    "build":"webpack --env.NODE_ENV=production",
     "start":"node ./dist/bundle.js",
+    "build":"webpack --env.NODE_ENV=production",
+    "heroku-postbuild": "npm run build",
     "codegen": "graphql-codegen --config codegen.yml",
     "migrate:up": "knex --knexfile ./src/database/knexfile.ts migrate:latest ",
     "migrate:down": "knex --knexfile ./src/database/knexfile.ts migrate:down ",
