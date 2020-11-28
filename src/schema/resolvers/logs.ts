@@ -1,5 +1,5 @@
 import { ProducstLog, Resolvers } from "../../__generated";
-import { ProductsLog, StorageLog, OrdersLog, Order} from "../../database/models";
+import { ProductsLog, StorageLog, OrdersLog, UserLog} from "../../database/models";
 
 
 export const Logs : Resolvers ={
@@ -15,6 +15,11 @@ export const Logs : Resolvers ={
         ordersLog:async (parent,args,ctx)=>{
             const logs : OrdersLog[] = await OrdersLog.query();
             return logs;
+        },
+        sessionLog: async (parent,args,ctx)=>{
+            const logs : UserLog[] = await UserLog.query();
+            return logs;
         }
+        
     }
 }

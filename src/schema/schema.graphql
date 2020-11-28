@@ -330,6 +330,7 @@ type Query {
   users: [User]
   user(id: Int!): User
   sessionUser: String!
+  sessionLog: [SessionLog]
   client(id: Int!): Client
   clients: [Client]
   clientOrders:ClientOrders
@@ -393,6 +394,7 @@ type Mutation {
   updateProduct(product: UpdateProductsInput!): Products
   deleteProduct(id: Int!): String
   takeOrder(order: TakeOrderInput!): Orders
+  deleteOrder(id:Int!): String
   takeOrderClient(order: TakeOrderInput!): Orders
 
 

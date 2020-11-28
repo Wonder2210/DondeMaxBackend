@@ -101,6 +101,10 @@ export const order: Resolvers = {
     updatStateOrder: async (parent,{id,state},ctx)=>{
       const update= await Order.query().patchAndFetchById(id,{...state});
       return update;
+    },
+    deleteOrder: async (parent,{id},ctx)=>{
+      const deleted = await Order.query().deleteById(id);
+      return "succesfull deleted";
     }
     // updateOrder:()=>{},
     // updateProductOrder:()=>{},

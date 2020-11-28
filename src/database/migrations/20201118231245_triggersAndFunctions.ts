@@ -2,35 +2,47 @@ import * as Knex from "knex";
 
 
 export async function up(knex: Knex): Promise<any> {
-    await knex.raw(`CREATE OR REPLACE FUNCTION public.order_log()
+    await knex.raw(`CREATE FUNCTION public.order_log()
     RETURNS trigger
     LANGUAGE 'plpgsql'
-    VOLATILE
     COST 100
-AS $BODY$begin
-	INSERT INTO orders_log(id_pedido,user_db,client,delivered,stage,production,action_name) values(NEW.id,CURRENT_USER,NEW.client_id,NEW.delivery_status,NEW.stage_status,NEW.production_status,TG_ARGV[0]);
+    VOLATILE NOT LEAKPROOF
+AS $BODY$declare nm session_log;
+begin
+SELECT "id", id_user, username, date, action_name
+	FROM public.session_log ORDER BY id DESC LIMIT 1 INTO nm;
+	INSERT INTO orders_log(id_pedido,user_db,client,delivered,stage,production,action_name) values(NEW.id,nm.username,NEW.client_id,NEW.delivery_status,NEW.stage_status,NEW.production_status,TG_ARGV[0]);
 	
 	RETURN NEW;
 end;$BODY$;
 
-CREATE OR REPLACE FUNCTION public.products_log()
+
+
+CREATE FUNCTION public.products_log()
     RETURNS trigger
     LANGUAGE 'plpgsql'
-    VOLATILE
     COST 100
-AS $BODY$begin
-	INSERT INTO products_log(user_db,id_product,action_name) values(CURRENT_USER,NEW.id,TG_ARGV[0]);
+    VOLATILE NOT LEAKPROOF
+AS $BODY$declare nm session_log;
+begin
+SELECT "id", id_user, username, date, action_name
+	FROM public.session_log ORDER BY id DESC LIMIT 1 into nm;
+	INSERT INTO products_log(user_db,id_product,action_name) values(nm.username,NEW.id,TG_ARGV[0]);
 	RETURN NEW;
 	
 end;$BODY$;
 
-CREATE OR REPLACE FUNCTION public.storage_log()
+
+CREATE FUNCTION public.storage_log()
     RETURNS trigger
     LANGUAGE 'plpgsql'
-    VOLATILE
     COST 100
-AS $BODY$begin
-	INSERT INTO storage_log(id_material,id_provider,user_db,action_name) values(NEW.material_id,NEW.provider_id,CURRENT_USER,TG_ARGV[0]);
+    VOLATILE NOT LEAKPROOF
+AS $BODY$declare nm session_log;
+begin
+SELECT "id", id_user, username, date, action_name
+	FROM public.session_log ORDER BY id DESC LIMIT 1 INTO nm;
+	INSERT INTO storage_log(id_material,id_provider,user_db,action_name) values(NEW.material_id,NEW.provider_id,nm.username,TG_ARGV[0]);
 	RETURN NEW;
 	
 end;$BODY$;

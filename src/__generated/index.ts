@@ -382,6 +382,7 @@ export type Query = {
   users?: Maybe<Array<Maybe<User>>>;
   user?: Maybe<User>;
   sessionUser: Scalars['String'];
+  sessionLog?: Maybe<Array<Maybe<SessionLog>>>;
   client?: Maybe<Client>;
   clients?: Maybe<Array<Maybe<Client>>>;
   clientOrders?: Maybe<ClientOrders>;
@@ -469,6 +470,7 @@ export type Mutation = {
   updateProduct?: Maybe<Products>;
   deleteProduct?: Maybe<Scalars['String']>;
   takeOrder?: Maybe<Orders>;
+  deleteOrder?: Maybe<Scalars['String']>;
   takeOrderClient?: Maybe<Orders>;
 };
 
@@ -600,6 +602,11 @@ export type MutationDeleteProductArgs = {
 
 export type MutationTakeOrderArgs = {
   order: TakeOrderInput;
+};
+
+
+export type MutationDeleteOrderArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -1003,6 +1010,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
   sessionUser?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  sessionLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['SessionLog']>>>, ParentType, ContextType>,
   client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<QueryClientArgs, 'id'>>,
   clients?: Resolver<Maybe<Array<Maybe<ResolversTypes['Client']>>>, ParentType, ContextType>,
   clientOrders?: Resolver<Maybe<ResolversTypes['ClientOrders']>, ParentType, ContextType>,
@@ -1051,6 +1059,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateProduct?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'product'>>,
   deleteProduct?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'id'>>,
   takeOrder?: Resolver<Maybe<ResolversTypes['Orders']>, ParentType, ContextType, RequireFields<MutationTakeOrderArgs, 'order'>>,
+  deleteOrder?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteOrderArgs, 'id'>>,
   takeOrderClient?: Resolver<Maybe<ResolversTypes['Orders']>, ParentType, ContextType, RequireFields<MutationTakeOrderClientArgs, 'order'>>,
 };
 

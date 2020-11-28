@@ -26,7 +26,9 @@ app.use(
 
 app.use(cors());
 
-const db = Knex(config[process.env.ENV]);
+export const db = Knex(config[process.env.ENV]);
+
+
 
 Model.knex(db);
 

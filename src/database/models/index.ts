@@ -13,6 +13,7 @@ import ProductType from "./product_type";
 import OrdersLog from "./orders_log";
 import ProductsLog from "./products_log";
 import StorageLog from "./storage_log";
+import UserLog from "./UserLog";
 import MaterialsStage from "./material_stage";
 
 export {
@@ -31,5 +32,6 @@ export {
   OrdersLog,
   ProductsLog,
   StorageLog,
-  MaterialsStage
+  MaterialsStage,
+  UserLog
 };

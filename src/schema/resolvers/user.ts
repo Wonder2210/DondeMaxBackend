@@ -1,8 +1,8 @@
-import {User} from '../../database/models';
+import {User, UserLog} from '../../database/models';
  import {Resolvers} from '../../__generated';
  import {UserInputError} from 'apollo-server-express';
  import {sign,verify} from "jsonwebtoken";
-
+ import {db} from "../../index";
 
  export const user:Resolvers  = {
      Query:{
@@ -20,9 +20,12 @@ import {User} from '../../database/models';
                 try{
                     let verified = await verify(ctx.user,process.env.SECRET || "221099");
                     user=JSON.stringify(verified.valueOf());
+                    
+          
                 }catch(err){
                     console.log(err);
                 };
+
                 return user;
          }
            },
@@ -56,6 +59,9 @@ import {User} from '../../database/models';
             const verification = await user.verifyPassword(args.password);
             const secretKey = process.env.SECRET || "221099";
             const {id,name,email,role, phone} = user;
+            
+            const user_log = await UserLog.query().insert({username:name,action_name:"login",id_user:id});
+            
             if(verification){
                 return sign({id,name,email,role, phone},secretKey,{
                     expiresIn:'365d'

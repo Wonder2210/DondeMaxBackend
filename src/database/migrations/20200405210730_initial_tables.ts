@@ -13,6 +13,7 @@ export async function up(knex: Knex): Promise<any> {
       table.timestamps(true, true);
     })
     .createTable("session_log",(table: Knex.CreateTableBuilder)=>{
+      table.increments("id");
       table.integer("id_user");
       table.string("username");
       table.timestamp("date").defaultTo(knex.fn.now());
@@ -60,7 +61,7 @@ export async function up(knex: Knex): Promise<any> {
     })
     .createTable("orders_log",(table:Knex.CreateTableBuilder)=>{
       table.integer("id_pedido");
-      table.string("user_db");
+      table.string("user_db").defaultTo("SYSTEM");
       table.timestamp("date").defaultTo(knex.fn.now());
       table.integer("client");
       table.boolean("delivered");
@@ -99,7 +100,7 @@ export async function up(knex: Knex): Promise<any> {
       table.timestamps(true, true);
     })
     .createTable("products_log",(table: Knex.CreateTableBuilder)=>{
-      table.string("user_db");
+      table.string("user_db").defaultTo("SYSTEM");
       table.integer("id_product");
       table.string("action_name");
       table.timestamp("date").defaultTo(knex.fn.now());
@@ -192,7 +193,7 @@ export async function up(knex: Knex): Promise<any> {
     }).createTable("storage_log",(table: Knex.CreateTableBuilder)=>{
       table.integer("id_material");
       table.integer("id_provider");
-      table.string("user_db");
+      table.string("user_db").defaultTo("SYSTEM");
       table.string("action_name");
       table.timestamp("date").defaultTo(knex.fn.now());
     }).createTable("materials_stage",(table: Knex.CreateTableBuilder)=>{

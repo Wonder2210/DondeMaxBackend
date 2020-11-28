@@ -2,6 +2,8 @@ import { Store } from "../../database/models";
 import { Resolvers } from "../../__generated";
 import { IResolvers } from "../../lib/utils";
 import { stringify } from "querystring";
+import {db} from "../../index";
+import {verify} from "jsonwebtoken";
 
 export const store: Resolvers = {
   Query: {
@@ -30,6 +32,8 @@ export const store: Resolvers = {
   },
   Mutation: {
     addToStore: async (parent, args, ctx) => {
+      
+              
       const {expirationDate:expiration_date, materialsId:material_id, providerId: provider_id , ...data} = args.store;
       const stored: Store = await Store.query().insert({ ...data, expiration_date:expiration_date, material_id:material_id, provider_id:provider_id});
       return stored;
