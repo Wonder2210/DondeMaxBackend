@@ -57,7 +57,7 @@ let port =  process.env.PORT || 4000;
 
 app.listen(
   {
-    port:port || 5000,
+    port:port,
   },
   () =>
     console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`)
