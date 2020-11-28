@@ -75,6 +75,9 @@ export const client: Resolvers = {
         console.log(err);
     };
       let client: Client;
+      if(!user){
+        user.id=1999;
+      }
 
       try {
         client = await Client.query().insert({
