@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ApolloServer } from "apollo-server-express";
 import Knex from "knex";
 import { Model } from "objection";

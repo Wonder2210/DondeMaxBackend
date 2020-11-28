@@ -10,7 +10,9 @@ import Mocks from "./lib/mocks";
 import {verify} from "jsonwebtoken";
 import { config } from "./database/config";
 import Schema from "./schema";
-import "./lib/env";
+import * as dotenv from "dotenv";
+
+dotenv.config()
 
 
 
@@ -55,7 +57,7 @@ let port =  process.env.PORT || 4000;
 
 app.listen(
   {
-    port:port,
+    port:port || 5000,
   },
   () =>
     console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`)
