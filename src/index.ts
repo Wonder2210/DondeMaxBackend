@@ -51,6 +51,7 @@ const server = new ApolloServer({
 server.applyMiddleware({
   app,
   path: "/graphql",
+  
 });
 
 let port =  process.env.PORT || 4000;

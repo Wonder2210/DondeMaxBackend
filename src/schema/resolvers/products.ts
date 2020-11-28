@@ -19,6 +19,7 @@ export const product: Resolvers = {
           .where({
             preservation: preservation,
             type: type,
+            available:true
           })
           .page(cursor, size);
         return {
@@ -28,7 +29,10 @@ export const product: Resolvers = {
       }
       if (type) {
         const products = await Product.query()
-          .where("type", type)
+          .where({
+            type:type,
+            available:true
+          })
           .page(cursor, size);
         return {
           results: products.results,
@@ -37,7 +41,10 @@ export const product: Resolvers = {
       }
       if (preservation) {
         const products = await Product.query()
-          .where("preservation", preservation)
+          .where({
+            preservatio:preservation,
+            available:true
+          })
           .page(cursor, size);
         return {
           results: products.results,
