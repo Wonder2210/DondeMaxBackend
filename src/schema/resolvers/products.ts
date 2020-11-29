@@ -154,7 +154,9 @@ export const product: Resolvers = {
       
       let resultUrl : string = "";
       let resultSecureUrl : string = "";
-      if(image){
+     
+      if(image.filename){
+ 
         v2.config({
           cloud_name: process.env.CLOUDINARY_NAME,
           api_key: process.env.CLOUDINARY_API_KEY,
@@ -193,7 +195,8 @@ export const product: Resolvers = {
         Object.assign(newData,{image:resultUrl})
       }
       const updated = await Product.query().patchAndFetchById(id,{...newData});
-      if(materials){
+      if(materials.length > 0){
+        console.log(materials);
         const delete_older = await ProductMaterial.query().where("product_id",updated.id).delete();
         const pr_m: ProductMaterial[] = await updated
         .$relatedQuery("materials")

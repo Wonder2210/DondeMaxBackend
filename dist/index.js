@@ -99,7 +99,7 @@ server.applyMiddleware({
 });
 var port = process.env.PORT || 4000;
 app.listen({
-    port: port || 5000,
+    port: port,
 }, function () {
     return console.log("\uD83D\uDE80 Server ready at http://localhost:" + process.env.PORT + server.graphqlPath);
 });

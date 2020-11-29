@@ -5,7 +5,7 @@
   "author": "wonder <gonzalezwonderly@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"nodemon ./dist/bundle.js\" \"webpack --env.NODE_ENV=development --watch\"  ",
+    "dev": "concurrently \"nodemon ./dist/index.js\" \"tsc --watch\"  ",
     "start": "node ./dist/index.js",
     "build": "tsc",
     "heroku-postbuild": "npm run build",

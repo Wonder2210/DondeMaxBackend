@@ -22,7 +22,7 @@ export async function up(knex: Knex): Promise<any> {
     .createTable("client", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
-      table.integer("cedula");
+      table.integer("cedula").unique();
       table.string("nationality");
       table.integer("user_creator").unsigned();
       table
