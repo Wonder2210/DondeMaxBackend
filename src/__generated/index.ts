@@ -466,6 +466,7 @@ export type Mutation = {
   updateStore?: Maybe<Store>;
   deleteStored?: Maybe<Scalars['String']>;
   updatStateOrder?: Maybe<MaterialsStage>;
+  produceOrder?: Maybe<Orders>;
   createProduct?: Maybe<Products>;
   updateProduct?: Maybe<Products>;
   deleteProduct?: Maybe<Scalars['String']>;
@@ -582,6 +583,11 @@ export type MutationDeleteStoredArgs = {
 export type MutationUpdatStateOrderArgs = {
   id: Scalars['Int'];
   state?: Maybe<UpdateOrder>;
+};
+
+
+export type MutationProduceOrderArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -1055,6 +1061,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, 'store'>>,
   deleteStored?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteStoredArgs, 'id'>>,
   updatStateOrder?: Resolver<Maybe<ResolversTypes['MaterialsStage']>, ParentType, ContextType, RequireFields<MutationUpdatStateOrderArgs, 'id'>>,
+  produceOrder?: Resolver<Maybe<ResolversTypes['Orders']>, ParentType, ContextType, RequireFields<MutationProduceOrderArgs, 'id'>>,
   createProduct?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>,
   updateProduct?: Resolver<Maybe<ResolversTypes['Products']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'product'>>,
   deleteProduct?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'id'>>,

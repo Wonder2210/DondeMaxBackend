@@ -22,6 +22,7 @@ export const material: Resolvers = {
     },
     materialsStage: async (parent,args,ctx)=>{
       const materials = await MaterialsStage.query();
+      console.log(materials)
       return materials;
     }
   },

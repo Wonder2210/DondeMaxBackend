@@ -28,7 +28,7 @@ app.use(
 
 app.use(cors());
 
-export const db = Knex(config["production"]);
+export const db = Knex(config["development"]);
 
 
 

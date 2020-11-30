@@ -393,6 +393,7 @@ type Mutation {
   deleteStored(id: Int!): String
   
   updatStateOrder(id: Int!,state:UpdateOrder): MaterialsStage
+  produceOrder(id: Int!):Orders
   createProduct(product: ProductsInput!): Products
   updateProduct(product: UpdateProductsInput!): Products
   deleteProduct(id: Int!): String

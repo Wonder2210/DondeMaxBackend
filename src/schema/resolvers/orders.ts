@@ -1,7 +1,8 @@
-// @ts-nocheck
-import { Order, OrderProduct, ProductMaterial } from "../../database/models";
+//@ts-nocheck
+import { Order, OrderProduct, ProductMaterial,MaterialsStage } from "../../database/models";
 import { Resolvers, ProductOrderInput } from "../../__generated";
 import {verify} from "jsonwebtoken";
+import { UserInputError } from "apollo-server-express";
 
 export const order: Resolvers = {
   Query: {
@@ -106,6 +107,49 @@ export const order: Resolvers = {
     deleteOrder: async (parent,{id},ctx)=>{
       const deleted = await Order.query().deleteById(id);
       return "succesfull deleted";
+    },
+    produceOrder: async(parent,{id},ctx)=>{
+      const order : Order = await Order.query().findById(id).withGraphFetched({
+        products:{
+          materials:true
+        }});
+        const materialsStage : MaterialsStage[] = await MaterialsStage.query();
+
+        const materials = order.products?.flatMap(i=>i.materials).map(i=>({id:i?.material_id,quantity:i?.quantity}));
+        
+        const list = materialsStage.map((item) => {
+          const same = materials.filter((i) => i.id == item.id);
+          const result = same.reduce(
+            (prev, actual) => {
+              return {
+                ...actual,
+                quantity: actual.quantity + prev.quantity,
+              };
+            },
+            { quantity: 0 },
+          );
+          return result;
+        });
+        const able = materialsStage.map(({id,material_id,weight})=>({id,material_id,weight})).map(item=>{
+          const required = list?.find(i=>i.material_id==item.material_id);
+          if(required?.quantity> item.weight) return false;
+          return true;
+        }).includes(i=>i==false);
+
+       if(!able){
+        for(let i in materialsStage){
+       
+          const old= list.find(item=>item.id==materialsStage[i].material_id);
+          await materialsStage[i].$query().patch({weight:materialsStage[i].weight - old.quantity}).where("id",old.id);
+        }
+       }else{
+         return new UserInputError("no se puede producir",{
+           nad:"nada"
+         })
+       }
+
+
+      return order;
     }
     // updateOrder:()=>{},
     // updateProductOrder:()=>{},
