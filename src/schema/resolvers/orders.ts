@@ -147,9 +147,9 @@ export const order: Resolvers = {
            nad:"nada"
          })
        }
+       const updated = await order.$query().patchAndFetch({production_status:true});
 
-
-      return order;
+      return updated;
     }
     // updateOrder:()=>{},
     // updateProductOrder:()=>{},
