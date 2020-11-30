@@ -154,16 +154,17 @@ export const product: Resolvers = {
       
       let resultUrl : string = "";
       let resultSecureUrl : string = "";
-     
-      if(image.filename){
- 
+
+     console.log(typeof image);
+      if(typeof image == "object"){
+        const { createReadStream,filename } = await image;
+        console.log(filename);
         v2.config({
           cloud_name: process.env.CLOUDINARY_NAME,
           api_key: process.env.CLOUDINARY_API_KEY,
           api_secret: process.env.CLOUDINARY_API_SECRET,
         });
         
-        const { createReadStream } = await image;
         const stream = createReadStream();
        
   
@@ -183,7 +184,7 @@ export const product: Resolvers = {
               stream.pipe(streamLoad);
           });
       } catch(error){
-        console.log(error);
+      
         throw new UserInputError("La imagen no pude ser procesada",
             {
               invalidArgs: "None but the image doesnt work",
@@ -192,11 +193,12 @@ export const product: Resolvers = {
       }
       }
       if(resultUrl!=""){
-        Object.assign(newData,{image:resultUrl})
+        Object.assign(newData,{image:resultUrl});
+    
       }
       const updated = await Product.query().patchAndFetchById(id,{...newData});
       if(materials.length > 0){
-        console.log(materials);
+      
         const delete_older = await ProductMaterial.query().where("product_id",updated.id).delete();
         const pr_m: ProductMaterial[] = await updated
         .$relatedQuery("materials")
@@ -204,12 +206,12 @@ export const product: Resolvers = {
       }
       return updated;
      },
-     deleteProduct: async(paren,{id},ctx)=>{
-       try{
-        const deleted = await Product.query().deleteById(id);
-       }catch(e){
-         console.log(e);
-       }
+     deleteProduct: async(parent,{id},ctx)=>{
+     
+        const deleted = await Product.query().delete().where("id",id);
+        
+       
+      
        return "Succesfull deleted";
      }
 
