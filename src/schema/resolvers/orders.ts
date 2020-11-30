@@ -8,6 +8,7 @@ export const order: Resolvers = {
   Query: {
     orders: async (parent, args, ctx) => {
       const orders: Order[] = await Order.query();
+      
       return orders;
     },
     order: async (parent, { id }, ctx) => {

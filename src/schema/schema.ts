@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 
 export const schema = gql`
 scalar Upload
+scalar Date
 interface product {
   id: Int
   name: String
@@ -65,7 +66,7 @@ type OrderWaste {
 type Orders {
   id: Int
   pay_method: PayMethod
-  delivery_date: String
+  delivery_date: Date
   note: String
   delivery_status: Boolean
   production_status: Boolean
@@ -127,7 +128,7 @@ type Store {
   material: Material
   provider: Provider
   uniteds: Int
-  expiration_date: String
+  expiration_date: Date
   brand: String
   weight: Float
   united_weight: Float
@@ -142,7 +143,7 @@ type Material {
 type OrdersLog{
   id_pedido: Int
   user_db: String
-  date: String
+  date: Date
   client: Int
   delivered: Boolean
   stage: Boolean
@@ -162,20 +163,20 @@ type StorageLog{
   id_provider: Int
   user_db: String
    action_name: String
-  date: String
+  date: Date
 }
 
 type ProducstLog{
   user_db: String
   id_product: Int
   action_name: String
-  date: String
+  date: Date
 }
 
 type SessionLog{
   id_user: Int
   username: String
-  date: String
+  date: Date
   action_name: String
 
 }
