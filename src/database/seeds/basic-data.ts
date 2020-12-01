@@ -46,6 +46,17 @@ export async function seed(knex: Knex): Promise<any> {
         },
       ]);
     })
+    .then(()=>{
+      return knex("session_log")
+      .del()
+      .then(function(){
+        return knex("session_log").insert([{
+          id_user:1999,
+          username:"SUPERUSER",
+          action_name:"CREATE"
+        }])
+      })
+    })
     .then(() => {
       return knex("client")
         .del()
