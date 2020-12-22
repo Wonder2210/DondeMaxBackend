@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { makeExecutableSchema} from 'graphql-tools';
 import {Resolvers} from './resolvers';
-//import schema from './schema.graphql';
-import {schema} from "./schema";
+import {typeDefs} from "./typeDefs";
 
-export default makeExecutableSchema({typeDefs:schema,resolvers:Resolvers as any});
+export default makeExecutableSchema({typeDefs,resolvers:Resolvers as any});

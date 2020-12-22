@@ -8,47 +8,14 @@ import {sign,verify} from "jsonwebtoken";
 export const client: Resolvers = {
   Query: {
     clients: async (parent, args, ctx) => {
-      const clients: Client[] = await Client.query().select(
-        "id",
-        "name",
-        "cedula",
-        "nationality",
-        "phone",
-        "user_creator as creator_id"
-      );
+      const clients: Client[] = await Client.query();
 
       return clients;
     },
-    client: async (parent, args, ctx) => {
-      const client: Client = await Client.query()
-        .findById(args.id)
-        .select(
-          "id",
-          "name",
-          "cedula",
-          "nationality",
-          "phone",
-          "user_creator as creator_id"
-        );
-      return client;
-    },
-    clientOrders:async (parent, args, ctx)=>{
-      let clientInfo=null;
-                try{
-                    let verified = await verify(ctx.user,process.env.SECRET || "221099");
-                    clientInfo= verified.valueOf();
-                }catch(err){
-                    console.log(err);
-                };
-     
-      const client : Client = await Client.query().findById(clientInfo.id);
-      const delivered : Order[] = await client.$relatedQuery("orders").where("order.delivery_status",true);
-      const pending : Order[] = await client.$relatedQuery("orders").where("order.delivery_status",false);
+    client: async(parent, args,ctx)=>{
+      const clients: Client = await Client.query().findById(args.id);
 
-      return {
-        delivered,
-        pending
-      }
+      return clients;
     }
   },
   Client: {
@@ -58,7 +25,11 @@ export const client: Resolvers = {
     },
     orders: async (parent, args, ctx) => {
       const orders = await ctx.loaders.clientOrders.load(parent.id);
-      return orders[0]!.orders;
+      return {
+        delivered:orders[0]!.orders.filter(i=>i.delivery_status),
+        pending:orders[0]!.orders.filter(i=>!i.delivery_status),
+        all:orders[0]!.orders
+      };
     },
   },
   Mutation: {

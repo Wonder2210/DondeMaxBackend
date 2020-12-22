@@ -1,7 +1,7 @@
 import { Store } from "../../database/models";
 import { Resolvers } from "../../__generated";
-import { IResolvers } from "../../lib/utils";
 import { stringify } from "querystring";
+
 import {db} from "../../index";
 import {verify} from "jsonwebtoken";
 

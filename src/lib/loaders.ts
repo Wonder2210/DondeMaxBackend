@@ -9,6 +9,8 @@ import {
   Client,
   OrderProduct,
 } from "../database/models";
+
+
 const material_store: BatchLoadFn<number, Array<Material>> = async (ids) => {
   const stores = await Store.query().select("id").withGraphFetched("material");
 
@@ -101,6 +103,7 @@ const onStockMaterial : BatchLoadFn<number ,Material[]> = async(ids)=>{
 }
 
 export default () => ({
+
   material_types: new DataLoader(material_types),
   material_store: new DataLoader(material_store),
   materialByProduct: new DataLoader(materialByProduct),
