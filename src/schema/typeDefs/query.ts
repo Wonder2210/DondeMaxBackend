@@ -15,13 +15,13 @@ type Query {
   providers: [Provider]
   store(id: Int!): Store
   storage: [Store]
-  products(
+  searchProducts(
     size: Int!
     cursor: Int!
     type: String
     preservation: String
   ): GetProducts
-  productsRaw:[Products]
+ getProducts:[Products]
   productTypes: [ProductType]
   productPreservation: [PreservationType]
   product(id: Int!): Products

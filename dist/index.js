@@ -75,13 +75,12 @@ app.use(body_parser_1.default.urlencoded({
     extended: false,
 }));
 app.use(cors_1.default());
-exports.db = knex_1.default(config_1.config[process.env.NODE_ENV]);
+exports.db = knex_1.default(config_1.config["production"]);
 objection_1.Model.knex(exports.db);
 var server = new apollo_server_express_1.ApolloServer({
     schema: schema_1.default,
     introspection: true,
     mocks: false,
-    playground: true,
     context: function (_a) {
         var req = _a.req;
         return __awaiter(void 0, void 0, void 0, function () {

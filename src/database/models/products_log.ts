@@ -3,10 +3,10 @@ import {Maybe} from "../../__generated";
 
 class ProductsLog extends Model {
     static tableName ="products_log";
-    id_product?: Maybe<number>;
-    user_db?: Maybe<string>;
-    action_name?: Maybe<string>;
-    date?: Maybe<string>;
+    id_product?: number;
+    user_db?: string;
+    action_name?: string;
+    date?: string;
 
 }
 

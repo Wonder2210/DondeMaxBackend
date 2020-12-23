@@ -6,11 +6,11 @@ import Product from "./product";
 
 class OrderProduct extends Model {
   static tableName = "order_product";
-  id?: Maybe<number>;
-  order_id?: Maybe<number>;
-  product_id?: Maybe<number>;
+  id?: number;
+  order_id?: number;
+  product_id?: number;
   product?: Product;
-  quantity?: Maybe<number>;
+  quantity?: number;
 
   static relationMappings = () => ({
     order: {

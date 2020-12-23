@@ -4,8 +4,8 @@ import Product from "./product";
 
 class PreservationType extends Model {
   static tableName = "preservation_type";
-  id?: Maybe<number>;
-  type?: Maybe<string>;
+  id?: number;
+  type?:string;
   products?: Product[];
 
   static relationMappings = () => ({

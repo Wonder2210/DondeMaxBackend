@@ -1,18 +1,17 @@
 import { Model } from "objection";
-import { Maybe } from "../../__generated";
 import ProductMaterial from "./product_material";
 import ProductType from "./product_type";
 
 class Product extends Model {
   static tableName = "product";
   id!: number;
-  name?: Maybe<string>;
-  precio?: Maybe<number>;
-  image?: Maybe<string>;
-  info?: Maybe<string>;
+  name?: string;
+  precio?: number;
+  image?: string;
+  info?: string;
   materials?: ProductMaterial[];
-  type?: Maybe<string>;
-  preservation?: Maybe<string>;
+  type?: string;
+  preservation?: string;
 
   static relationMappings = () => ({
     materials: {

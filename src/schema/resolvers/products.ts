@@ -11,7 +11,7 @@ import {v2} from "cloudinary";
 
 export const product: Resolvers = {
   Query: {
-    products: async (parent, args, ctx) => {
+    searchProducts: async (parent, args, ctx) => {
      
       const { size, cursor, type, preservation } = args;
       if (preservation && type) {
@@ -58,7 +58,7 @@ export const product: Resolvers = {
         };
       }
     },
-    productsRaw: async (parent, args, ctx)=>{
+    getProducts: async (parent, args, ctx)=>{
       const products : Product[] = await Product.query();
       return products;
     },

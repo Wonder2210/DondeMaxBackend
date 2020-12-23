@@ -4,8 +4,8 @@ import { Maybe } from "../../__generated";
 
 class MaterialType extends Model {
   static tableName = "material_type";
-  id?: Maybe<number>;
-  name?: Maybe<string>;
+  id?: number;
+  name?: string;
 
   static getRelationsMapping() {
     return {

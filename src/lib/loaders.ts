@@ -11,7 +11,7 @@ import {
 } from "../database/models";
 
 
-const material_store: BatchLoadFn<number, Array<Material>> = async (ids) => {
+const material_store: BatchLoadFn<number, Array<Store>> = async (ids) => {
   const stores = await Store.query().select("id").withGraphFetched("material");
 
   return ids.map((id) => stores!.filter((i) => i.id === id));
@@ -79,8 +79,8 @@ const materials: BatchLoadFn<number, Array<Material>> = (ids) => {
       ids.map((id) => materials.filter((material) => material.id == id))
     );
 };
-const store_providers: BatchLoadFn<number, Provider[]> = async (ids) => {
-  const providers: Provider[] = await Store.query()
+const store_providers: BatchLoadFn<number, Store[]> = async (ids) => {
+  const providers: Store[] = await Store.query()
     .select("id")
     .withGraphFetched("provider");
   return ids.map((id) => providers.filter((i) => i.id === id));

@@ -22,12 +22,12 @@ export const provider : Resolvers ={
                                                 .insert({...args.provider});
             return provider;
         },
-        updateProvider:async (parent,args,ctx)=>{
-            const {id, ...data} = args.provider!;
+        updateProvider:async (parent,{provider:{id,...data}},ctx)=>{
+           
             const Id : number = id ?? 0;
             console.log(data);
             const provider : Provider = await Provider.query()
-                                                .patchAndFetchById(Id,{...data});
+                                                .patchAndFetchById(id, { ...data });
             return provider;
         },
         deleteProvider: async (parent,args,ctx)=>{

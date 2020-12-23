@@ -2,13 +2,12 @@ import { Model } from "objection";
 import Store from "./store";
 import MaterialType from "./material_type";
 import ProductMaterial from "./product_material";
-import { Maybe } from "../../__generated";
 
 class Material extends Model {
   static tableName = "material";
-  id?: Maybe<number>;
-  nombre?: Maybe<string>;
-  type_id?: Maybe<number>;
+  id?: number;
+  nombre?: string;
+  type_id?: number;
   type?: MaterialType;
   store?: [Store];
 

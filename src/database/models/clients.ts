@@ -1,16 +1,15 @@
 import { Model } from "objection";
 import Order from "./order";
 import User from "./user";
-import { Maybe } from "../../__generated";
 
 class Client extends Model {
   static tableName = "client";
-  id?: Maybe<number>;
-  name?: Maybe<string>;
-  cedula?: Maybe<string>;
-  nationality?: Maybe<string>;
-  user_creator?: Maybe<number>;
-  phone?: Maybe<string>;
+  id?: number;
+  name?: string;
+  cedula?: string;
+  nationality?: string;
+  user_creator?: number;
+  phone?: string;
   creator?: User;
   orders?: Order[];
 

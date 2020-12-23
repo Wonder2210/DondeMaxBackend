@@ -4,10 +4,10 @@ import Material from "./material";
 
 class ProductMaterial extends Model {
   static tableName = "product_material";
-  id?: Maybe<number>;
-  product_id?: Maybe<number>;
-  material_id?: Maybe<number>;
-  quantity?: Maybe<number>;
+  id?: number;
+  product_id?: number;
+  material_id?: number;
+  quantity?: number;
   material?: Material;
 
   static relationMappings = () => ({
