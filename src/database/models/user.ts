@@ -21,12 +21,12 @@ function mixin<T extends Constructor>(ModelClass: T) {
 
 class User extends mixin(Model) {
   static tableName = "user";
-  id?: number;
-  email?: string;
-  name?: string;
-  role?: UserRole;
-  password?: string;
-  phone?: string;
+  id?: Maybe<number>;
+  email?: Maybe<string>;
+  name?: Maybe<string>;
+  role?: Maybe<UserRole>;
+  password?: Maybe<string>;
+  phone?: Maybe<string>;
 
   $beforeInsert = async (context: {}) => {
     const password: string = this.password!;

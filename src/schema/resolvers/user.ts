@@ -47,7 +47,7 @@ import {User, UserLog} from '../../database/models';
              const Id : number = id ?? 0;
              
              const user : User = await User.query()
-                             .patchAndFetchById(Id,data);
+                             .patchAndFetchById(Id,{...data});
              return user;
          },
          deleteUser:async (parent,args,ctx)=>{
