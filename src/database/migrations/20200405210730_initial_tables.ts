@@ -209,6 +209,6 @@ export async function up(knex: Knex): Promise<any> {
 }
 
 export async function down(knex: Knex): Promise<any> {
-  
-  return;
+  await knex.raw(`DROP TABLE IF EXISTS "user",session_log, client, "order", orders_log, product_type, preservation_type, product, order_product, material_type, material, product_material, provider, store, storage_log, materials_stage, products_log CASCADE;`);
+
 }

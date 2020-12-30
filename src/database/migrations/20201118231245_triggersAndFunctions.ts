@@ -156,5 +156,8 @@ CREATE TRIGGER upd_materials_stage
 
 
 export async function down(knex: Knex): Promise<any> {
+    await knex.raw(`
+    DROP FUNCTION if exists create_material_storage,delete_order_log,delete_product_log, order_log, products_log, storage_log, update_materials_stage cascade;
+    `);
 }
 
