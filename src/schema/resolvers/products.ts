@@ -3,11 +3,18 @@ import {
   Product,
   ProductMaterial,
   ProductPreservation,
+  RatingProduct,
   ProductType,
 } from "../../database/models";
 import { Resolvers } from "../../__generated";
 import { UserInputError } from 'apollo-server-express';
 import {v2} from "cloudinary";
+
+ v2.config({
+    cloud_name: process.env.CLOUDINARY_NAME || "dy2f1moqn",
+    api_key: process.env.CLOUDINARY_API_KEY || "214746866198149",
+    api_secret: process.env.CLOUDINARY_API_SECRET || "zw84m6t-Gk4l54JRuGt9lzGMbVU",
+  });
 
 export const product: Resolvers = {
   Query: {
@@ -82,6 +89,7 @@ export const product: Resolvers = {
       return results;
     },
   },
+
   Products: {
     materials: async (parent, args, ctx) => {
       const materialsProducts = await ctx.loaders.materialByProduct.load(
@@ -89,19 +97,18 @@ export const product: Resolvers = {
       );
       return materialsProducts;
     },
+    rate: async(parent,_,ctx)=>{
+      const rate = await ctx.loaders.productRate.load(parent.id);
+      return rate[0];
+    }
   },
 
   Mutation: {
     createProduct: async (
-      parent,
-      { product: { materials, name, precio, image, info, type } },
-      ctx
+      _,
+      { product: { materials, name, precio, image, info, type, rate } }
     ) => {
-      v2.config({
-        cloud_name: process.env.CLOUDINARY_NAME,
-        api_key: process.env.CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_API_SECRET,
-      });
+    
       
       const { createReadStream } = await image;
       const stream = createReadStream();
@@ -142,9 +149,10 @@ export const product: Resolvers = {
         const pr_m: ProductMaterial[] = await product
           .$relatedQuery("materials")
           .insertGraph([...materials.map(i=>({quantity:i.quantity,material_id:i.materialId}))]);
+
+        const rate : RatingProduct = await RatingProduct.query().insert({product_id:product.id,value:rate});
   
         return product;
-      
          
        
     },
@@ -154,21 +162,10 @@ export const product: Resolvers = {
       
       let resultUrl : string = "";
       let resultSecureUrl : string = "";
-
-     console.log(typeof image);
       if(typeof image == "object"){
         const { createReadStream,filename } = await image;
-        console.log(filename);
-        v2.config({
-          cloud_name: process.env.CLOUDINARY_NAME,
-          api_key: process.env.CLOUDINARY_API_KEY,
-          api_secret: process.env.CLOUDINARY_API_SECRET,
-        });
         
         const stream = createReadStream();
-       
-  
-         
         try {
           await new Promise((resolve, reject) => {
               const streamLoad = v2.uploader.upload_stream(function (error, result) {
@@ -198,7 +195,6 @@ export const product: Resolvers = {
       }
       const updated = await Product.query().patchAndFetchById(id,{...newData});
       if(materials.length > 0){
-      
         const delete_older = await ProductMaterial.query().where("product_id",updated.id).delete();
         const pr_m: ProductMaterial[] = await updated
         .$relatedQuery("materials")
@@ -209,14 +205,8 @@ export const product: Resolvers = {
      deleteProduct: async(parent,{id},ctx)=>{
      
         const deleted = await Product.query().delete().where("id",id);
-        
-       
-      
-       return "Succesfull deleted";
+        return "Succesfull deleted";
      }
 
-    // addProductMaterial,
-    // updateProductMaterial,
-    // deleteProductMaterial,
   },
 };

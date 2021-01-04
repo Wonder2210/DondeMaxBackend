@@ -6,6 +6,11 @@ type ProductType {
   type: String
   products: [Products]
 }
+type Rate{
+  id: Int
+  value: Float
+  times_valued: Int
+}
 type PreservationType {
   id: Int
   type: String
@@ -19,6 +24,7 @@ type Products {
   materials: [MaterialsProduct]
   info: String
   type: String
+  rate: Rate
   preservation: String
   available: Boolean
 }
@@ -29,6 +35,7 @@ input ProductsInput {
   info: String!
   type: String!
   available: Boolean
+  rate: Float
   materials: [MaterialProductInput!]!
 }
 

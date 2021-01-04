@@ -205,10 +205,21 @@ export async function up(knex: Knex): Promise<any> {
         .onUpdate("CASCADE");
       table.string("name");
       table.float("weight");
+    })
+    .createTable("rating_product",(table: Knex.CreateTableBuilder)=>{
+      table.increments("id");
+      table.integer("times_valued").defaultTo(1);
+      table.integer("product_id").unsigned();
+      table
+        .foreign("product_id")
+        .references("product.id")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      table.float("value").defaultTo(4.0);
     });
 }
 
 export async function down(knex: Knex): Promise<any> {
-  await knex.raw(`DROP TABLE IF EXISTS "user",session_log, client, "order", orders_log, product_type, preservation_type, product, order_product, material_type, material, product_material, provider, store, storage_log, materials_stage, products_log CASCADE;`);
+  await knex.raw(`DROP TABLE IF EXISTS "user",rating_product,session_log, client, "order", orders_log, product_type, preservation_type, product, order_product, material_type, material, product_material, provider, store, storage_log, materials_stage, products_log CASCADE;`);
 
 }

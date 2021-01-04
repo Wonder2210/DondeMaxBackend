@@ -5,9 +5,10 @@ import {
   Store,
   ProductMaterial,
   Order,
-  Provider,
+  RatingProduct,
   Client,
   OrderProduct,
+
 } from "../database/models";
 
 
@@ -102,6 +103,12 @@ const onStockMaterial : BatchLoadFn<number ,Material[]> = async(ids)=>{
 
 }
 
+const productRate: BatchLoadFn<number, RatingProduct[]> = async (ids)=>{
+  const rates = await RatingProduct.query();
+
+  return ids.map(id=> rates.filter(rate=> rate.product_id===id))
+}
+
 export default () => ({
 
   material_types: new DataLoader(material_types),
@@ -117,5 +124,6 @@ export default () => ({
   order_waste: new DataLoader(order_waste),
   materials_products: new DataLoader(materials_products),
   onStock : new DataLoader(onStockMaterial),
-  materialStorage: new DataLoader(materialStorage)
+  materialStorage: new DataLoader(materialStorage),
+  productRate: new DataLoader(productRate)
 });
