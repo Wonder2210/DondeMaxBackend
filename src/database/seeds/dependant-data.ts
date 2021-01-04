@@ -66,6 +66,24 @@ export async function seed(knex: Knex): Promise<any> {
         });
     })
     .then(() => {
+      return knex("rating_product")
+        .del()
+        .then(function () {
+          // Inserts seed entries
+          return knex("rating_product").insert([
+            {
+              product_id:1
+            },
+            {
+              product_id:2
+            },
+            {
+              product_id:3
+            },
+          ]);
+        });
+    })
+    .then(() => {
       return knex("order_product")
         .del()
         .then(function () {

@@ -15,6 +15,7 @@ import ProductsLog from "./products_log";
 import StorageLog from "./storage_log";
 import UserLog from "./UserLog";
 import MaterialsStage from "./material_stage";
+import RatingProduct from "./rating_product";
 
 export {
   Client,
@@ -33,5 +34,6 @@ export {
   ProductsLog,
   StorageLog,
   MaterialsStage,
-  UserLog
+  UserLog,
+  RatingProduct
 };

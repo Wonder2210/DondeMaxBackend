@@ -229,6 +229,13 @@ export type ProductType = {
   products?: Maybe<Array<Maybe<Products>>>;
 };
 
+export type Rate = {
+   __typename?: 'Rate';
+  id?: Maybe<Scalars['Int']>;
+  value?: Maybe<Scalars['Float']>;
+  times_valued?: Maybe<Scalars['Int']>;
+};
+
 export type PreservationType = {
    __typename?: 'PreservationType';
   id?: Maybe<Scalars['Int']>;
@@ -245,6 +252,7 @@ export type Products = {
   materials?: Maybe<Array<Maybe<MaterialsProduct>>>;
   info?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+  rate?: Maybe<Rate>;
   preservation?: Maybe<Scalars['String']>;
   available?: Maybe<Scalars['Boolean']>;
 };
@@ -256,6 +264,7 @@ export type ProductsInput = {
   info: Scalars['String'];
   type: Scalars['String'];
   available?: Maybe<Scalars['Boolean']>;
+  rate?: Maybe<Scalars['Float']>;
   materials: Array<MaterialProductInput>;
 };
 
@@ -712,6 +721,7 @@ export type ResolversTypes = {
   TakeOrderInput: TakeOrderInput,
   UpdateOrder: UpdateOrder,
   ProductType: ResolverTypeWrapper<ProductType>,
+  Rate: ResolverTypeWrapper<Rate>,
   PreservationType: ResolverTypeWrapper<PreservationType>,
   Products: ResolverTypeWrapper<Products>,
   ProductsInput: ProductsInput,
@@ -765,6 +775,7 @@ export type ResolversParentTypes = {
   TakeOrderInput: TakeOrderInput,
   UpdateOrder: UpdateOrder,
   ProductType: ProductType,
+  Rate: Rate,
   PreservationType: PreservationType,
   Products: Products,
   ProductsInput: ProductsInput,
@@ -928,6 +939,13 @@ export type ProductTypeResolvers<ContextType = any, ParentType extends Resolvers
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type RateResolvers<ContextType = any, ParentType extends ResolversParentTypes['Rate'] = ResolversParentTypes['Rate']> = {
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  times_valued?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type PreservationTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['PreservationType'] = ResolversParentTypes['PreservationType']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -943,6 +961,7 @@ export type ProductsResolvers<ContextType = any, ParentType extends ResolversPar
   materials?: Resolver<Maybe<Array<Maybe<ResolversTypes['MaterialsProduct']>>>, ParentType, ContextType>,
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  rate?: Resolver<Maybe<ResolversTypes['Rate']>, ParentType, ContextType>,
   preservation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   available?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
@@ -1061,6 +1080,7 @@ export type Resolvers<ContextType = any> = {
   OrderProducts?: OrderProductsResolvers<ContextType>,
   Orders?: OrdersResolvers<ContextType>,
   ProductType?: ProductTypeResolvers<ContextType>,
+  Rate?: RateResolvers<ContextType>,
   PreservationType?: PreservationTypeResolvers<ContextType>,
   Products?: ProductsResolvers<ContextType>,
   GetProducts?: GetProductsResolvers<ContextType>,
