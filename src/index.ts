@@ -14,12 +14,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config()
 
-
-
-// import {UserInput} from './generated/graphql';
-
 const app: Application = express();
-//middlewares and tools
 app.use(
   bodyParser.urlencoded({
     extended: false,
@@ -28,9 +23,9 @@ app.use(
 
 app.use(cors());
 
-export const db = Knex(config["development"]);
+const environment = process.env.NODE_ENV || "development";
 
-
+export const db = Knex(config[environment]);
 
 Model.knex(db);
 
