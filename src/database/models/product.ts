@@ -9,6 +9,7 @@ class Product extends Model {
   precio?: number;
   image?: string;
   info?: string;
+  available?: boolean;
   materials?: ProductMaterial[];
   type?: string;
   preservation?: string;

@@ -71,8 +71,7 @@ export const product: Resolvers = {
     },
     product: async (parent, { id }, ctx) => {
       const product: Product = await Product.query()
-        .findById(id)
-        .select("id", "name", "precio", "image","info");
+        .findById(id);
 
       return product;
     },

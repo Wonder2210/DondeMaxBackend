@@ -5,8 +5,8 @@
   "author": "wonder <gonzalezwonderly@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"nodemon ./dist/index.js NODE_ENV=production\" \"tsc --watch\"  ",
-    "start": "node ./dist/index.js NODE_ENV=production",
+    "dev": "concurrently \"nodemon ./dist/index.js\" \"tsc --watch\"  ",
+    "start": "node ./dist/index.js",
     "build": "tsc",
     "heroku-postbuild": "npm run build",
     "type-check": "tsc --pretty --noEmit",
