@@ -314,11 +314,20 @@ export type UpdateProviderInput = {
   direction?: Maybe<Scalars['String']>;
 };
 
+export type SessionUser = {
+   __typename?: 'SessionUser';
+  id?: Maybe<Scalars['Int']>;
+  phone?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  role?: Maybe<UserRole>;
+  email?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
    __typename?: 'Query';
   users?: Maybe<Array<Maybe<User>>>;
   user?: Maybe<User>;
-  sessionUser: Scalars['String'];
+  sessionUser: SessionUser;
   sessionLog?: Maybe<Array<Maybe<SessionLog>>>;
   client?: Maybe<Client>;
   clients?: Maybe<Array<Maybe<Client>>>;
@@ -731,6 +740,7 @@ export type ResolversTypes = {
   Provider: ResolverTypeWrapper<Provider>,
   ProviderInput: ProviderInput,
   UpdateProviderInput: UpdateProviderInput,
+  SessionUser: ResolverTypeWrapper<SessionUser>,
   Query: ResolverTypeWrapper<{}>,
   Store: ResolverTypeWrapper<Store>,
   StoreInput: StoreInput,
@@ -785,6 +795,7 @@ export type ResolversParentTypes = {
   Provider: Provider,
   ProviderInput: ProviderInput,
   UpdateProviderInput: UpdateProviderInput,
+  SessionUser: SessionUser,
   Query: {},
   Store: Store,
   StoreInput: StoreInput,
@@ -982,10 +993,19 @@ export type ProviderResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type SessionUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['SessionUser'] = ResolversParentTypes['SessionUser']> = {
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  role?: Resolver<Maybe<ResolversTypes['UserRole']>, ParentType, ContextType>,
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
-  sessionUser?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  sessionUser?: Resolver<ResolversTypes['SessionUser'], ParentType, ContextType>,
   sessionLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['SessionLog']>>>, ParentType, ContextType>,
   client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<QueryClientArgs, 'id'>>,
   clients?: Resolver<Maybe<Array<Maybe<ResolversTypes['Client']>>>, ParentType, ContextType>,
@@ -1085,6 +1105,7 @@ export type Resolvers<ContextType = any> = {
   Products?: ProductsResolvers<ContextType>,
   GetProducts?: GetProductsResolvers<ContextType>,
   Provider?: ProviderResolvers<ContextType>,
+  SessionUser?: SessionUserResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Store?: StoreResolvers<ContextType>,
   User?: UserResolvers<ContextType>,

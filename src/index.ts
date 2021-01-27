@@ -7,7 +7,6 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import Loaders from "./lib/loaders";
 import Mocks from "./lib/mocks";
-import {verify} from "jsonwebtoken";
 import { config } from "./database/config";
 import Schema from "./schema";
 import * as dotenv from "dotenv";
@@ -34,10 +33,13 @@ const server = new ApolloServer({
   introspection: true,
   mocks: false,
   context:async ({req})=>{
+    const { authorization: token } = req.headers;
+    const auth = token || "";
+   
     
     return {
       loaders: Loaders(),
-      user: req.headers.authorization || ""
+      auth
     }
   },
 });

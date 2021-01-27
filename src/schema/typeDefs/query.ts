@@ -1,10 +1,18 @@
 import { gql } from "apollo-server";
 
 export default gql`
+type SessionUser{
+  id: Int,
+ phone: String,
+ name: String
+ role: UserRole,
+ email: String
+}
+
 type Query {
   users: [User]
   user(id: Int!): User
-  sessionUser: String!
+  sessionUser: SessionUser!
   sessionLog: [SessionLog]
   client(id: Int!): Client
   clients: [Client]

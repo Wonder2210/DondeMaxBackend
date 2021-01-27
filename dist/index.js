@@ -85,10 +85,13 @@ var server = new apollo_server_express_1.ApolloServer({
     context: function (_a) {
         var req = _a.req;
         return __awaiter(void 0, void 0, void 0, function () {
+            var token, auth;
             return __generator(this, function (_b) {
+                token = req.headers.authorization;
+                auth = token || "";
                 return [2, {
                         loaders: loaders_1.default(),
-                        user: req.headers.authorization || ""
+                        auth: auth
                     }];
             });
         });

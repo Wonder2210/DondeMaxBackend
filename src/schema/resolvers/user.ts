@@ -1,8 +1,8 @@
 import {User, UserLog} from '../../database/models';
  import {Resolvers} from '../../__generated';
  import {UserInputError} from 'apollo-server-express';
- import {sign,verify} from "jsonwebtoken";
- import {db} from "../../index";
+ import jwt from "jsonwebtoken";
+ import getUser from "../../lib/validate";
 
  export const user:Resolvers  = {
      Query:{
@@ -15,17 +15,9 @@ import {User, UserLog} from '../../database/models';
              const user : User = await User.query().findById(args.id);
              return user;
          },
-         sessionUser: async (parent,args,ctx)=>{
-             let user= "";
-                try{
-                    let verified = await verify(ctx.user,process.env.SECRET || "221099");
-                    user=JSON.stringify(verified.valueOf());
-                    
-          
-                }catch(err){
-                    console.log(err);
-                };
-
+         sessionUser: async (parent,args,{auth})=>{
+             let user = await getUser(auth);
+        
                 return user;
          }
            },
@@ -63,9 +55,17 @@ import {User, UserLog} from '../../database/models';
             const user_log = await UserLog.query().insert({username:name,action_name:"login",id_user:id});
             
             if(verification){
-                return sign({id,name,email,role, phone},secretKey,{
-                    expiresIn:'365d'
-                });
+                return jwt.sign(
+                    {
+                      id,
+                      phone,
+                      name,
+                      role,
+                      email
+                    },
+                    process.env.secret || "221099",
+                    { expiresIn: '1d' }
+                  );
             }
             throw new UserInputError("bad fields",{args:args});
 

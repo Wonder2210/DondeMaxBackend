@@ -9,6 +9,7 @@ import {
 import { Resolvers } from "../../__generated";
 import { UserInputError } from 'apollo-server-express';
 import {v2} from "cloudinary";
+import getUser from "../../lib/validate";
 
  v2.config({
     cloud_name: process.env.CLOUDINARY_NAME || "dy2f1moqn",
@@ -19,6 +20,7 @@ import {v2} from "cloudinary";
 export const product: Resolvers = {
   Query: {
     searchProducts: async (parent, args, ctx) => {
+      
      
       const { size, cursor, type, preservation } = args;
       if (preservation && type) {
@@ -65,7 +67,11 @@ export const product: Resolvers = {
         };
       }
     },
-    getProducts: async (parent, args, ctx)=>{
+    getProducts: async (parent, args, { auth })=>{
+
+      const user = await getUser(auth);
+      console.log(user);
+
       const products : Product[] = await Product.query();
       return products;
     },
