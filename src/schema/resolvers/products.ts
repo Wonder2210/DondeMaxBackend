@@ -69,8 +69,7 @@ export const product: Resolvers = {
     },
     getProducts: async (parent, args, { auth })=>{
 
-      const user = await getUser(auth);
-      console.log(user);
+
 
       const products : Product[] = await Product.query();
       return products;
@@ -113,7 +112,8 @@ export const product: Resolvers = {
       _,
       { product: { materials, name, precio, image, info, type, rate } }
     ) => {
-    
+      const user = await getUser(auth);
+      
       
       const { createReadStream } = await image;
       const stream = createReadStream();
