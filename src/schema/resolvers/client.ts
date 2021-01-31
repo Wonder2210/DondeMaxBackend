@@ -78,15 +78,15 @@ export const client: Resolvers = {
       return "Succesfully deleted";
     },
     loginClient: async(parent, args , ctx)=>{
-      const {id,cedula,name}: Client = await Client.query().first().where("cedula",args.cedula);
+      const client : Client = await Client.query().first().where("cedula",args.cedula);
       const secretKey = process.env.SECRET || "221099";
-
       if(client){
+        const {id,cedula,name} = client;
         return sign({id,cedula,name, role:"CLIENT"},secretKey,{
           expiresIn:"1d"
       });
     }
-      throw new UserInputError("bad fields",{args:args});
+      throw new UserInputError("bad cedula",{args:args});
 
       }
 
