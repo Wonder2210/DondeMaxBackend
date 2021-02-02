@@ -12,10 +12,10 @@ type SessionUser{
 type Query {
   users: [User]
   user(id: Int!): User
+  clients: [User]
   sessionUser: SessionUser!
   sessionLog: [SessionLog]
-  client(id: Int!): Client
-  clients: [Client]
+
   materialTypes: [MaterialType]
   materialsStage:[MaterialsStage]
   materials: [Material]

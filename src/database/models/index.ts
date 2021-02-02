@@ -1,4 +1,3 @@
-import Client from "./clients";
 import MaterialType from "./material_type";
 import Material from "./material";
 import OrderProduct from "./order_product";
@@ -18,7 +17,6 @@ import MaterialsStage from "./material_stage";
 import RatingProduct from "./rating_product";
 
 export {
-  Client,
   MaterialType,
   Material,
   OrderProduct,

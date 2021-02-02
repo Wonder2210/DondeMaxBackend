@@ -27,26 +27,25 @@ class User extends mixin(Model) {
   role?: Maybe<UserRole>;
   password?: Maybe<string>;
   phone?: Maybe<string>;
+  ordersRaw?: [Order];
 
+
+  
+  static relationMappings = ()=>({
+    ordersRaw: {
+      relation: Model.HasManyRelation,
+      modelClass: Order,
+      join: {
+        from: "user.id",
+        to: "order.user_id",
+      },
+    },
+  })
   $beforeInsert = async (context: {}) => {
     const password: string = this.password!;
     const hash = await bcrypt.hash(password, 10);
     this.password = hash;
   };
-  static ver: any;
-
-  static getRelationsMapping() {
-    return {
-      orders: {
-        realation: Model.HasManyRelation,
-        modelClass: Order,
-        join: {
-          from: "user.id",
-          to: "orders.user_id",
-        },
-      },
-    };
-  }
 }
 
 export default User;

@@ -12,8 +12,7 @@ export async function seed(knex: Knex): Promise<any> {
       return knex("order").insert([
         {
          
-          user_id: 1,
-          client_id: 1,
+          user_id: 4,
           pay_method: "EFECTIVO",
           delivery_date: now,
           note: "Nothing",

@@ -2,16 +2,13 @@ import { gql } from "apollo-server";
 
 export default gql`
 type Mutation {
-  loginUser(email: String!, password: String!): String
-  loginClient(cedula: String!): String
+  loginUser(email: String!, password: String!): loginUser
+ 
 
   createUser(user: UserInput!): User
   editUser(user: UpdateUserInput!): User
   deleteUser(id: Int!): String
 
-  createClient(client: ClientInput!): Client
-  editClient(client: UpdateClientInput!): Client
-  deleteClient(id: Int!): String
 
   createMaterial(material: MaterialInput!): Material
   deleteMaterial(id: Int!) : Boolean

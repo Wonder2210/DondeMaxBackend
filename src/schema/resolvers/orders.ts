@@ -17,11 +17,7 @@ export const order: Resolvers = {
     },
   },
   Orders: {
-    client: async (parent, args, ctx) => {
-      const client = await ctx.loaders.order_client.load(parent.id);
- 
-      return client[0]!.client;
-    },
+    
     products: async (parent, args, ctx) => {
       const products = await ctx.loaders.orderProducts.load(parent.id);
      
@@ -61,12 +57,12 @@ export const order: Resolvers = {
         console.log(err);
     };
       
-      const {client,payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,...data} = args.order;
+      const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,...data} = args.order;
       const order: Order = await Order.query().insert({
         stage_status:stageStatus,
-        client_id:client,
+        user_id: user.id,
         pay_method:payMethod,
-        delivery_date:deliveryDate,delivery_status:deliveryStatus,production_status:productionStatus,...data, user_id:user!.role!=="CLIENT"? user!.id : null});
+        delivery_date:deliveryDate,delivery_status:deliveryStatus,production_status:productionStatus,...data});
       const products = orderProducts.map((item: ProductOrderInput) => ({
         product_id: item?.id,
         order_id: order.id,

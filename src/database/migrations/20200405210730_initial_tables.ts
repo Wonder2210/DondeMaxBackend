@@ -1,11 +1,12 @@
 import * as Knex from "knex";
 
 export async function up(knex: Knex): Promise<any> {
-  knex.raw("  SET datestyle = dmy;");
+  knex.raw("SET datestyle = dmy;");
   return knex.schema
     .createTable("user", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table.string("name");
+      table.string("last_name");
       table.string("email").unique();
       table.string("password");
       table.string("role");
@@ -19,20 +20,6 @@ export async function up(knex: Knex): Promise<any> {
       table.timestamp("date").defaultTo(knex.fn.now());
       table.string("action_name");
     })
-    .createTable("client", (table: Knex.CreateTableBuilder) => {
-      table.increments("id");
-      table.string("name");
-      table.integer("cedula").unique();
-      table.string("nationality");
-      table.integer("user_creator").unsigned();
-      table
-        .foreign("user_creator")
-        .references("user.id")
-        .onDelete("SET NULL")
-        .onUpdate("CASCADE");
-      table.string("phone");
-      table.timestamps(true, true);
-    })
     .createTable("order", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table
@@ -42,12 +29,7 @@ export async function up(knex: Knex): Promise<any> {
         .references("user.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      table.integer("client_id").unsigned();
-      table
-        .foreign("client_id")
-        .references("client.id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+      table.string("created_by");
       table.string("pay_method").nullable();
       table.date("delivery_date");
       table.text("note");
@@ -63,7 +45,7 @@ export async function up(knex: Knex): Promise<any> {
       table.integer("id_pedido");
       table.string("user_db").defaultTo("SYSTEM");
       table.timestamp("date").defaultTo(knex.fn.now());
-      table.integer("client");
+      table.integer("user");
       table.boolean("delivered");
       table.boolean("stage");
       table.boolean("production");
@@ -220,6 +202,6 @@ export async function up(knex: Knex): Promise<any> {
 }
 
 export async function down(knex: Knex): Promise<any> {
-  await knex.raw(`DROP TABLE IF EXISTS "user",rating_product,session_log, client, "order", orders_log, product_type, preservation_type, product, order_product, material_type, material, product_material, provider, store, storage_log, materials_stage, products_log CASCADE;`);
+  await knex.raw(`DROP TABLE IF EXISTS "user",rating_product,session_log,  "order", orders_log, product_type, preservation_type, product, order_product, material_type, material, product_material, provider, store, storage_log, materials_stage, products_log CASCADE;`);
 
 }

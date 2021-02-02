@@ -15,6 +15,7 @@ export async function seed(knex: Knex): Promise<any> {
         {
        
           name: "Raul",
+          last_name: "Albiol",
           email: "ra@gmail.com",
           password: await bcrypt.hash("1234", 10),
           phone: "0412345678",
@@ -23,6 +24,7 @@ export async function seed(knex: Knex): Promise<any> {
         {
        
           name: "Jose",
+          last_name: "garcia",
           email: "jose@gmail.com",
           password: await bcrypt.hash("1234", 10),
           phone: "0412347632",
@@ -30,8 +32,36 @@ export async function seed(knex: Knex): Promise<any> {
         },
         {
    
-          name: "Manuel",
-          email: "manuel@gmail.com",
+          name: "Manu",
+          last_name: "Rodriguez",
+          email: "manuelr@gmail.com",
+          password: await bcrypt.hash("1234", 10),
+          phone: "041234098",
+          role:"CLIENTE"
+        },
+        {
+   
+          name: "Man",
+          last_name: "Rodriguez",
+          email: "manuelanuel@gmail.com",
+          password: await bcrypt.hash("1234", 10),
+          phone: "041234098",
+          role:"CLIENTE"
+        },
+        {
+   
+          name: "aanuel",
+          last_name: "Rodriguez",
+          email: "manuelote@gmail.com",
+          password: await bcrypt.hash("1234", 10),
+          phone: "041234098",
+          role:"CLIENTE"
+        },
+        {
+   
+          name: "ranuel",
+          last_name: "Rodriguez",
+          email: "manuelito@gmail.com",
           password: await bcrypt.hash("1234", 10),
           phone: "041234098",
           role:"EMPLEADO"
@@ -57,39 +87,7 @@ export async function seed(knex: Knex): Promise<any> {
         }])
       })
     })
-    .then(() => {
-      return knex("client")
-        .del()
-        .then(function () {
-          // Inserts seed entries
-          return knex("client").insert([
-            {
-          
-              name: "Sara",
-              cedula: "21566398",
-              nationality: "VE",
-              user_creator: 1,
-              phone: "0414567890",
-            },
-            {
-          
-              name: "Difi",
-              cedula: "14528736",
-              nationality: "VE",
-              user_creator: 2,
-              phone: "0414567890",
-            },
-            {
-        
-              name: "Keren",
-              cedula: "25879357",
-              nationality: "VE",
-              user_creator: 3,
-              phone: "0414567890",
-            },
-          ]);
-        });
-    })
+
     .then(() => {
       return knex("product_type")
         .del()

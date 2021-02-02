@@ -6,9 +6,8 @@ import {
   ProductMaterial,
   Order,
   RatingProduct,
-  Client,
   OrderProduct,
-
+  User
 } from "../database/models";
 
 
@@ -37,11 +36,16 @@ const materials_products: BatchLoadFn<number, Array<ProductMaterial>> = async (
   return ids.map((id) => materials.filter((i) => i.material_id === id));
 };
 
+const userOrders: BatchLoadFn<number, Array<User>> = async (ids)=>{
+  const users : User[] = await User.query().withGraphFetched("ordersRaw");
+  return ids.map(id=> users.filter(user=> user.id==id));
+}
 
 const order_creator: BatchLoadFn<number, Order[]> = async (ids) => {
   const creator = await Order.query().select("id").withGraphFetched("creator");
   return ids.map((id) => creator.filter((i) => i.id === id));
 };
+
 const order_products: BatchLoadFn<number, OrderProduct[]> = async (ids) => {
   const items = await OrderProduct.query().withGraphFetched("product");
   return ids.map((id) => items.filter((item) => item.order_id === id));
@@ -68,11 +72,7 @@ const materialStorage: BatchLoadFn<number, Material[]> = async (ids) => {
 
   return ids.map((id) => materials.filter((i) => i.id === id));
 };
-const user_creator: BatchLoadFn<number, Client[]> = async (ids) => {
-  const users = await Client.query().withGraphFetched("creator");
 
-  return ids.map((id) => users.filter((user) => user.id == id));
-};
 const materials: BatchLoadFn<number, Array<Material>> = (ids) => {
   return Material.query()
     .select("id", "nombre")
@@ -86,11 +86,7 @@ const store_providers: BatchLoadFn<number, Store[]> = async (ids) => {
     .withGraphFetched("provider");
   return ids.map((id) => providers.filter((i) => i.id === id));
 };
-const client_orders: BatchLoadFn<number, Client[]> = async (ids) => {
-  const orders = await Client.query().select("id").withGraphFetched("orders");
 
-  return ids.map((id) => orders.filter((i) => i.id === id));
-};
 const order_waste: BatchLoadFn<number, OrderProduct[]> = async (ids) => {
   const products = await OrderProduct.query().withGraphFetched("product");
   return ids.map((id) => products.filter((i) => i.order_id === id));
@@ -115,9 +111,7 @@ export default () => ({
   material_store: new DataLoader(material_store),
   materialByProduct: new DataLoader(materialByProduct),
   order_client: new DataLoader(order_client),
-  user_creator: new DataLoader(user_creator),
   orderProducts: new DataLoader(order_products),
-  clientOrders: new DataLoader(client_orders),
   materials: new DataLoader(materials),
   store_providers: new DataLoader(store_providers),
   order_creator: new DataLoader(order_creator),
@@ -125,5 +119,6 @@ export default () => ({
   materials_products: new DataLoader(materials_products),
   onStock : new DataLoader(onStockMaterial),
   materialStorage: new DataLoader(materialStorage),
-  productRate: new DataLoader(productRate)
+  productRate: new DataLoader(productRate),
+  userOrders: new DataLoader(userOrders)
 });

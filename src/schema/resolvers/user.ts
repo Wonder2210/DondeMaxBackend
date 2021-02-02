@@ -1,4 +1,4 @@
-import {User, UserLog} from '../../database/models';
+import {User, UserLog, Order } from '../../database/models';
  import {Resolvers} from '../../__generated';
  import {UserInputError} from 'apollo-server-express';
  import jwt from "jsonwebtoken";
@@ -11,6 +11,10 @@ import {User, UserLog} from '../../database/models';
              
              return users;
          },
+         clients:async ()=>{
+             const clients : User[] = await User.query().where("role","CLIENTE");
+             return clients;
+         },
          user:async (parent,args,ctx)=>{
              const user : User = await User.query().findById(args.id);
              return user;
@@ -21,6 +25,17 @@ import {User, UserLog} from '../../database/models';
                 return user;
          }
            },
+           
+         User:{
+            orders: async (parent, args, ctx) => {
+                const orders = await ctx.loaders.userOrders.load(parent.id);
+                return {
+                  delivered:orders[0]!.ordersRaw.filter((i: Order) =>i.delivery_status),
+                  pending:orders[0]!.ordersRaw.filter((i: Order) =>!i.delivery_status),
+                  all:orders[0]!.ordersRaw
+                };
+              },
+         },
      Mutation:{
          createUser:async (parent,args,ctx)=>{
              let user : User;
@@ -55,22 +70,24 @@ import {User, UserLog} from '../../database/models';
             const user_log = await UserLog.query().insert({username:name,action_name:"login",id_user:id});
             
             if(verification){
-                return jwt.sign(
-                    {
-                      id,
-                      phone,
-                      name,
-                      role,
-                      email
-                    },
-                    process.env.secret || "221099",
-                    { expiresIn: '1d' }
-                  );
+                return {
+                    id,
+                    role,
+                    token: jwt.sign(
+                        {
+                          id,
+                          phone,
+                          name,
+                          role,
+                          email
+                        },
+                        secretKey,
+                        { expiresIn: '1d' }
+                      )
+                }
             }
             throw new UserInputError("bad fields",{args:args});
 
         }
      }
  }
-
-//eliminar los errores de typescript

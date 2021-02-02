@@ -11,8 +11,9 @@
     "heroku-postbuild": "npm run build",
     "type-check": "tsc --pretty --noEmit",
     "codegen": "graphql-codegen --config codegen.yml",
+    "api-knex":"knex --knexfile ./src/database/knexfile.ts",
     "migrate:up": "knex --knexfile ./src/database/knexfile.ts migrate:latest ",
-    "migrate:down": "knex --knexfile ./src/database/knexfile.ts migrate:down ",
+    "migrate:down": "knex --knexfile ./src/database/knexfile.ts migrate:rollback ",
     "seed:run": "knex --knexfile ./src/database/knexfile.ts seed:run ",
     "generate:types": "graphql-codegen --config codegen.yml"
   },

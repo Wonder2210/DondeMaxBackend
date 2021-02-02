@@ -1,6 +1,5 @@
 import { Model } from "objection";
-import { Maybe, PayMethod } from "../../__generated";
-import Client from "./clients";
+import { PayMethod } from "../../__generated";
 import Product from "./product";
 import User from "./user";
 
@@ -16,21 +15,12 @@ class Order extends Model {
   abono?: number;
   monto?: number;
   total?: number;
-  client_id?: number;
   user_id?: number;
   creator?: User;
-  client?: Client;
   products?: [Product];
 
   static relationMappings = () => ({
-    client: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: Client,
-      join: {
-        from: "order.client_id",
-        to: "client.id",
-      },
-    },
+ 
     products: {
       relation: Model.ManyToManyRelation,
       modelClass: Product,

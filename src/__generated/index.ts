@@ -12,39 +12,6 @@ export type Scalars = {
   Date: any;
 };
 
-export type Client = {
-   __typename?: 'Client';
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  cedula?: Maybe<Scalars['String']>;
-  nationality?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  creator?: Maybe<User>;
-  orders?: Maybe<ClientOrders>;
-};
-
-export type ClientOrders = {
-   __typename?: 'ClientOrders';
-  delivered?: Maybe<Array<Maybe<Orders>>>;
-  pending?: Maybe<Array<Maybe<Orders>>>;
-  all?: Maybe<Array<Maybe<Orders>>>;
-};
-
-export type ClientInput = {
-  name: Scalars['String'];
-  cedula: Scalars['String'];
-  nationality: Scalars['String'];
-  phone: Scalars['String'];
-};
-
-export type UpdateClientInput = {
-  id: Scalars['Int'];
-  name?: Maybe<Scalars['String']>;
-  cedula?: Maybe<Scalars['String']>;
-  nationality?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-};
-
 
 
 export enum PayMethod {
@@ -57,7 +24,8 @@ export enum PayMethod {
 
 export enum UserRole {
   Empleado = 'EMPLEADO',
-  Administrador = 'ADMINISTRADOR'
+  Administrador = 'ADMINISTRADOR',
+  Cliente = 'CLIENTE'
 }
 
 export type OrdersLog = {
@@ -183,7 +151,7 @@ export type Orders = {
   monto?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
   creator?: Maybe<User>;
-  client?: Maybe<Client>;
+  user?: Maybe<User>;
   products?: Maybe<Array<Maybe<OrderProducts>>>;
 };
 
@@ -212,7 +180,6 @@ export type TakeOrderInput = {
   abono: Scalars['Float'];
   monto: Scalars['Float'];
   total: Scalars['Float'];
-  client: Scalars['Int'];
   orderProducts: Array<ProductOrderInput>;
 };
 
@@ -327,10 +294,9 @@ export type Query = {
    __typename?: 'Query';
   users?: Maybe<Array<Maybe<User>>>;
   user?: Maybe<User>;
+  clients?: Maybe<Array<Maybe<User>>>;
   sessionUser: SessionUser;
   sessionLog?: Maybe<Array<Maybe<SessionLog>>>;
-  client?: Maybe<Client>;
-  clients?: Maybe<Array<Maybe<Client>>>;
   materialTypes?: Maybe<Array<Maybe<MaterialType>>>;
   materialsStage?: Maybe<Array<Maybe<MaterialsStage>>>;
   materials?: Maybe<Array<Maybe<Material>>>;
@@ -352,11 +318,6 @@ export type Query = {
 
 
 export type QueryUserArgs = {
-  id: Scalars['Int'];
-};
-
-
-export type QueryClientArgs = {
   id: Scalars['Int'];
 };
 
@@ -425,15 +386,32 @@ export type User = {
    __typename?: 'User';
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  last_name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   role?: Maybe<UserRole>;
   phone?: Maybe<Scalars['String']>;
+  orders?: Maybe<ClientOrders>;
+};
+
+export type ClientOrders = {
+   __typename?: 'ClientOrders';
+  delivered?: Maybe<Array<Maybe<Orders>>>;
+  pending?: Maybe<Array<Maybe<Orders>>>;
+  all?: Maybe<Array<Maybe<Orders>>>;
+};
+
+export type LoginUser = {
+   __typename?: 'loginUser';
+  id?: Maybe<Scalars['Int']>;
+  role?: Maybe<UserRole>;
+  token: Scalars['String'];
 };
 
 export type UserInput = {
   name: Scalars['String'];
   email: Scalars['String'];
+  last_name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
   phone: Scalars['String'];
   role: UserRole;
@@ -442,6 +420,7 @@ export type UserInput = {
 export type UpdateUserInput = {
   id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
+  last_name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
@@ -450,14 +429,10 @@ export type UpdateUserInput = {
 
 export type Mutation = {
    __typename?: 'Mutation';
-  loginUser?: Maybe<Scalars['String']>;
-  loginClient?: Maybe<Scalars['String']>;
+  loginUser?: Maybe<LoginUser>;
   createUser?: Maybe<User>;
   editUser?: Maybe<User>;
   deleteUser?: Maybe<Scalars['String']>;
-  createClient?: Maybe<Client>;
-  editClient?: Maybe<Client>;
-  deleteClient?: Maybe<Scalars['String']>;
   createMaterial?: Maybe<Material>;
   deleteMaterial?: Maybe<Scalars['Boolean']>;
   updateMaterial?: Maybe<Material>;
@@ -487,11 +462,6 @@ export type MutationLoginUserArgs = {
 };
 
 
-export type MutationLoginClientArgs = {
-  cedula: Scalars['String'];
-};
-
-
 export type MutationCreateUserArgs = {
   user: UserInput;
 };
@@ -503,21 +473,6 @@ export type MutationEditUserArgs = {
 
 
 export type MutationDeleteUserArgs = {
-  id: Scalars['Int'];
-};
-
-
-export type MutationCreateClientArgs = {
-  client: ClientInput;
-};
-
-
-export type MutationEditClientArgs = {
-  client: UpdateClientInput;
-};
-
-
-export type MutationDeleteClientArgs = {
   id: Scalars['Int'];
 };
 
@@ -698,17 +653,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Client: ResolverTypeWrapper<Client>,
-  Int: ResolverTypeWrapper<Scalars['Int']>,
-  String: ResolverTypeWrapper<Scalars['String']>,
-  ClientOrders: ResolverTypeWrapper<ClientOrders>,
-  ClientInput: ClientInput,
-  UpdateClientInput: UpdateClientInput,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
   Date: ResolverTypeWrapper<Scalars['Date']>,
   PayMethod: PayMethod,
   UserRole: UserRole,
   OrdersLog: ResolverTypeWrapper<OrdersLog>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  String: ResolverTypeWrapper<Scalars['String']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   ProducstLog: ResolverTypeWrapper<ProducstLog>,
   SessionLog: ResolverTypeWrapper<SessionLog>,
@@ -746,6 +697,8 @@ export type ResolversTypes = {
   StoreInput: StoreInput,
   UpdateStoreInput: UpdateStoreInput,
   User: ResolverTypeWrapper<User>,
+  ClientOrders: ResolverTypeWrapper<ClientOrders>,
+  loginUser: ResolverTypeWrapper<LoginUser>,
   UserInput: UserInput,
   UpdateUserInput: UpdateUserInput,
   Mutation: ResolverTypeWrapper<{}>,
@@ -753,17 +706,13 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Client: Client,
-  Int: Scalars['Int'],
-  String: Scalars['String'],
-  ClientOrders: ClientOrders,
-  ClientInput: ClientInput,
-  UpdateClientInput: UpdateClientInput,
   Upload: Scalars['Upload'],
   Date: Scalars['Date'],
   PayMethod: PayMethod,
   UserRole: UserRole,
   OrdersLog: OrdersLog,
+  Int: Scalars['Int'],
+  String: Scalars['String'],
   Boolean: Scalars['Boolean'],
   ProducstLog: ProducstLog,
   SessionLog: SessionLog,
@@ -801,27 +750,11 @@ export type ResolversParentTypes = {
   StoreInput: StoreInput,
   UpdateStoreInput: UpdateStoreInput,
   User: User,
+  ClientOrders: ClientOrders,
+  loginUser: LoginUser,
   UserInput: UserInput,
   UpdateUserInput: UpdateUserInput,
   Mutation: {},
-};
-
-export type ClientResolvers<ContextType = any, ParentType extends ResolversParentTypes['Client'] = ResolversParentTypes['Client']> = {
-  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  cedula?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  nationality?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  creator?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  orders?: Resolver<Maybe<ResolversTypes['ClientOrders']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type ClientOrdersResolvers<ContextType = any, ParentType extends ResolversParentTypes['ClientOrders'] = ResolversParentTypes['ClientOrders']> = {
-  delivered?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
-  pending?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
-  all?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -938,7 +871,7 @@ export type OrdersResolvers<ContextType = any, ParentType extends ResolversParen
   monto?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   total?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   creator?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrderProducts']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -1005,10 +938,9 @@ export type SessionUserResolvers<ContextType = any, ParentType extends Resolvers
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
+  clients?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   sessionUser?: Resolver<ResolversTypes['SessionUser'], ParentType, ContextType>,
   sessionLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['SessionLog']>>>, ParentType, ContextType>,
-  client?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<QueryClientArgs, 'id'>>,
-  clients?: Resolver<Maybe<Array<Maybe<ResolversTypes['Client']>>>, ParentType, ContextType>,
   materialTypes?: Resolver<Maybe<Array<Maybe<ResolversTypes['MaterialType']>>>, ParentType, ContextType>,
   materialsStage?: Resolver<Maybe<Array<Maybe<ResolversTypes['MaterialsStage']>>>, ParentType, ContextType>,
   materials?: Resolver<Maybe<Array<Maybe<ResolversTypes['Material']>>>, ParentType, ContextType>,
@@ -1043,22 +975,34 @@ export type StoreResolvers<ContextType = any, ParentType extends ResolversParent
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  last_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   role?: Resolver<Maybe<ResolversTypes['UserRole']>, ParentType, ContextType>,
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  orders?: Resolver<Maybe<ResolversTypes['ClientOrders']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ClientOrdersResolvers<ContextType = any, ParentType extends ResolversParentTypes['ClientOrders'] = ResolversParentTypes['ClientOrders']> = {
+  delivered?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
+  pending?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
+  all?: Resolver<Maybe<Array<Maybe<ResolversTypes['Orders']>>>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type LoginUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['loginUser'] = ResolversParentTypes['loginUser']> = {
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  role?: Resolver<Maybe<ResolversTypes['UserRole']>, ParentType, ContextType>,
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  loginUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>,
-  loginClient?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationLoginClientArgs, 'cedula'>>,
+  loginUser?: Resolver<Maybe<ResolversTypes['loginUser']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>,
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>,
   editUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationEditUserArgs, 'user'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
-  createClient?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<MutationCreateClientArgs, 'client'>>,
-  editClient?: Resolver<Maybe<ResolversTypes['Client']>, ParentType, ContextType, RequireFields<MutationEditClientArgs, 'client'>>,
-  deleteClient?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteClientArgs, 'id'>>,
   createMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationCreateMaterialArgs, 'material'>>,
   deleteMaterial?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteMaterialArgs, 'id'>>,
   updateMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationUpdateMaterialArgs, 'id' | 'material'>>,
@@ -1082,8 +1026,6 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type Resolvers<ContextType = any> = {
-  Client?: ClientResolvers<ContextType>,
-  ClientOrders?: ClientOrdersResolvers<ContextType>,
   Upload?: GraphQLScalarType,
   Date?: GraphQLScalarType,
   OrdersLog?: OrdersLogResolvers<ContextType>,
@@ -1109,6 +1051,8 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>,
   Store?: StoreResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
+  ClientOrders?: ClientOrdersResolvers<ContextType>,
+  loginUser?: LoginUserResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
 };
 

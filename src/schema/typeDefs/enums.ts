@@ -15,6 +15,7 @@ enum PayMethod {
 enum UserRole {
   EMPLEADO
   ADMINISTRADOR
+  CLIENTE
 }
 
 `;

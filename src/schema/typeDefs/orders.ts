@@ -25,7 +25,7 @@ type Orders {
   monto: Float
   total: Float
   creator: User
-  client: Client
+  user: User
   products: [OrderProducts]
 }
 input OrderInput {
@@ -52,7 +52,6 @@ input TakeOrderInput {
   abono: Float!
   monto: Float!
   total: Float!
-  client: Int!
   orderProducts: [ProductOrderInput!]!
 }
 input UpdateOrder{
