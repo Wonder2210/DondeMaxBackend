@@ -13,6 +13,7 @@ type Query {
   users: [User]
   user(id: Int!): User
   clients: [User]
+  client(id:Int!): User
   sessionUser: SessionUser!
   sessionLog: [SessionLog]
 

@@ -15,6 +15,10 @@ import {User, UserLog, Order } from '../../database/models';
              const clients : User[] = await User.query().where("role","CLIENTE");
              return clients;
          },
+         client: async (_, { id })=>{
+             const clients : User = await User.query().findById(id).where("role","CLIENTE");
+             return clients;
+         },
          user:async (parent,args,ctx)=>{
              const user : User = await User.query().findById(args.id);
              return user;

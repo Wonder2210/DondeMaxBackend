@@ -295,6 +295,7 @@ export type Query = {
   users?: Maybe<Array<Maybe<User>>>;
   user?: Maybe<User>;
   clients?: Maybe<Array<Maybe<User>>>;
+  client?: Maybe<User>;
   sessionUser: SessionUser;
   sessionLog?: Maybe<Array<Maybe<SessionLog>>>;
   materialTypes?: Maybe<Array<Maybe<MaterialType>>>;
@@ -318,6 +319,11 @@ export type Query = {
 
 
 export type QueryUserArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryClientArgs = {
   id: Scalars['Int'];
 };
 
@@ -939,6 +945,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
   clients?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
+  client?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryClientArgs, 'id'>>,
   sessionUser?: Resolver<ResolversTypes['SessionUser'], ParentType, ContextType>,
   sessionLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['SessionLog']>>>, ParentType, ContextType>,
   materialTypes?: Resolver<Maybe<Array<Maybe<ResolversTypes['MaterialType']>>>, ParentType, ContextType>,
