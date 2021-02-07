@@ -6,7 +6,7 @@ import {User, UserLog, Order } from '../../database/models';
 
  export const user:Resolvers  = {
      Query:{
-         users:async (parent,args,ctx)=>{
+         users:async ()=>{
              const users : User[] = await User.query().where("id","!=",1999);
              
              return users;

@@ -26,6 +26,7 @@ const environment = process.env.NODE_ENV || "development";
 
 export const db = Knex(config[environment]);
 
+
 Model.knex(db);
 
 const server = new ApolloServer({

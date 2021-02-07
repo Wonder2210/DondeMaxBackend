@@ -1,14 +1,14 @@
 //@ts-nocheck
 import { Order, OrderProduct, ProductMaterial,MaterialsStage } from "../../database/models";
 import { Resolvers, ProductOrderInput } from "../../__generated";
-import {verify} from "jsonwebtoken";
+import getUser from "../../lib/validate";
 import { UserInputError } from "apollo-server-express";
 
 export const order: Resolvers = {
   Query: {
     orders: async (parent, args, ctx) => {
       const orders: Order[] = await Order.query();
-      
+      console.log(orders);
       return orders;
     },
     order: async (parent, { id }, ctx) => {
@@ -72,17 +72,14 @@ export const order: Resolvers = {
       const products_order = await OrderProduct.query().insertGraph(products);
       return order;
     },
-    takeOrderClient: async (parent, args, ctx) => {
-      let user = null;
-     
+    takeOrderClient: async (parent, args, {auth}) => {
+      const user = await getUser(auth);
       
-      const {client,payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,...data} = args.order;
+      const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,...data} = args.order;
       const order: Order = await Order.query().insert({
-      
         stage_status:stageStatus,
-        client_id:client,
         pay_method:payMethod,
-        delivery_date:deliveryDate,delivery_status:deliveryStatus,production_status:productionStatus,...data, user_id:1999});
+        delivery_date:deliveryDate,delivery_status:deliveryStatus,production_status:productionStatus,...data, user_id:user.id});
       const products = orderProducts.map((item: ProductOrderInput) => ({
         product_id: item?.id,
         order_id: order.id,
