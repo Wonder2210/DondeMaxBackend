@@ -398,6 +398,7 @@ export type User = {
   role?: Maybe<UserRole>;
   phone?: Maybe<Scalars['String']>;
   orders?: Maybe<ClientOrders>;
+  authToken?: Maybe<Scalars['String']>;
 };
 
 export type ClientOrders = {
@@ -988,6 +989,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   role?: Resolver<Maybe<ResolversTypes['UserRole']>, ParentType, ContextType>,
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   orders?: Resolver<Maybe<ResolversTypes['ClientOrders']>, ParentType, ContextType>,
+  authToken?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

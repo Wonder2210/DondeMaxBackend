@@ -39,6 +39,24 @@ import {User, UserLog, Order } from '../../database/models';
                   all:orders[0]!.ordersRaw
                 };
               },
+            authToken: async (parent)=> {
+                const secretKey = process.env.SECRET || "221099";
+                const {id,name,email,role, phone} = parent;
+                
+                const user_log = await UserLog.query().insert({username:name,action_name:"login",id_user:id});
+
+                return jwt.sign(
+                    {
+                      id,
+                      phone,
+                      name,
+                      role,
+                      email
+                    },
+                    secretKey,
+                    { expiresIn: '1d' }
+                  )
+            }
          },
      Mutation:{
          createUser:async (parent,args,ctx)=>{

@@ -10,6 +10,7 @@ type User {
   role: UserRole
   phone: String
   orders: ClientOrders
+  authToken: String
 }
 type ClientOrders {
   delivered: [Orders]
