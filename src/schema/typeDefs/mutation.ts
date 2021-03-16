@@ -32,7 +32,7 @@ type Mutation {
   createProduct(product: ProductsInput!): Products
   updateProduct(product: UpdateProductsInput!): Products
   deleteProduct(id: Int!): String
-  takeOrder(order: TakeOrderInput!): Orders
+  takeOrder(order: OrderInput!): Orders
   deleteOrder(id:Int!): String
   takeOrderClient(order: TakeOrderInput!): Orders
 

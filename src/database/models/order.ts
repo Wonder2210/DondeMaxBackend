@@ -2,6 +2,7 @@ import { Model } from "objection";
 import { PayMethod } from "../../__generated";
 import Product from "./product";
 import User from "./user";
+import Customer from "./customer";
 
 class Order extends Model {
   static tableName = "order";
@@ -16,7 +17,7 @@ class Order extends Model {
   monto?: number;
   total?: number;
   user_id?: number;
-  creator?: User;
+  creator?: String;
   products?: [Product];
 
   static relationMappings = () => ({
@@ -33,12 +34,12 @@ class Order extends Model {
         to: "product.id",
       },
     },
-    creator: {
+    customer: {
       relation: Model.BelongsToOneRelation,
-      modelClass: User,
+      modelClass: Customer,
       join: {
-        from: "order.user_id",
-        to: "user.id",
+        from: "order.customer_id",
+        to: "customer.id",
       },
     },
   });

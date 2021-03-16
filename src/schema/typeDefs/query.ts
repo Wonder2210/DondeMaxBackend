@@ -1,6 +1,16 @@
 import { gql } from "apollo-server";
 
 export default gql`
+type Customer{
+  id: Int
+  googleId: String
+  name: String
+  lastName: String
+  phone: String
+  email: String
+  picture: String
+  orders: ClientOrders
+}
 type SessionUser{
   id: Int,
  phone: String,
@@ -9,12 +19,14 @@ type SessionUser{
  email: String
 }
 
+union UserOnSession = Customer | SessionUser
+
 type Query {
   users: [User]
   user(id: Int!): User
-  clients: [User]
-  client(id:Int!): User
-  sessionUser: SessionUser!
+  clients: [Customer]
+  client(id:Int!): Customer
+  sessionUser: UserOnSession!
   sessionLog: [SessionLog]
 
   materialTypes: [MaterialType]

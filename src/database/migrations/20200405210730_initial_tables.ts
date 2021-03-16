@@ -13,6 +13,17 @@ export async function up(knex: Knex): Promise<any> {
       table.string("phone", 12);
       table.timestamps(true, true);
     })
+    .createTable("customer", (table: Knex.CreateTableBuilder) => {
+      table.increments("id");
+      table.float("googleId");
+      table.string("name");
+      table.string("lastName");
+      table.string("image");
+      table.string("email").unique();
+      table.string("phone", 12).nullable();
+
+      table.timestamps(true, true);
+    })
     .createTable("session_log",(table: Knex.CreateTableBuilder)=>{
       table.increments("id");
       table.integer("id_user");
@@ -23,10 +34,10 @@ export async function up(knex: Knex): Promise<any> {
     .createTable("order", (table: Knex.CreateTableBuilder) => {
       table.increments("id");
       table
-        .integer("user_id")
+        .integer("customer_id")
         .unsigned()
         .nullable()
-        .references("user.id")
+        .references("customer.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.string("created_by");
@@ -202,6 +213,6 @@ export async function up(knex: Knex): Promise<any> {
 }
 
 export async function down(knex: Knex): Promise<any> {
-  await knex.raw(`DROP TABLE IF EXISTS "user",rating_product,session_log,  "order", orders_log, product_type, preservation_type, product, order_product, material_type, material, product_material, provider, store, storage_log, materials_stage, products_log CASCADE;`);
+  await knex.raw(`DROP TABLE IF EXISTS "user", customer,rating_product,session_log,  "order", orders_log, product_type, preservation_type, product, order_product, material_type, material, product_material, provider, store, storage_log, materials_stage, products_log CASCADE;`);
 
 }

@@ -15,7 +15,7 @@ const getUser = async (auth: string): Promise<AuthenticationError| SessionUser>=
     if (!token) throw new AuthenticationError('you should provide a token!');
   
     const user = await jwt.verify(token, process.env.SECRET || "221099", (err, decoded) => {
-      if (err) throw new AuthenticationError('invalid token!');
+      if (err) throw "Invalid";
       return decoded;
     });
     return user;

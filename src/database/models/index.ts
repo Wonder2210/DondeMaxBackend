@@ -15,6 +15,7 @@ import StorageLog from "./storage_log";
 import UserLog from "./UserLog";
 import MaterialsStage from "./material_stage";
 import RatingProduct from "./rating_product";
+import Customer from "./customer";
 
 export {
   MaterialType,
@@ -33,5 +34,6 @@ export {
   StorageLog,
   MaterialsStage,
   UserLog,
-  RatingProduct
+  RatingProduct,
+  Customer
 };

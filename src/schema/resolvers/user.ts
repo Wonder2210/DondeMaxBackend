@@ -1,8 +1,9 @@
-import {User, UserLog, Order } from '../../database/models';
+import {User, Customer, UserLog, Order } from '../../database/models';
  import {Resolvers} from '../../__generated';
- import {UserInputError} from 'apollo-server-express';
+ import {UserInputError, AuthenticationError} from 'apollo-server-express';
  import jwt from "jsonwebtoken";
- import getUser from "../../lib/validate";
+ import getCustomer from "../../lib/validate_google";
+ import getEmployee from "../../lib/validate";
 
  export const user:Resolvers  = {
      Query:{
@@ -12,24 +13,56 @@ import {User, UserLog, Order } from '../../database/models';
              return users;
          },
          clients:async ()=>{
-             const clients : User[] = await User.query().where("role","CLIENTE");
+             const clients : Customer[] = await Customer.query();
              return clients;
          },
          client: async (_, { id })=>{
-             const clients : User = await User.query().findById(id).where("role","CLIENTE");
-             return clients;
+             const client : Customer = await Customer.query().findById(id);
+             return client;
          },
          user:async (parent,args,ctx)=>{
              const user : User = await User.query().findById(args.id);
              return user;
          },
          sessionUser: async (parent,args,{auth})=>{
-             let user = await getUser(auth);
-        
-                return user;
+
+            let customer = await getCustomer(auth).catch((e) => {
+                console.log('error in fetching posts user',e);
+              });
+            let employee = await getEmployee(auth).catch(() => {
+                console.log('error in fetching posts employee');
+              });
+              console.log("Customer:",customer);
+              console.log("Emmployee:",employee)
+            if(customer && !employee){
+                return {
+                    __typename:"Customer",
+                    ...customer
+                }
+            }
+            else if(!customer && employee){
+
+                return {
+                    __typename:"SessionUser",
+                    ...employee
+                }
+            }
+            throw new AuthenticationError('you must be logged in!')
+         
          }
            },
-           
+           Customer:{
+               orders:async (parent,args,ctx)=>{
+                const orders = await ctx.loaders.customerOrders.load(parent.id);
+                return {
+                  delivered:orders[0]!.ordersRaw.filter((i: Order) =>i.delivery_status),
+                  pending:orders[0]!.ordersRaw.filter((i: Order) =>!i.delivery_status),
+                  all:orders[0]!.ordersRaw
+                };
+               }
+                
+               
+           },
          User:{
             orders: async (parent, args, ctx) => {
                 const orders = await ctx.loaders.userOrders.load(parent.id);
@@ -56,6 +89,13 @@ import {User, UserLog, Order } from '../../database/models';
                     secretKey,
                     { expiresIn: '1d' }
                   )
+            }
+         },
+         UserOnSession:{
+            __resolveType: (obj) => {
+                if(obj.__typename === "Customer") return "Customer"
+
+                return "SessionUser";
             }
          },
      Mutation:{

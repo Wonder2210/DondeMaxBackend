@@ -1,8 +1,9 @@
 //@ts-nocheck
 import { Order, OrderProduct, ProductMaterial,MaterialsStage } from "../../database/models";
 import { Resolvers, ProductOrderInput } from "../../__generated";
-import getUser from "../../lib/validate";
-import { UserInputError } from "apollo-server-express";
+import getCustomer from "../../lib/validate_google";
+import getEmployee from "../../lib/validate";
+import { UserInputError, AuthenticationError } from "apollo-server-express";
 
 export const order: Resolvers = {
   Query: {
@@ -23,10 +24,10 @@ export const order: Resolvers = {
      
       return products;
     },
-    creator: async (parent, args, ctx) => {
-      const creator = await ctx.loaders.order_creator.load(parent.id);
+    customer: async (parent, args, ctx) => {
+      const creator = await ctx.loaders.order_customer.load(parent.id);
 
-      return creator[0]!.creator;
+      return creator[0]!.customer;
     },
   },
   OrderProducts: {
@@ -48,38 +49,39 @@ export const order: Resolvers = {
   },
 
   Mutation: {
-    takeOrder: async (parent, args, ctx) => {
-      let user = null;
-      try{
-        let verified = await verify(ctx.user,process.env.SECRET || "221099");
-        user=verified.valueOf();
-    }catch(err){
-        console.log(err);
-    };
+    takeOrder: async (parent, args, {auth}) => {
+      let employee = await getEmployee(auth).catch(() => {
+        throw new AuthenticationError('you must be logged in!');
+      });
       
-      const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,...data} = args.order;
+      const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,client,...data} = args.order;
       const order: Order = await Order.query().insert({
         stage_status:stageStatus,
-        user_id: user.id,
+        customer_id:client,
         pay_method:payMethod,
+        created_by: employee.name,
         delivery_date:deliveryDate,delivery_status:deliveryStatus,production_status:productionStatus,...data});
       const products = orderProducts.map((item: ProductOrderInput) => ({
         product_id: item?.id,
         order_id: order.id,
         quantity: item?.quantity,
+     
       }));
 
       const products_order = await OrderProduct.query().insertGraph(products);
       return order;
     },
     takeOrderClient: async (parent, args, {auth}) => {
-      const user = await getUser(auth);
+      let customer = await getCustomer(auth).catch((e) => {
+        console.log('error in fetching posts user',e);
+      });
+  
       
       const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,...data} = args.order;
       const order: Order = await Order.query().insert({
         stage_status:stageStatus,
         pay_method:payMethod,
-        delivery_date:deliveryDate,delivery_status:deliveryStatus,production_status:productionStatus,...data, user_id:user.id});
+        delivery_date:deliveryDate,delivery_status:deliveryStatus,production_status:productionStatus,...data, customer_id:customer.id});
       const products = orderProducts.map((item: ProductOrderInput) => ({
         product_id: item?.id,
         order_id: order.id,

@@ -24,8 +24,8 @@ type Orders {
   abono: Float
   monto: Float
   total: Float
-  creator: User
-  user: User
+  created_by: String
+  customer: Customer
   products: [OrderProducts]
 }
 input OrderInput {

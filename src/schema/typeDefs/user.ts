@@ -12,6 +12,7 @@ type User {
   orders: ClientOrders
   authToken: String
 }
+
 type ClientOrders {
   delivered: [Orders]
   pending: [Orders]

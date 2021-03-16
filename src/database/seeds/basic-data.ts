@@ -40,33 +40,6 @@ export async function seed(knex: Knex): Promise<any> {
           role:"CLIENTE"
         },
         {
-   
-          name: "Man",
-          last_name: "Rodriguez",
-          email: "manuelanuel@gmail.com",
-          password: await bcrypt.hash("1234", 10),
-          phone: "041234098",
-          role:"CLIENTE"
-        },
-        {
-   
-          name: "aanuel",
-          last_name: "Rodriguez",
-          email: "manuelote@gmail.com",
-          password: await bcrypt.hash("1234", 10),
-          phone: "041234098",
-          role:"CLIENTE"
-        },
-        {
-   
-          name: "ranuel",
-          last_name: "Rodriguez",
-          email: "manuelito@gmail.com",
-          password: await bcrypt.hash("1234", 10),
-          phone: "041234098",
-          role:"EMPLEADO"
-        },
-        {
           id: 1999,
           name: "system",
           email: "system@root.com",
@@ -75,6 +48,22 @@ export async function seed(knex: Knex): Promise<any> {
           role:"ADMINISTRADOR"
         },
       ]);
+    })
+    .then(()=>{
+      return knex("customer")
+      .del()
+      .then(
+        function(){
+          return knex("customer").insert([{
+            googleId: "116484493565577430958",
+            name: "Wonder",
+            lastName: "Gonzalez",
+            phone: "",
+            email: "pruebaswonder@gmail.com",
+            image: "https://lh4.googleusercontent.com/-SFQbvHYo_dQ/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclp8n5m-n5HjUyLyKcIBIZScuLxaA/s96-c/photo.jpg"
+          }])
+        }
+      )
     })
     .then(()=>{
       return knex("session_log")

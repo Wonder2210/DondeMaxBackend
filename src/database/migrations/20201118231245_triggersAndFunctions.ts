@@ -51,7 +51,7 @@ AS $BODY$declare nm session_log;
 begin
 SELECT "id", id_user, username, date, action_name
 	FROM session_log ORDER BY id DESC LIMIT 1 INTO nm;
-	INSERT INTO orders_log(id_pedido,user_db,"user",delivered,stage,production,action_name) values(NEW.id,nm.username,NEW.user_id,NEW.delivery_status,NEW.stage_status,NEW.production_status,TG_ARGV[0]);
+	INSERT INTO orders_log(id_pedido,user_db,"user",delivered,stage,production,action_name) values(NEW.id,nm.username,NEW.customer_id,NEW.delivery_status,NEW.stage_status,NEW.production_status,TG_ARGV[0]);
 	
 	RETURN NEW;
 end;$BODY$;
