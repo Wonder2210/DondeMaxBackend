@@ -150,7 +150,7 @@ export type Orders = {
   abono?: Maybe<Scalars['Float']>;
   monto?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
-  creator?: Maybe<User>;
+  created_by?: Maybe<Scalars['String']>;
   customer?: Maybe<Customer>;
   products?: Maybe<Array<Maybe<OrderProducts>>>;
 };
@@ -289,7 +289,7 @@ export type Customer = {
   lastName?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
-  picture?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
   orders?: Maybe<ClientOrders>;
 };
 
@@ -454,6 +454,7 @@ export type Mutation = {
   createUser?: Maybe<User>;
   editUser?: Maybe<User>;
   deleteUser?: Maybe<Scalars['String']>;
+  addCustomerPhone?: Maybe<Scalars['Boolean']>;
   createMaterial?: Maybe<Material>;
   deleteMaterial?: Maybe<Scalars['Boolean']>;
   updateMaterial?: Maybe<Material>;
@@ -495,6 +496,11 @@ export type MutationEditUserArgs = {
 
 export type MutationDeleteUserArgs = {
   id: Scalars['Int'];
+};
+
+
+export type MutationAddCustomerPhoneArgs = {
+  phone: Scalars['String'];
 };
 
 
@@ -895,7 +901,7 @@ export type OrdersResolvers<ContextType = any, ParentType extends ResolversParen
   abono?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   monto?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   total?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  creator?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  created_by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   customer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType>,
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrderProducts']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
@@ -958,7 +964,7 @@ export type CustomerResolvers<ContextType = any, ParentType extends ResolversPar
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  picture?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   orders?: Resolver<Maybe<ResolversTypes['ClientOrders']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -1046,6 +1052,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>,
   editUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationEditUserArgs, 'user'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
+  addCustomerPhone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationAddCustomerPhoneArgs, 'phone'>>,
   createMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationCreateMaterialArgs, 'material'>>,
   deleteMaterial?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteMaterialArgs, 'id'>>,
   updateMaterial?: Resolver<Maybe<ResolversTypes['Material']>, ParentType, ContextType, RequireFields<MutationUpdateMaterialArgs, 'id' | 'material'>>,

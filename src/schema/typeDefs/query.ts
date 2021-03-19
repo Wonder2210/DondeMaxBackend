@@ -8,7 +8,7 @@ type Customer{
   lastName: String
   phone: String
   email: String
-  picture: String
+  image: String
   orders: ClientOrders
 }
 type SessionUser{

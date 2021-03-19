@@ -150,6 +150,15 @@ import {User, Customer, UserLog, Order } from '../../database/models';
             }
             throw new UserInputError("bad fields",{args:args});
 
+        },
+        addCustomerPhone: async (parent,{phone},{ auth})=>{
+            let customer = await getCustomer(auth).catch((e) => {
+                console.log('error in fetching posts user',e);
+              });
+            const update = await Customer.query().patchAndFetchById((customer as any).id ,{ phone })
+
+            return update ? true : false;
         }
+        
      }
  }

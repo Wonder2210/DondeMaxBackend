@@ -16,6 +16,11 @@ generates:
       - "typescript"
       - "typescript-resolvers"
       - "typescript-operations"
-  ./graphql.schema.json:
+  src/__generated/graphql.schema.json:
     plugins:
       - "introspection"
+  src/__generated/fragmentTypes.ts:
+    plugins:
+      - "fragment-matcher"
+    config:
+       apolloClientVersion: 3

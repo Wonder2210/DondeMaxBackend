@@ -9,6 +9,8 @@ type Mutation {
   editUser(user: UpdateUserInput!): User
   deleteUser(id: Int!): String
 
+  addCustomerPhone(phone: String!): Boolean
+
 
   createMaterial(material: MaterialInput!): Material
   deleteMaterial(id: Int!) : Boolean
