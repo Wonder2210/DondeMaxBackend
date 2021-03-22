@@ -27,13 +27,12 @@ import {User, Customer, UserLog, Order } from '../../database/models';
          sessionUser: async (parent,args,{auth})=>{
 
             let customer = await getCustomer(auth).catch((e) => {
-                console.log('error in fetching posts user',e);
+                console.log('error in fetching posts user');
               });
             let employee = await getEmployee(auth).catch(() => {
                 console.log('error in fetching posts employee');
               });
-              console.log("Customer:",customer);
-              console.log("Emmployee:",employee)
+            
             if(customer && !employee){
                 return {
                     __typename:"Customer",

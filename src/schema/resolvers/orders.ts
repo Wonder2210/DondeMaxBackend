@@ -54,9 +54,10 @@ export const order: Resolvers = {
         throw new AuthenticationError('you must be logged in!');
       });
       
-      const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,client,...data} = args.order;
+      const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus, deliveryTime,client,...data} = args.order;
       const order: Order = await Order.query().insert({
         stage_status:stageStatus,
+        delivery_time: deliveryTime,
         customer_id:client,
         pay_method:payMethod,
         created_by: employee.name,
@@ -77,9 +78,10 @@ export const order: Resolvers = {
       });
   
       
-      const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus,...data} = args.order;
+      const {payMethod, orderProducts,stageStatus,deliveryStatus,deliveryDate,productionStatus, deliveryTime,...data} = args.order;
       const order: Order = await Order.query().insert({
         stage_status:stageStatus,
+        delivery_time: deliveryTime,
         pay_method:payMethod,
         delivery_date:deliveryDate,delivery_status:deliveryStatus,production_status:productionStatus,...data, customer_id:customer.id});
       const products = orderProducts.map((item: ProductOrderInput) => ({

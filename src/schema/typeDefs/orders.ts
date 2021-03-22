@@ -17,6 +17,7 @@ type Orders {
   id: Int
   pay_method: PayMethod
   delivery_date: Date
+  delivery_time: String
   note: String
   delivery_status: Boolean
   production_status: Boolean
@@ -32,6 +33,7 @@ input OrderInput {
   id: Int
   payMethod: PayMethod
   deliveryDate: String
+  deliveryTime: String
   note: String
   deliveryStatus: Boolean
   productionStatus: Boolean
@@ -46,6 +48,7 @@ input TakeOrderInput {
   payMethod: PayMethod!
   deliveryDate: String!
   note: String
+  deliveryTime: String
   deliveryStatus: Boolean!
   productionStatus: Boolean!
   stageStatus: Boolean!

@@ -143,6 +143,7 @@ export type Orders = {
   id?: Maybe<Scalars['Int']>;
   pay_method?: Maybe<PayMethod>;
   delivery_date?: Maybe<Scalars['Date']>;
+  delivery_time?: Maybe<Scalars['String']>;
   note?: Maybe<Scalars['String']>;
   delivery_status?: Maybe<Scalars['Boolean']>;
   production_status?: Maybe<Scalars['Boolean']>;
@@ -159,6 +160,7 @@ export type OrderInput = {
   id?: Maybe<Scalars['Int']>;
   payMethod?: Maybe<PayMethod>;
   deliveryDate?: Maybe<Scalars['String']>;
+  deliveryTime?: Maybe<Scalars['String']>;
   note?: Maybe<Scalars['String']>;
   deliveryStatus?: Maybe<Scalars['Boolean']>;
   productionStatus?: Maybe<Scalars['Boolean']>;
@@ -894,6 +896,7 @@ export type OrdersResolvers<ContextType = any, ParentType extends ResolversParen
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   pay_method?: Resolver<Maybe<ResolversTypes['PayMethod']>, ParentType, ContextType>,
   delivery_date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  delivery_time?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   note?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   delivery_status?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   production_status?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,

@@ -1004,6 +1004,18 @@
             "deprecationReason": null
           },
           {
+            "name": "delivery_time",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "note",
             "description": null,
             "args": [],
@@ -1161,6 +1173,16 @@
           },
           {
             "name": "deliveryDate",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "deliveryTime",
             "description": null,
             "type": {
               "kind": "SCALAR",

@@ -43,6 +43,7 @@ export async function up(knex: Knex): Promise<any> {
       table.string("created_by");
       table.string("pay_method").nullable();
       table.date("delivery_date");
+      table.time("delivery_time");
       table.text("note");
       table.boolean("delivery_status");
       table.boolean("production_status");

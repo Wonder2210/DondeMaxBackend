@@ -9,6 +9,7 @@ class Order extends Model {
   id?: number;
   pay_method?: PayMethod;
   delivery_date?: string;
+  delivery_time?: string;
   note?: string;
   delivery_status?: boolean;
   production_status?: boolean;

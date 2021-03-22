@@ -15,6 +15,7 @@ export async function seed(knex: Knex): Promise<any> {
           customer_id: 1,
           pay_method: "EFECTIVO",
           delivery_date: now,
+          delivery_time: "16:00",
           note: "Nothing",
           delivery_status: false,
           production_status: true,
