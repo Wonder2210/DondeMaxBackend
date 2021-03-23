@@ -29,20 +29,22 @@ const getUser = async (auth: string): Promise<AuthenticationError| SessionUser>=
         throw new AuthenticationError('you must be logged in!');
     }
 
-    try{
+   
         const customer = await Customer.query().where("email",user.email).first();
+        
+  
+        if(!customer){
+            const newCustomer = await Customer.query().insert({
+                email: user.email,
+                googleId: user.sub,
+                lastName: user.family_name,
+                name:user.given_name,
+                image:user.picture
+            })
+            return newCustomer;
+        }
         return customer;
-    }
-    catch{
-        const customer = await Customer.query().insert({
-            email: user.email,
-            googleId: user.sub,
-            lastName: user.family_name,
-            name:user.given_name,
-            image:user.picture
-        })
-        return customer;
-    }
+  
     
   };
 
